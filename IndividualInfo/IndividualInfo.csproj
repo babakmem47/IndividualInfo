@@ -178,6 +178,10 @@
     <Compile Include="Migrations\201909141202516_AddFluentApiToIndividualAndSemat.Designer.cs">
       <DependentUpon>201909141202516_AddFluentApiToIndividualAndSemat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909141210455_PopulateSemat.cs" />
+    <Compile Include="Migrations\201909141210455_PopulateSemat.Designer.cs">
+      <DependentUpon>201909141210455_PopulateSemat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -264,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909141202516_AddFluentApiToIndividualAndSemat.resx">
       <DependentUpon>201909141202516_AddFluentApiToIndividualAndSemat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909141210455_PopulateSemat.resx">
+      <DependentUpon>201909141210455_PopulateSemat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
