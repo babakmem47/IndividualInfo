@@ -168,11 +168,17 @@
     <Compile Include="Migrations\201909141121353_InitialModel.Designer.cs">
       <DependentUpon>201909141121353_InitialModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909141139116_AddIndividualAndSematClass.cs" />
+    <Compile Include="Migrations\201909141139116_AddIndividualAndSematClass.Designer.cs">
+      <DependentUpon>201909141139116_AddIndividualAndSematClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Individual.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Semat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -246,6 +252,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201909141121353_InitialModel.resx">
       <DependentUpon>201909141121353_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909141139116_AddIndividualAndSematClass.resx">
+      <DependentUpon>201909141139116_AddIndividualAndSematClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
