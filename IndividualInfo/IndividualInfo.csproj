@@ -161,6 +161,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="EntityConfigurations\IndividualConfiuration.cs" />
+    <Compile Include="EntityConfigurations\SematConfiguration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -171,6 +173,10 @@
     <Compile Include="Migrations\201909141139116_AddIndividualAndSematClass.cs" />
     <Compile Include="Migrations\201909141139116_AddIndividualAndSematClass.Designer.cs">
       <DependentUpon>201909141139116_AddIndividualAndSematClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909141202516_AddFluentApiToIndividualAndSemat.cs" />
+    <Compile Include="Migrations\201909141202516_AddFluentApiToIndividualAndSemat.Designer.cs">
+      <DependentUpon>201909141202516_AddFluentApiToIndividualAndSemat.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -255,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909141139116_AddIndividualAndSematClass.resx">
       <DependentUpon>201909141139116_AddIndividualAndSematClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909141202516_AddFluentApiToIndividualAndSemat.resx">
+      <DependentUpon>201909141202516_AddFluentApiToIndividualAndSemat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
