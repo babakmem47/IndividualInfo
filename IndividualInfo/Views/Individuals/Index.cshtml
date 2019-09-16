@@ -1,0 +1,47 @@
+﻿@model IEnumerable<IndividualInfo.Models.Individual>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>title</h2>
+<h2>لیست افراد</h2>
+<table class="table ">
+    <thead>
+    <tr>
+        <td>ردیف</td>
+        <td>نام</td>
+        <td>نام خانوادگی</td>
+        <td>جنسیت</td>
+        <td>تلفن مستقیم</td>
+        <td>تلفن داخلی</td>
+        <td>موبایل</td>
+        <td>سمت</td>
+        <td>توضیحات</td>
+    </tr>
+    </thead>
+    
+    <tbody>
+    @foreach (var person in Model)
+    {
+        <tr>
+            <td>@person.Id</td>
+            <td>@person.Name</td>
+            @if (person.Gender == true)
+            {
+                <td><i class="fa fa-female"></i></td>
+            }
+            else
+            {
+                <td><i class="fa fa-male"></i></td>
+            } 
+            <td>@person.TelDirect</td>
+            <td>@person.TelDakheli</td>
+            <td>@person.Mobile</td>
+            <td>@person.Semat.Name</td>
+            <td>@person.Description</td>
+        </tr>
+    }
+    </tbody>
+</table>

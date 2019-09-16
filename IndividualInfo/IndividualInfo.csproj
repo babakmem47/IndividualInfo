@@ -160,6 +160,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndividualsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="EntityConfigurations\IndividualConfiuration.cs" />
     <Compile Include="EntityConfigurations\SematConfiguration.cs" />
@@ -181,6 +182,10 @@
     <Compile Include="Migrations\201909141210455_PopulateSemat.cs" />
     <Compile Include="Migrations\201909141210455_PopulateSemat.Designer.cs">
       <DependentUpon>201909141210455_PopulateSemat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909160604242_RemoveLastNamePropFromIndividualAndChangeFirstNameToName.cs" />
+    <Compile Include="Migrations\201909160604242_RemoveLastNamePropFromIndividualAndChangeFirstNameToName.Designer.cs">
+      <DependentUpon>201909160604242_RemoveLastNamePropFromIndividualAndChangeFirstNameToName.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -250,6 +255,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Individuals\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -273,6 +279,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909141210455_PopulateSemat.resx">
       <DependentUpon>201909141210455_PopulateSemat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909160604242_RemoveLastNamePropFromIndividualAndChangeFirstNameToName.resx">
+      <DependentUpon>201909160604242_RemoveLastNamePropFromIndividualAndChangeFirstNameToName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

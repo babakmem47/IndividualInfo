@@ -7,7 +7,7 @@ namespace IndividualInfo.Migrations
     {
         public override void Up()
         {
-            AlterColumn("dbo.Individuals", "FirstName", c => c.String(nullable: false, maxLength: 20));
+            AlterColumn("dbo.Individuals", "Name", c => c.String(nullable: false, maxLength: 20));
             AlterColumn("dbo.Individuals", "LastName", c => c.String(nullable: false, maxLength: 30));
             AlterColumn("dbo.Individuals", "TelDirect", c => c.String(maxLength: 15));
             AlterColumn("dbo.Individuals", "TelDakheli", c => c.String(maxLength: 4));
@@ -22,7 +22,7 @@ namespace IndividualInfo.Migrations
             AlterColumn("dbo.Individuals", "TelDakheli", c => c.String());
             AlterColumn("dbo.Individuals", "TelDirect", c => c.String());
             AlterColumn("dbo.Individuals", "LastName", c => c.String());
-            AlterColumn("dbo.Individuals", "FirstName", c => c.String());
+            AlterColumn("dbo.Individuals", "Name", c => c.String());
         }
     }
 }

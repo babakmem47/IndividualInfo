@@ -7,13 +7,9 @@ namespace IndividualInfo.EntityConfigurations
     {
         public IndividualConfiuration()
         {
-            Property(p => p.FirstName)
+            Property(p => p.Name)
                 .IsRequired()
-                .HasMaxLength(20);
-
-            Property(p => p.LastName)
-                .IsRequired()
-                .HasMaxLength(30);
+                .HasMaxLength(50);
 
             Property(p => p.TelDirect)
                 .HasMaxLength(15);                      //0098[-]2188267781
@@ -23,6 +19,9 @@ namespace IndividualInfo.EntityConfigurations
 
             Property(p => p.Mobile)                     //00989126384181
                 .HasMaxLength(14);
+
+            Property(p => p.Description)
+                .HasMaxLength(250);
 
             //Many-To-(0..1) with Semat
             HasOptional(p => p.Semat)
