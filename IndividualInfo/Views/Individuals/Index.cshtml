@@ -1,4 +1,5 @@
-﻿@model IEnumerable<IndividualInfo.Models.Individual>
+﻿@using IndividualInfo.Models
+@model IEnumerable<IndividualInfo.Models.Individual>
 
 @{
     ViewBag.Title = "title";
@@ -8,7 +9,7 @@
 <h2>title</h2>
 @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
 <h2>لیست افراد</h2>
-<table class="table table-bordered table-hover table-striped">
+<table id="individualTable" class="table table-bordered table-hover table-striped">
     <thead>
     <tr>
         <td>ردیف</td>
@@ -19,14 +20,17 @@
         <td>تلفن داخلی</td>
         <td>موبایل</td>
         <td>توضیحات</td>
+        <td>حذف / ویرایش</td>
     </tr>
     </thead>
     
     <tbody>
+    @{ var i = 0;}
     @foreach (var person in Model)
     {
+        i++;
         <tr>
-            <td>@person.Id</td>
+            <td>@i</td>
             <td>@person.Name</td>
             <td>@person.Semat.Name</td>
             @if (person.Gender == true)
@@ -36,11 +40,15 @@
             else
             {
                 <td><i class="fa fa-male" style="font-size: 18px;"></i></td>
-            } 
+            }
             <td>@person.TelDirect</td>
             <td>@person.TelDakheli</td>
             <td>@person.Mobile</td>
             <td>@person.Description</td>
+            <td>
+                <a href="@Url.Action("Edit", "Individuals", new {id = person.Id})"><span class="glyphicon glyphicon-edit" title="...ویرایش"></span></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="btn-link js-delete" data-person-id="@person.Id"><span class="glyphicon glyphicon-remove" title="Remove"></span></button> </td>
         </tr>
     }
     </tbody>
@@ -48,7 +56,32 @@
 
 @section scripts
 {
-
     @*<script src='https://kit.fontawesome.com/a076d05399.js'></script>*@
+    <script>
+        $(document).ready(function () {
+            var individualTable = $("#individualTable");
+            individualTable.on("click", ".js-delete",
+                function () {
+                    var delButton = $(this);
+                    var delbtn = this;
+                    bootbox.confirm("آیا مطمئن هستید که این رکورد حذف شود؟",
+                        function(respond) {
+                            if (respond) {
+                                console.log(delbtn);
+                                delButton.parents("tr").remove();
+                                //$.ajax({
+                                //    url: "/api/individuals/" + button.attr("data-person-id"),
+                                //    method: "Delete",
+                                //    success: function() {
+                                //        console.log("successfully deleted");
+                                //        button.parent("tr").remove();
+                                //    }
+                                //});
+                            }
+                        });
+                    console.log("salam");
+                });
+        });
+    </script>
 
 }
