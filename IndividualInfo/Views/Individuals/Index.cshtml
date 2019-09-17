@@ -15,10 +15,10 @@
         <td>ردیف</td>
         <td>نام</td>
         <td>سمت</td>
-        <td>جنسیت</td>
-        <td>تلفن مستقیم</td>
-        <td>تلفن داخلی</td>
-        <td>موبایل</td>
+        <td><i class="fa fa-intersex" style="font-size:22px"></i></td>
+        <td> مستقیم &nbsp; <span class="glyphicon glyphicon-phone-alt"></span></td>
+        <td> داخلی &nbsp;<span class="glyphicon glyphicon-earphone"></span></td>
+        <td><span class="glyphicon glyphicon-phone"></span></td>
         <td>توضیحات</td>
         <td>حذف / ویرایش</td>
     </tr>
@@ -36,6 +36,10 @@
             @if (person.Gender == true)
             {
                 <td><i class="fa fa-female" style="font-size: 18px;"></i></td>
+            }
+            else if (person.Gender == null)
+            {
+                <td>--</td>
             }
             else
             {
