@@ -18,5 +18,6 @@
 
         public SematDto SematDto { get; set; }
 
+        public bool? Deleted { get; set; }
     }
 }

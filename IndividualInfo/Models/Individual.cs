@@ -20,5 +20,7 @@ namespace IndividualInfo.Models
         public Semat Semat { get; set; }
 
         public byte? SematId { get; set; }
+
+        public bool? Deleted { get; set; }
     }
 }

@@ -67,20 +67,18 @@
             individualTable.on("click", ".js-delete",
                 function () {
                     var delButton = $(this);
-                    var delbtn = this;
+                    //var delbtn = this;
                     bootbox.confirm("آیا مطمئن هستید که این رکورد حذف شود؟",
                         function(respond) {
                             if (respond) {
-                                console.log(delbtn);
-                                delButton.parents("tr").remove();
-                                //$.ajax({
-                                //    url: "/api/individuals/" + button.attr("data-person-id"),
-                                //    method: "Delete",
-                                //    success: function() {
-                                //        console.log("successfully deleted");
-                                //        button.parent("tr").remove();
-                                //    }
-                                //});
+                                $.ajax({
+                                    url: "/api/individuals/" + delButton.attr("data-person-id"),
+                                    method: "Delete",
+                                    success: function() {
+                                        console.log("successfully deleted");
+                                        delButton.parents("tr").remove();
+                                    }
+                                });
                             }
                         });
                     console.log("salam");

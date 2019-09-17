@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using IndividualInfo.Dtos;
 using IndividualInfo.Models;
 using System.Data.Entity;
-using IndividualInfo.Dtos;
+using System.Linq;
+using System.Web.Http;
 
 namespace IndividualInfo.Controllers.Api
 {
@@ -28,6 +24,7 @@ namespace IndividualInfo.Controllers.Api
         public IHttpActionResult GetIndividuals()
         {
             var individuals = _context.Individuals
+                .Where(i => i.Deleted != true)
                 .Include(i => i.Semat)
                 .ToList();
 
@@ -44,10 +41,28 @@ namespace IndividualInfo.Controllers.Api
                 {
                     Id = x.Semat.Id,
                     Name = x.Semat.Name
-                }
+                },
+                Deleted = x.Deleted
             });
 
             return Ok(resultDto);
         }
+
+
+        // Logical Delete  /api/individuals/id
+        [HttpDelete]
+        public IHttpActionResult DeleteIndividuals(int id)
+        {
+            var individual = _context.Individuals.SingleOrDefault(i => i.Id == id);
+
+            if (individual == null)
+                return NotFound();
+
+            individual.Deleted = true;
+            _context.SaveChanges();
+
+            return Ok("Individual: " + individual.Name + " deleted logically");
+        }
+
     }
 }
