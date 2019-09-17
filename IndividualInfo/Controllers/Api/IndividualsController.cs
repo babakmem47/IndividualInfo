@@ -37,10 +37,10 @@ namespace IndividualInfo.Controllers.Api
                 TelDakheli = x.TelDakheli,
                 Mobile = x.Mobile,
                 Description = x.Description,
-                SematDto = new SematDto()
+                SematDto = new SematDto
                 {
-                    Id = x.Semat.Id,
-                    Name = x.Semat.Name
+                    Id = x.SematId ?? 0,
+                    Name = (x.SematId != null) ? x.Semat.Name : ""
                 },
                 Deleted = x.Deleted
             });

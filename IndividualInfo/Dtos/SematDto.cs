@@ -1,4 +1,5 @@
-﻿namespace IndividualInfo.Dtos
+﻿
+namespace IndividualInfo.Dtos
 {
     public class SematDto
     {

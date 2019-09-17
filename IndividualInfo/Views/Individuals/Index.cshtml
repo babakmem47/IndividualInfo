@@ -15,7 +15,7 @@
         <td>ردیف</td>
         <td>نام</td>
         <td>سمت</td>
-        <td><i class="fa fa-intersex" style="font-size:22px"></i></td>
+        <td><i class="fa fa-intersex" style="font-size:16px"></i></td>
         <td> مستقیم &nbsp; <span class="glyphicon glyphicon-phone-alt"></span></td>
         <td> داخلی &nbsp;<span class="glyphicon glyphicon-earphone"></span></td>
         <td><span class="glyphicon glyphicon-phone"></span></td>
@@ -28,14 +28,25 @@
     @{ var i = 0;}
     @foreach (var person in Model)
     {
+        if (person != null && person.Deleted == true)
+        {
+            continue;
+        }
         i++;
         <tr>
             <td>@i</td>
             <td>@person.Name</td>
-            <td>@person.Semat.Name</td>
+            @if (person.SematId != null)
+            {
+                <td>@person.Semat.Name</td>
+            }
+            else
+            {
+                <td>--</td>
+            }
             @if (person.Gender == true)
             {
-                <td><i class="fa fa-female" style="font-size: 18px;"></i></td>
+                <td><i class="fa fa-female" style="font-size: 14px;"></i></td>
             }
             else if (person.Gender == null)
             {
@@ -43,7 +54,7 @@
             }
             else
             {
-                <td><i class="fa fa-male" style="font-size: 18px;"></i></td>
+                <td><i class="fa fa-male" style="font-size: 14px;"></i></td>
             }
             <td>@person.TelDirect</td>
             <td>@person.TelDakheli</td>
