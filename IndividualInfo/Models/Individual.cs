@@ -7,7 +7,7 @@ namespace IndividualInfo.Models
 
         public string Name { get; set; }
 
-        public bool Gender { get; set; }
+        public bool? Gender { get; set; }
 
         public string TelDirect { get; set; }
 

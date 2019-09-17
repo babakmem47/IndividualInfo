@@ -7,18 +7,25 @@ namespace IndividualInfo.EntityConfigurations
     {
         public IndividualConfiuration()
         {
+            Property(p => p.Id)
+                .HasColumnOrder(0);
+
             Property(p => p.Name)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(50)
+                .HasColumnName("Name");
+
+            //Property(p => p.Gender)
+            //    .HasColumnOrder(2);
 
             Property(p => p.TelDirect)
-                .HasMaxLength(15);                      //0098[-]2188267781
+                .HasMaxLength(14);                      //0098[-]2188267781
 
             Property(p => p.TelDakheli)
                 .HasMaxLength(4);
 
             Property(p => p.Mobile)                     //00989126384181
-                .HasMaxLength(14);
+                .HasMaxLength(20);
 
             Property(p => p.Description)
                 .HasMaxLength(250);

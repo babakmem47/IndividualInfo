@@ -187,6 +187,18 @@
     <Compile Include="Migrations\201909160604242_RemoveLastNamePropFromIndividualAndChangeFirstNameToName.Designer.cs">
       <DependentUpon>201909160604242_RemoveLastNamePropFromIndividualAndChangeFirstNameToName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909161101244_ChangeLengthOfMobileTo20.cs" />
+    <Compile Include="Migrations\201909161101244_ChangeLengthOfMobileTo20.Designer.cs">
+      <DependentUpon>201909161101244_ChangeLengthOfMobileTo20.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909161104209_ChangeLengthOfMobileTo201.cs" />
+    <Compile Include="Migrations\201909161104209_ChangeLengthOfMobileTo201.Designer.cs">
+      <DependentUpon>201909161104209_ChangeLengthOfMobileTo201.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909161121045_MakeGenderArbitrary.cs" />
+    <Compile Include="Migrations\201909161121045_MakeGenderArbitrary.Designer.cs">
+      <DependentUpon>201909161121045_MakeGenderArbitrary.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -200,12 +212,20 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -282,6 +302,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909160604242_RemoveLastNamePropFromIndividualAndChangeFirstNameToName.resx">
       <DependentUpon>201909160604242_RemoveLastNamePropFromIndividualAndChangeFirstNameToName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161101244_ChangeLengthOfMobileTo20.resx">
+      <DependentUpon>201909161101244_ChangeLengthOfMobileTo20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161104209_ChangeLengthOfMobileTo201.resx">
+      <DependentUpon>201909161104209_ChangeLengthOfMobileTo201.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161121045_MakeGenderArbitrary.resx">
+      <DependentUpon>201909161121045_MakeGenderArbitrary.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

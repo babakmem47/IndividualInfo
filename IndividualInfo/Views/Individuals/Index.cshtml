@@ -6,18 +6,18 @@
 }
 
 <h2>title</h2>
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
 <h2>لیست افراد</h2>
-<table class="table ">
+<table class="table table-bordered table-hover table-striped">
     <thead>
     <tr>
         <td>ردیف</td>
         <td>نام</td>
-        <td>نام خانوادگی</td>
+        <td>سمت</td>
         <td>جنسیت</td>
         <td>تلفن مستقیم</td>
         <td>تلفن داخلی</td>
         <td>موبایل</td>
-        <td>سمت</td>
         <td>توضیحات</td>
     </tr>
     </thead>
@@ -28,20 +28,27 @@
         <tr>
             <td>@person.Id</td>
             <td>@person.Name</td>
+            <td>@person.Semat.Name</td>
             @if (person.Gender == true)
             {
-                <td><i class="fa fa-female"></i></td>
+                <td><i class="fa fa-female" style="font-size: 18px;"></i></td>
             }
             else
             {
-                <td><i class="fa fa-male"></i></td>
+                <td><i class="fa fa-male" style="font-size: 18px;"></i></td>
             } 
             <td>@person.TelDirect</td>
             <td>@person.TelDakheli</td>
             <td>@person.Mobile</td>
-            <td>@person.Semat.Name</td>
             <td>@person.Description</td>
         </tr>
     }
     </tbody>
 </table>
+
+@section scripts
+{
+
+    @*<script src='https://kit.fontawesome.com/a076d05399.js'></script>*@
+
+}
