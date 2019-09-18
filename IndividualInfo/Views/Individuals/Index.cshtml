@@ -6,10 +6,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
 @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
 <h2>لیست افراد</h2>
-<table id="individualTable" class="table table-bordered table-hover table-striped">
+<br/>
+<table id="individualTable" class="table table-bordered table-hover table-striped table-condensed table-responsive">
     <thead>
     <tr>
         <td>ردیف</td>
@@ -20,7 +20,7 @@
         <td> داخلی &nbsp;<span class="glyphicon glyphicon-earphone"></span></td>
         <td><span class="glyphicon glyphicon-phone"></span></td>
         <td>توضیحات</td>
-        <td>حذف / ویرایش</td>
+        <td class="fontsize9">ویرایش | حذف</td>
     </tr>
     </thead>
     
@@ -46,7 +46,7 @@
             }
             @if (person.Gender == true)
             {
-                <td><i class="fa fa-female" style="font-size: 14px;"></i></td>
+                <td><i class="fa fa-female" style="font-size:14px;"></i></td>
             }
             else if (person.Gender == null)
             {
@@ -54,15 +54,15 @@
             }
             else
             {
-                <td><i class="fa fa-male" style="font-size: 14px;"></i></td>
+                <td><i class="fa fa-male" style="font-size:14px;"></i></td>
             }
             <td>@person.TelDirect</td>
             <td>@person.TelDakheli</td>
-            <td>@person.Mobile</td>
+            <td class="ltrcell">@person.Mobile</td>
             <td>@person.Description</td>
             <td>
                 <a href="@Url.Action("Edit", "Individuals", new {id = person.Id})"><span class="glyphicon glyphicon-edit" title="...ویرایش"></span></a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
                 <button class="btn-link js-delete" data-person-id="@person.Id"><span class="glyphicon glyphicon-remove" title="Remove"></span></button> </td>
         </tr>
     }
@@ -74,6 +74,8 @@
     @*<script src='https://kit.fontawesome.com/a076d05399.js'></script>*@
     <script>
         $(document).ready(function () {
+            $(".table").persiaNumber();
+
             var individualTable = $("#individualTable");
             individualTable.on("click", ".js-delete",
                 function () {

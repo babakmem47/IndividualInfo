@@ -11,6 +11,7 @@ namespace IndividualInfo
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/bootbox.js",
+                        "~/Scripts/persianumber.js",
                         "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

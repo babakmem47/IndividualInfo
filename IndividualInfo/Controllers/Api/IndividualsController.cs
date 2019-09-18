@@ -1,4 +1,5 @@
-﻿using IndividualInfo.Dtos;
+﻿using System;
+using IndividualInfo.Dtos;
 using IndividualInfo.Models;
 using System.Data.Entity;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace IndividualInfo.Controllers.Api
                 SematDto = new SematDto
                 {
                     Id = x.SematId ?? 0,
-                    Name = (x.SematId != null) ? x.Semat.Name : ""
+                    Name = (x.SematId != null) ? x.Semat.Name : String.Empty
                 },
                 Deleted = x.Deleted
             });
