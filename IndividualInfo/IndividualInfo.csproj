@@ -227,6 +227,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\Individual.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Semat.cs" />

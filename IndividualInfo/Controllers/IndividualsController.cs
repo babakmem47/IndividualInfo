@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using IndividualInfo.Models;
-using System.Data.Entity;
+﻿using IndividualInfo.Models;
 using IndividualInfo.ViewModels;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace IndividualInfo.Controllers
 {
@@ -41,6 +39,7 @@ namespace IndividualInfo.Controllers
                 Id = individual.Id,
                 Name = individual.Name,
                 Gender = individual.Gender,
+                SelectListItems = new List<SelectListItem>(),
                 TelDirect = individual.TelDirect,
                 TelDakheli = individual.TelDakheli,
                 Mobile = individual.Mobile,
@@ -51,6 +50,10 @@ namespace IndividualInfo.Controllers
 
             };
 
+            individualViewModel.SelectListItems.Add(new SelectListItem() { Text = "", Value = "" });
+            individualViewModel.SelectListItems.Add(new SelectListItem() { Text = "زن", Value = "true" });
+            individualViewModel.SelectListItems.Add(new SelectListItem() { Text = "مرد", Value = "false" });
+            
             return View("IndividualForm", individualViewModel);
         }
     }
