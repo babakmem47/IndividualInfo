@@ -60,6 +60,8 @@ namespace IndividualInfo.Controllers
             return View("IndividualForm", individualViewModel);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(IndividualViewModel individualViewModel)
         {
             if (!ModelState.IsValid)
