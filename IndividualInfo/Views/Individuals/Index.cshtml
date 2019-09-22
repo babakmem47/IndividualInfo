@@ -8,7 +8,9 @@
 
 @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
 <h2>لیست افراد</h2>
-<br/>
+@Html.ActionLink("+", "New", "Individuals", null, new { @class = "btn btn-primary", title = "افزودن فرد جدید" })
+<br />
+<br />
 <table id="individualTable" class="table table-bordered table-hover table-striped table-condensed table-responsive">
     <thead>
     <tr>

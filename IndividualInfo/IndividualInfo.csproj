@@ -223,6 +223,10 @@
     <Compile Include="Migrations\201909171052222_AddDeletedToIndividual.Designer.cs">
       <DependentUpon>201909171052222_AddDeletedToIndividual.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909211014203_ExtendLengthOfStrings.cs" />
+    <Compile Include="Migrations\201909211014203_ExtendLengthOfStrings.Designer.cs">
+      <DependentUpon>201909211014203_ExtendLengthOfStrings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -349,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909171052222_AddDeletedToIndividual.resx">
       <DependentUpon>201909171052222_AddDeletedToIndividual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909211014203_ExtendLengthOfStrings.resx">
+      <DependentUpon>201909211014203_ExtendLengthOfStrings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -12,20 +12,20 @@ namespace IndividualInfo.EntityConfigurations
 
             Property(p => p.Name)
                 .IsRequired()
-                .HasMaxLength(50)
+                .HasMaxLength(70)
                 .HasColumnName("Name");
 
             //Property(p => p.Gender)
             //    .HasColumnOrder(2);
 
             Property(p => p.TelDirect)
-                .HasMaxLength(14);                      //0098[-]2188267781
+                .HasMaxLength(50);                      //0098[-]2188267781
 
             Property(p => p.TelDakheli)
-                .HasMaxLength(4);
+                .HasMaxLength(40);
 
             Property(p => p.Mobile)                     //00989126384181
-                .HasMaxLength(20);
+                .HasMaxLength(50);
 
             Property(p => p.Description)
                 .HasMaxLength(250);

@@ -11,7 +11,7 @@ namespace IndividualInfo.ViewModels
 
         [Display(Name = "نام")]
         [Required(ErrorMessage = "پر کردن فیلد نام ضروری است")]
-        [MaxLength(14, ErrorMessage = "حداکثر 50 کاراکتر")]
+        [MaxLength(70, ErrorMessage = "حداکثر 70 کاراکتر")]
         public string Name { get; set; }
 
         [Display(Name = "جنسیت")]
@@ -20,19 +20,19 @@ namespace IndividualInfo.ViewModels
         public List<SelectListItem> SelectListItems { get; set; }
 
         [Display(Name = "تلفن مستقیم")]
-        [MaxLength(14, ErrorMessage = "حداکثر 14 کاراکتر")]
+        [MaxLength(50, ErrorMessage = "حداکثر 50 کاراکتر")]
         public string TelDirect { get; set; }
 
         [Display(Name = "تلفن داخلی")]
-        [MaxLength(14, ErrorMessage = "حداکثر 4 کاراکتر")]
+        [MaxLength(40, ErrorMessage = "حداکثر 40 کاراکتر")]
         public string TelDakheli { get; set; }
 
         [Display(Name = "موبایل")]
-        [MaxLength(14, ErrorMessage = "حداکثر 20 کاراکتر")]
+        [MaxLength(50, ErrorMessage = "حداکثر 50 کاراکتر")]
         public string Mobile { get; set; }
 
         [Display(Name = "توضیحات")]
-        [MaxLength(14, ErrorMessage = "حداکثر 250 کاراکتر")]
+        [MaxLength(250, ErrorMessage = "حداکثر 250 کاراکتر")]
         public string Description { get; set; }
 
         public Semat Semat { get; set; }

@@ -179,3 +179,15 @@ th {
     font-size: 9px;
     font-weight: bold;
 }
+
+.field-validation-error {
+    color: red;
+}
+
+.input-validation-error {
+    border: red 2px solid;
+}
+
+.table-condensed thead > tr > th, .table-condensed tbody > tr > th, .table-condensed tfoot > tr > th, .table-condensed thead > tr > td, .table-condensed tbody > tr > td, .table-condensed tfoot > tr > td {
+    padding: 2px;
+}
