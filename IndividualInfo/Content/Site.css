@@ -188,6 +188,48 @@ th {
     border: red 2px solid;
 }
 
+
+.EditRemoveColumn {
+    width: 54px;
+}
+
+/* DataTable Overrides*/
 .table-condensed thead > tr > th, .table-condensed tbody > tr > th, .table-condensed tfoot > tr > th, .table-condensed thead > tr > td, .table-condensed tbody > tr > td, .table-condensed tfoot > tr > td {
     padding: 2px;
+}
+
+/*div.dataTables_wrapper div.dataTables_filter input {
+    font-family: IranSansWeb;
+    font-size: 14px;
+}*/
+
+div.dataTables_wrapper div.dataTables_length select {
+    width: 50px;
+    padding: 3px 3px;
+}
+
+/* Bootbox Overrides */
+.btn-left-bootbox {
+    margin-left: 20px;
+    float: left;
+}
+
+.modal-footer .btn + .btn {
+    float: left;
+}
+
+.modal-header .close {
+    float: left;
+}
+
+.voffset { margin-top: 2px; }
+.voffset1 { margin-top: 5px; }
+.voffset2 { margin-top: 10px; }
+.voffset3 { margin-top: 20px; }
+.voffset4 { margin-top: 40px; }
+.voffset5 { margin-top: 80px; }
+
+/* Reduce margin of page*/
+.container {
+    max-width: max-content;
 }

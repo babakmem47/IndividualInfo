@@ -24,6 +24,11 @@ namespace IndividualInfo.Controllers
         // GET: Individuals
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult IndexRazorRendered()
+        {
             var individuals = _context.Individuals.Include(i => i.Semat).ToList();
             return View(individuals);
         }

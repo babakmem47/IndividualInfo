@@ -1,75 +1,51 @@
-﻿@using IndividualInfo.Models
-@model IEnumerable<IndividualInfo.Models.Individual>
-
-@{
-    ViewBag.Title = "title";
+﻿@{
+    ViewBag.Title = "اسامی افراد";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
-<h2>لیست افراد</h2>
-@Html.ActionLink("+", "New", "Individuals", null, new { @class = "btn btn-primary", title = "افزودن فرد جدید" })
-<br />
-<br />
-<table id="individualTable" class="table table-bordered table-hover table-striped table-condensed table-responsive">
-    <thead>
-    <tr>
-        <td>ردیف</td>
-        <td>نام</td>
-        <td>سمت</td>
-        <td><i class="fa fa-intersex" style="font-size:16px"></i></td>
-        <td> مستقیم &nbsp; <span class="glyphicon glyphicon-phone-alt"></span></td>
-        <td> داخلی &nbsp;<span class="glyphicon glyphicon-earphone"></span></td>
-        <td><span class="glyphicon glyphicon-phone"></span></td>
-        <td>توضیحات</td>
-        <td class="fontsize9">ویرایش | حذف</td>
-    </tr>
-    </thead>
-    
-    <tbody>
-    @{ var i = 0;}
-    @foreach (var person in Model)
-    {
-        if (person != null && person.Deleted == true)
-        {
-            continue;
-        }
-        i++;
-        <tr>
-            <td>@i</td>
-            <td>@person.Name</td>
-            @if (person.SematId != null)
-            {
-                <td>@person.Semat.Name</td>
-            }
-            else
-            {
-                <td>--</td>
-            }
-            @if (person.Gender == true)
-            {
-                <td><i class="fa fa-female" style="font-size:14px;"></i></td>
-            }
-            else if (person.Gender == null)
-            {
-                <td>--</td>
-            }
-            else
-            {
-                <td><i class="fa fa-male" style="font-size:14px;"></i></td>
-            }
-            <td>@person.TelDirect</td>
-            <td>@person.TelDakheli</td>
-            <td class="ltrcell">@person.Mobile</td>
-            <td>@person.Description</td>
-            <td>
-                <a href="@Url.Action("Edit", "Individuals", new {id = person.Id})"><span class="glyphicon glyphicon-edit" title="...ویرایش"></span></a>
-                &nbsp;&nbsp;&nbsp;
-                <button class="btn-link js-delete" data-person-id="@person.Id"><span class="glyphicon glyphicon-remove" title="Remove"></span></button> </td>
-        </tr>
-    }
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-lg-1 col-xs-1"></div>
+    <div class="col-lg-10 col-xs-10" align="center">
+        ajldiasldlkalskdnaksldkalsklksl a lsklaksd laks d asldk alskd laksd laks dlka sdlkja lkas dlkja sldk a
+        kajs dkajs dkjas dkja sdk askjdka sdka sdkjasd
+        ajs dkajs dkja skdj akjsd kja sdkjaskdj aksjd kajs dka 
+
+    </div>
+    <div class="col-lg-1 col-xs-1"></div>
+</div>
+
+<div class="row voffset3">
+    <div class="col-lg-1 col-xs-1"></div>
+    <div class="col-lg-10 col-xs-10" align="right">
+        @Html.ActionLink("+", "New", "Individuals", null, new { @class = "btn btn-primary", title = "افزودن فرد جدید" })
+    </div>
+    <div class="col-lg-1 col-xs-1"></div>
+</div>
+
+<div class="row voffset3">
+    <div class="col-lg-1 col-xs-1"></div>
+    <div class="col-lg-10 col-xs-10">
+        <table id="individualTable" class="table table-bordered table-hover table-striped table-condensed table-responsive">
+            <thead>
+                <tr>
+                    <td>ردیف</td>
+                    <td>نام</td>
+                    <td>سمت</td>
+                    <td><i class="fa fa-intersex" style="font-size:16px"></i></td>
+                    <td> مستقیم &nbsp; <span class="glyphicon glyphicon-phone-alt"></span></td>
+                    <td> داخلی &nbsp;<span class="glyphicon glyphicon-earphone"></span></td>
+                    <td> موبایل &nbsp;<span class="glyphicon glyphicon-phone"></span></td>
+                    <td>توضیحات</td>
+                    <td class="fontsize9">ویرایش | حذف</td>
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="col-lg-1 col-xs-1"></div>
+</div>
+
 
 @section scripts
 {
@@ -79,24 +55,161 @@
             $(".table").persiaNumber();
 
             var individualTable = $("#individualTable");
+
+            individualTable.DataTable({
+                "pageLength": 20,
+
+                "oLanguage": {
+                    "sSearch": "جستجو  ",
+                    "sSearchPlaceholder": "یه چیزی بنویس ...",
+                    "sLengthMenu": "نمایش  _MENU_  رکورد در جدول",
+                    "decimal": "",
+                    "sEmptyTable": "هیچ داده قابل دسترسی در جدول یافت نشد",
+                    "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ ورودی",
+                    "sInfoEmpty": "نمایش 0 تا 0 از صفر ورودی",
+                    "sInfoFiltered": "(فیلتر شده از _MAX_ کل ورودی ها)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "sLoadingRecords": "بارگذاری ...",
+                    "sProcessing": "پردازش ...",
+                    "sZeroRecords": "هیچ رکوردی که مطابقت داشته باشد یافت نشد",
+                    "oPaginate": {
+                        "sFirst": "اول",
+                        "sLast": "آخر",
+                        "sNext": "بعدی",
+                        "sPrevious": "قبلی"
+                    }
+                },
+
+                "sDom":
+                    "<'row'<'col-sm-6'f><'col-sm-6'l>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+
+                "columnDefs": [
+                    { "className": "text-center", "targets": "_all" }
+                ],
+
+                ajax: {
+                    url: "/api/individuals",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "id"
+                    },
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "sematDto.id",
+                        render: function (data, type, individual) {
+                            if (data !== 0)
+                                return individual.sematDto.name;
+                            else
+                                return '';
+                        }
+                    },
+                    {
+                        data: "gender",
+                        render: function (data) {
+                            if (data === true)
+                                return "<td><i class='fa fa-female' style='font-size:14px;'></i></td>";
+                            else if (data === false)
+                                return "<td><i class='fa fa-male' style='font-size:14px;'></i></td>";
+                            else
+                                return '';
+                        }
+                    },
+                    {
+                        data: "telDirect"
+                    },
+                    {
+                        data: "telDakheli"
+                    },
+                    {
+                        className: "ltrcell",
+                        data: "mobile"
+                        //render: function (data) {
+                        //    if (data !== null)
+                        //        return "<td class='text-center ltrcell'>" + data + "</td>";
+                        //    else
+                        //        return "<td class='text-center ltrcell'></td>";
+                        //}
+                    },
+                    {
+                        data: "description"
+                    },
+                    {
+                        className: "text-left EditRemoveColumn",
+                        data: "id",
+                        render: function (data) {
+                            return "<a href='/Individuals/Edit/" +
+                                data +
+                                "'> " +
+                                "<span class='glyphicon glyphicon-edit' title='... ویرایش'</span></a>" +
+                                "&nbsp;&nbsp;" +
+                                "<button class='btn-link js-delete' data-person-id='" +
+                                data +
+                                "'> " +
+                                "<span class='glyphicon glyphicon-remove' title='حذف'</span></button>";
+                        }
+                    }
+                ]
+            });
+
             individualTable.on("click", ".js-delete",
                 function () {
                     var delButton = $(this);
                     //var delbtn = this;
-                    bootbox.confirm("آیا مطمئن هستید که این رکورد حذف شود؟",
-                        function(respond) {
-                            if (respond) {
-                                $.ajax({
-                                    url: "/api/individuals/" + delButton.attr("data-person-id"),
-                                    method: "Delete",
-                                    success: function() {
-                                        console.log("successfully deleted");
-                                        delButton.parents("tr").remove();
-                                    }
-                                });
+                    var dialog = bootbox.dialog({
+                        title: 'تائید',
+                        message: "آیا مطمئن هستید که می خواهید این رکورد حذف شود؟",
+                        buttons: {
+                            yes: {
+                                label: "حذف",
+                                className: 'btn-danger pull-left',
+                                callback: function () {
+                                    $.ajax({
+                                        url: "/api/individuals/" + delButton.attr("data-person-id"),
+                                        method: "DELETE"
+                                    })
+                                        .done(function () {
+                                            var rowToBeDelete = delButton.parents("tr");
+                                            rowToBeDelete.fadeOut(200,
+                                                function () {
+                                                    table.row(rowToBeDelete).remove().draw();
+                                                });
+                                        })
+                                        .fail(function () {
+                                            alert("Something failed");
+                                        });
+                                }
+                            },
+                            no: {
+                                label: "خیر",
+                                className: 'btn-default btn-left-bootbox',
+                                callback: function () {
+                                    bootbox.hideAll();
+                                }
                             }
-                        });
-                    console.log("salam");
+                        }
+                    });
+                    //dialog.find('.btn-left-bootbox').css({ 'margin-left': '20px' });
+                    //bootbox.confirm("آیا مطمئن هستید که این رکورد حذف شود؟",
+                    //    function(respond) {
+                    //        if (respond) {
+                    //            $.ajax({
+                    //                url: "/api/individuals/" + delButton.attr("data-person-id"),
+                    //                method: "Delete",
+                    //                success: function() {
+                    //                    console.log("successfully deleted");
+                    //                    delButton.parents("tr").remove();
+                    //                }
+                    //            });
+                    //        }
+                    //    });
                 });
         });
     </script>
