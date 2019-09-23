@@ -229,7 +229,13 @@ div.dataTables_wrapper div.dataTables_length select {
 .voffset4 { margin-top: 40px; }
 .voffset5 { margin-top: 80px; }
 
-/* Reduce margin of page*/
+/* Reduce margin of page and make table width 100%*/
 .container {
-    max-width: max-content;
+    max-width: none;
 }
+
+
+#individualTable {
+    width: 95% !important;
+}
+
