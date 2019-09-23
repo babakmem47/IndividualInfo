@@ -146,6 +146,7 @@
                         data: "description"
                     },
                     {
+                        orderable: false,
                         className: "text-left EditRemoveColumn",
                         data: "id",
                         render: function (data) {
@@ -166,10 +167,12 @@
             individualTable.on("click", ".js-delete",
                 function () {
                     var delButton = $(this);
-                    //var delbtn = this;
+                    var delbtn = this;
+                    console.log(delButton.closest("tr").attr);
+                    //console.log(delbtn.parent("tr"));
                     var dialog = bootbox.dialog({
                         title: 'تائید',
-                        message: "آیا مطمئن هستید که می خواهید این رکورد حذف شود؟",
+                        message: "آیا مطمئن هستید که می خواهید رکورد " + " '" +  +  "' " + "حذف شود؟",
                         buttons: {
                             yes: {
                                 label: "حذف",

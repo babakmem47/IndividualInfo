@@ -190,7 +190,7 @@ th {
 
 
 .EditRemoveColumn {
-    width: 54px;
+    width: 60px;
 }
 
 /* DataTable Overrides*/
@@ -252,4 +252,8 @@ div.dataTables_wrapper div.dataTables_length select {
 
 .width100px {
     width: 100px;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
 }
