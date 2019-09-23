@@ -53,6 +53,7 @@
             $(".table").persiaNumber();
 
             var individualTable = $("#individualTable");
+            var row = 1;
 
             individualTable.DataTable({
                 "pageLength": 20,
@@ -95,7 +96,14 @@
 
                 columns: [
                     {
-                        data: "id"
+                        data: "",
+                        orderable: false,
+                        className: "width30px",
+                        //searchable: false,
+                        //sortable: false,
+                        render: function () {
+                            return row++;
+                        }
                     },
                     {
                         data: "name"
@@ -110,6 +118,7 @@
                         }
                     },
                     {
+                        orderable: false,
                         data: "gender",
                         render: function (data) {
                             if (data === true)
@@ -121,20 +130,17 @@
                         }
                     },
                     {
-                        data: "telDirect"
+                        data: "telDirect",
+                        className: "width65px"
                     },
                     {
-                        data: "telDakheli"
+                        data: "telDakheli",
+                        className: "width65px"
                     },
                     {
-                        className: "ltrcell",
+                        orderable: false,
+                        className: "ltrcell width100px",
                         data: "mobile"
-                        //render: function (data) {
-                        //    if (data !== null)
-                        //        return "<td class='text-center ltrcell'>" + data + "</td>";
-                        //    else
-                        //        return "<td class='text-center ltrcell'></td>";
-                        //}
                     },
                     {
                         data: "description"
@@ -170,9 +176,9 @@
                                 className: 'btn-danger pull-left',
                                 callback: function () {
                                     $.ajax({
-                                        url: "/api/individuals/" + delButton.attr("data-person-id"),
-                                        method: "DELETE"
-                                    })
+                                            url: "/api/individuals/" + delButton.attr("data-person-id"),
+                                            method: "DELETE"
+                                        })
                                         .done(function () {
                                             var rowToBeDelete = delButton.parents("tr");
                                             rowToBeDelete.fadeOut(200,
@@ -194,22 +200,13 @@
                             }
                         }
                     });
-                    //dialog.find('.btn-left-bootbox').css({ 'margin-left': '20px' });
-                    //bootbox.confirm("آیا مطمئن هستید که این رکورد حذف شود؟",
-                    //    function(respond) {
-                    //        if (respond) {
-                    //            $.ajax({
-                    //                url: "/api/individuals/" + delButton.attr("data-person-id"),
-                    //                method: "Delete",
-                    //                success: function() {
-                    //                    console.log("successfully deleted");
-                    //                    delButton.parents("tr").remove();
-                    //                }
-                    //            });
-                    //        }
-                    //    });
                 });
-        });
-    </script>
 
+            // remove(hide) sorting icon on first column 
+            $(window).load(function() {
+                $('.sorting_asc').removeClass('sorting_asc');
+            });
+        });        
+    </script>
+   
 }
