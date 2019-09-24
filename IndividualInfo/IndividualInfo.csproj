@@ -489,6 +489,7 @@
     <Content Include="Views\Individuals\Index.cshtml" />
     <Content Include="Views\Individuals\IndividualForm.cshtml" />
     <Content Include="Views\Individuals\IndexRazorRendered.cshtml" />
+    <Content Include="Views\Individuals\_IndividualForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
