@@ -349,3 +349,6 @@ form {
     width: 28%;
 }
 
+label {
+    margin-right: 5px;
+}

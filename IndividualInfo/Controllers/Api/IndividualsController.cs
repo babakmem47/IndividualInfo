@@ -49,6 +49,34 @@ namespace IndividualInfo.Controllers.Api
             return Ok(resultDto);
         }
 
+        // Get /api/individuals/id
+        public IHttpActionResult GetIndividual(int id)
+        {
+            var individual = _context.Individuals
+                .Include(i => i.Semat)
+                .SingleOrDefault(i => i.Id == id);
+
+            if (individual == null || individual.Deleted == true)
+                return NotFound();
+
+            var individualDto = new IndividualDto()
+            {
+                Id = individual.Id,
+                Name = individual.Name,
+                Gender = individual.Gender,
+                TelDirect = individual.TelDirect,
+                TelDakheli = individual.TelDakheli,
+                Mobile = individual.Mobile,
+                Description = individual.Description,
+                SematDto = new SematDto()
+                {
+                    Id = individual.SematId ?? 0,
+                    Name = (individual.SematId != null) ? individual.Semat.Name : String.Empty
+                }
+            };
+
+            return Ok(individualDto);
+        }
 
         // Logical Delete  /api/individuals/id
         [HttpDelete]

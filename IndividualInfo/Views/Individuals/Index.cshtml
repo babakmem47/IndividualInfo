@@ -64,7 +64,7 @@
                             <label for="Name">نام</label>
                             <input class="form-control newline" data-val="true" data-val-maxlength="حداکثر 70 کاراکتر"
                                    data-val-maxlength-max="70" data-val-required="پر کردن فیلد نام ضروری است"
-                                   id="Name" name="Name" type="text" value="" />
+                                   id="nameInput" name="Name" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group form-inline width15pc">
@@ -250,9 +250,9 @@
                                 "'> " +
                                 "<span class='glyphicon glyphicon-edit' title='... ویرایش'</span></a>" +
                                 "&nbsp;" +
-                                "<a href='' data-toggle='modal' data-target='#myModal'><span class='glyphicon glyphicon-edit' title='... ویرایش'</span></span></a>" +
+                                "<a href='' class='link-open-edit-modal' data-toggle='modal' data-target='#myModal' data-individual-id='" +
+                                data +"'><span class='glyphicon glyphicon-edit' title='... ویرایش'></span></a>" +
                                 "&nbsp;&nbsp;" +
-                                "<button class='btn-link js-delete' data-toggle='modal' data-target='#myModal' data-person-id='" +
                                 "<button class='btn-link js-delete' data-person-id='" +
                                 data +
                                 "'> " +
@@ -303,6 +303,23 @@
                     });
                 });
 
+            individualTable.on("click",
+                ".link-open-edit-modal",
+                function() {
+                    var editButton = $(this);
+                    console.log(editButton.attr("data-individual-id"));
+                    $.ajax({
+                        url: "/api/individuals/" + editButton.attr("data-individual-id"),
+                        method: "GET"
+                    }).done(function(data, status) {
+                        $("#nameInput").val(data.name);
+
+                    }).fail(function(status) {
+                        alert("fail to real data");
+                        console.log(status);
+                    });
+
+                });
             // remove(hide) sorting icon on first column
             $(window).load(function () {
                 $('.sorting_asc').removeClass('sorting_asc');
