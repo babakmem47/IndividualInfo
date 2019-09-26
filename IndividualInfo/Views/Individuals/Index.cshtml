@@ -70,32 +70,15 @@
                         <div class="form-group form-inline width15pc">
                             <label for="SematId">سِمَت</label>
                             <select class="form-control" data-val="true" data-val-number="The field سِمَت must be a number." id="SematId" name="SematId">
-                                <option value=""></option>
-                                <option value="1">کارشناس</option>
-                                <option value="2">کاربر رایانه</option>
-                                <option value="3">معاون دایره</option>
-                                <option value="4">رئیس دایره</option>
-                                <option value="5">متصدی امور بانکی</option>
-                                <option value="6">اپراتور</option>
-                                <option value="7">پیش خدمت</option>
-                                <option value="8">معاون اداره</option>
-                                <option value="9">رئیس اداره</option>
-                                <option value="10">کارمند</option>
-                                <option value="11">رابط</option>
-                                <option value="12">غیره</option>
-                                <option value="13">رئیس خدمات ماشینی</option>
-                                <option value="14">مسئول خدمات ماشینی</option>
-                                <option value="15">معاون خدمات ماشینی</option>
-                                <option value="16">خدمات ماشینی</option>
                             </select>
                             <span class="field-validation-valid" data-valmsg-for="SematId" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group form-inline width5pc">
                             <label for="Gender">جنسیت</label>
                             <select class="form-control" id="Gender" name="Gender">
-                                <option value=""></option>
+                                @*<option value=""></option>
                                 <option value="true">زن</option>
-                                <option value="false">مرد</option>
+                                <option value="false">مرد</option>*@
                             </select>
                             <span class="field-validation-valid" data-valmsg-for="Gender" data-valmsg-replace="true"></span>
                         </div>
@@ -126,7 +109,7 @@
                     <br />
                     <br />
                     <input data-val="true" data-val-number="The field Id must be a number."
-                           data-val-required="The Id field is required." id="Id" name="Id" type="hidden" value="4" />
+                           data-val-required="The Id field is required." id="Id" name="Id" type="hidden" />
                     @Html.AntiForgeryToken()
                     <button id="savebutton" type="submit" class="btn btn-primary">ذخیره</button>
                 }
@@ -304,22 +287,68 @@
                         }
                     });
                 });
-
+            
+            ////// Click on Edit button (Modal window) //////
             individualTable.on("click",
                 ".link-open-edit-modal",
                 function() {
                     var editButton = $(this);
                     console.log(editButton.attr("data-individual-id"));
+
+                    // Populate Semat Select Option
+                    $.ajax({
+                        url: "/api/semats/",
+                        method: "GET"
+
+                    }).done(function (data) {
+                        var sematSelectOption = $("#SematId");
+
+                        sematSelectOption.empty();  // reset(clear) 
+
+                        sematSelectOption.append("<option value></option>");
+
+                        $.each(data,
+                            function() {
+                                sematSelectOption.append($("<option />").val(this.id).text(this.name));
+                            });
+
+                    }).fail(function(status) {
+                        alert("fail to read semats: status: ", status);
+                    });
+
+                    // Populate Gender Select Option
+                    var genderSelect = $("#Gender");
+                    genderSelect.append("<option value></option>");
+                    genderSelect.append("<option value='true'>زن</option>");
+                    genderSelect.append("<option value='false'>مرد</option>");
+
+                    // Assign form control values to selected record for editing
                     $.ajax({
                         url: "/api/individuals/" + editButton.attr("data-individual-id"),
                         method: "GET"
-                    }).done(function(data, status) {
+
+                    }).done(function (data, status) {
+                        console.log(data);
                         $("#Name").val(data.name);
+                        $("#SematId").val(data.sematDto.id);
+                        if (data.gender === null)
+                            $("#Gender").val(0);
+                        else if (data.gender === true)
+                            $("#Gender").val('true');
+                        else
+                            $("#Gender").val('false');
+
+                        $("#TelDirect").val(data.telDirect);
+                        $("#TelDakheli").val(data.telDakheli);
+                        $("#Mobile").val(data.mobile);
+                        $("#Description").val(data.description);
+                        $("#Id").val(data.id);
 
                     }).fail(function(status) {
                         alert("fail to real data");
                         console.log(status);
                     });
+
 
                 });
 
@@ -338,7 +367,7 @@
                 $("#myModal").on('shown.bs.modal',
                     function() {
                         //$(".form-group > span").addClass('newline');
-                        $(".form-group > span").css("display", "block");
+                        $(".form-group > span").css("display", "block");   // it is better(no need to .newline class)
                     });
             });
 
