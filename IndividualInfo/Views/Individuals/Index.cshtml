@@ -7,15 +7,15 @@
 <div class="row">
     <div class="col-lg-1 col-xs-1"></div>
     <div class="col-lg-10 col-xs-10" align="center">
-        <h2>لیست افراد</h2>
+        <h3>لیست افراد (شماره تماس)</h3>
     </div>
     <div class="col-lg-1 col-xs-1"></div>
 </div>
 
 <div class="row">
     <div class="col-lg-1 col-xs-1">
-        @Html.ActionLink("+", "New", "Individuals", null, new { @class = "btn btn-primary btn-lg", title = "افزودن فرد جدید" })
-
+        @*@Html.ActionLink("+", "New", "Individuals", null, new { @class = "btn btn-primary btn-lg", title = "افزودن فرد جدید" })*@
+        <a id="btnNewIndividual" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" title=" افزودن فرد جدید... ">+</a>
     </div>
     <div class="col-lg-10 col-xs-10" align="right">
     </div>
@@ -76,25 +76,22 @@
                         <div class="form-group form-inline width5pc">
                             <label for="Gender">جنسیت</label>
                             <select class="form-control" id="Gender" name="Gender">
-                                @*<option value=""></option>
-                                <option value="true">زن</option>
-                                <option value="false">مرد</option>*@
                             </select>
                             <span class="field-validation-valid" data-valmsg-for="Gender" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group form-inline width10pc">
                             <label for="TelDirect">تلفن مستقیم</label>
-                            <input class="form-control" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر" data-val-maxlength-max="50" id="TelDirect" name="TelDirect" type="text" value="" />
+                            <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر" data-val-maxlength-max="50" id="TelDirect" name="TelDirect" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="TelDirect" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group form-inline width5pc">
                             <label for="TelDakheli"> داخلی</label>
-                            <input class="form-control" data-val="true" data-val-maxlength="حداکثر 40 کاراکتر" data-val-maxlength-max="40" id="TelDakheli" name="TelDakheli" type="text" value="" />
+                            <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 40 کاراکتر" data-val-maxlength-max="40" id="TelDakheli" name="TelDakheli" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="TelDakheli" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group form-inline width12pc">
                             <label for="Mobile">موبایل</label>
-                            <input class="form-control" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر" data-val-maxlength-max="50" id="Mobile" name="Mobile" type="text" value="" />
+                            <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر" data-val-maxlength-max="50" id="Mobile" name="Mobile" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Mobile" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group form-inline width28pc">
@@ -327,7 +324,7 @@
                         url: "/api/individuals/" + editButton.attr("data-individual-id"),
                         method: "GET"
 
-                    }).done(function (data, status) {
+                    }).done(function (data) {
                         console.log(data);
                         $("#Name").val(data.name);
                         $("#SematId").val(data.sematDto.id);
@@ -348,9 +345,43 @@
                         alert("fail to real data");
                         console.log(status);
                     });
-
-
                 });
+
+            //// Click on + button (New Individual) (Modal window) //////
+            $("#btnNewIndividual").click(function() {
+                $(".modal-title").text("افزودن فرد(تماس) جدید");
+                $("#Name").attr("placeholder", "نام و نام خانوادگی / نام تماس");
+                // Populate Semat Select Option
+                $.ajax({
+                    url: "/api/semats/",
+                    method: "GET"
+
+                }).done(function (data) {
+                    var sematSelectOption = $("#SematId");
+
+                    sematSelectOption.empty();  // reset(clear) 
+
+                    sematSelectOption.append("<option value></option>");
+
+                    $.each(data,
+                        function () {
+                            sematSelectOption.append($("<option />").val(this.id).text(this.name));
+                        });
+
+                }).fail(function (status) {
+                    alert("fail to read semats: status: ", status);
+                });
+
+                // Populate Gender Select Option
+                var genderSelect = $("#Gender");
+                genderSelect.append("<option value></option>");
+                genderSelect.append("<option value='true'>زن</option>");
+                genderSelect.append("<option value='false'>مرد</option>");
+
+                // Assign form control id value
+                $("#Id").val(0);
+
+            });
 
             // hide validatin error when modal closed: because the error msg remain for other records when clicking on edit
             $("#myModal").on('hidden.bs.modal',
