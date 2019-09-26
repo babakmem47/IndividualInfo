@@ -303,9 +303,9 @@ div.dataTables_wrapper div.dataTables_length select {
     vertical-align: middle;
 }
 
-.newline {
+/*.newline {
     display: block;
-}
+}*/
 
 /* Modal CSS override */
 .modal-dialog {

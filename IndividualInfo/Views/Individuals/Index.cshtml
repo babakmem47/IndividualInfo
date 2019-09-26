@@ -62,7 +62,7 @@
                     <div class="row">
                         <div class="form-group form-inline width22pc">
                             <label for="Name">نام</label>
-                            <input class="form-control newline" data-val="true" data-val-maxlength="حداکثر 70 کاراکتر"
+                            <input class="form-control" data-val="true" data-val-maxlength="حداکثر 70 کاراکتر"
                                    data-val-maxlength-max="70" data-val-required="پر کردن فیلد نام ضروری است"
                                    id="Name" name="Name" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
@@ -322,15 +322,27 @@
                     });
 
                 });
+
+            // hide validatin error when modal closed: because the error msg remain for other records when clicking on edit
+            $("#myModal").on('hidden.bs.modal',
+                function (e) {
+                    console.log("modal closed");
+                    $(".form-group > span").removeClass("field-validation-error").children("span").remove();
+                    $(".form-group > .form-control").removeClass("input-validation-error");
+                });
+
+
             // remove(hide) sorting icon on first column
             $(window).load(function () {
                 $('.sorting_asc').removeClass('sorting_asc');
-                //$(".field-validation-error").addClass('newline');
                 $("#myModal").on('shown.bs.modal',
                     function() {
-                        $(".field-validation-valid").addClass('newline');
+                        //$(".form-group > span").addClass('newline');
+                        $(".form-group > span").css("display", "block");
                     });
             });
+
+            
         });
     </script>
 
