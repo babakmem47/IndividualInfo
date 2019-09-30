@@ -207,10 +207,12 @@
                         }
                     },
                     {
+                        orderable: false,
                         data: "telDirect",
                         className: "width65px"
                     },
                     {
+                        orderable: false,
                         data: "telDakheli",
                         className: "width65px"
                     },
@@ -350,7 +352,6 @@
             //// Click on + button (New Individual) (Modal window) //////
             $("#btnNewIndividual").click(function() {
                 $(".modal-title").text("افزودن فرد(تماس) جدید");
-                $("#Name").attr("placeholder", "نام و نام خانوادگی / نام تماس");
                 // Populate Semat Select Option
                 $.ajax({
                     url: "/api/semats/",
@@ -374,12 +375,24 @@
 
                 // Populate Gender Select Option
                 var genderSelect = $("#Gender");
+                genderSelect.empty();
                 genderSelect.append("<option value></option>");
                 genderSelect.append("<option value='true'>زن</option>");
                 genderSelect.append("<option value='false'>مرد</option>");
 
                 // Assign form control id value
                 $("#Id").val(0);
+
+                // Assign placeholder to other form control
+                $("#Name").val('');
+                $("#Name").attr("placeholder", "نام و نام خانوادگی / نام تماس...");
+
+                $("#SematId").val(0);
+                $("#Gender").val(0);
+                $("#TelDirect").val('');
+                $("#TelDakheli").val('');
+                $("#Mobile").val('');
+                $("#Description").val('');
 
             });
 
