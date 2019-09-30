@@ -321,34 +321,41 @@ form {
     font-size: 12px;
 }
 
-.width5pc {
-    width: 5%;
+.nameWidth {
+    width: 160px;
 }
 
-.width10pc {
-    width: 10%;
+
+.sematWidth {
+    width: 100px;
 }
 
-.width12pc {
-    width: 12%;
+.genderWidth {
+    width: 45px;
 }
 
-.width15pc {
-    width: 15%;
+.telWidth {
+    width: 95px;
+}
+
+.telDakheliWidth {
+    width: 37px;
 }
 
 .width20pc {
     width: 20%;
 }
 
-.width22pc {
-    width: 22%;
+.descriptionWidth {
+    width: 200px;
 }
 
-.width28pc {
-    width: 28%;
-}
 
 label {
     margin-right: 5px;
+}
+
+/*align form control elements*/ 
+.form-inline .form-group {
+    vertical-align: text-top;
 }

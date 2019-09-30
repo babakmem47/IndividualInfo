@@ -60,43 +60,43 @@
                 @using (Html.BeginForm("Save", "Individuals", FormMethod.Post, new { @class = "form-inline" }))
                 {
                     <div class="row">
-                        <div class="form-group form-inline width22pc">
+                        <div class="form-group form-inline nameWidth">
                             <label for="Name">نام</label>
                             <input class="form-control" data-val="true" data-val-maxlength="حداکثر 70 کاراکتر"
                                    data-val-maxlength-max="70" data-val-required="پر کردن فیلد نام ضروری است"
                                    id="Name" name="Name" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline width15pc">
+                        <div class="form-group form-inline sematWidth">
                             <label for="SematId">سِمَت</label>
                             <select class="form-control" data-val="true" data-val-number="The field سِمَت must be a number." id="SematId" name="SematId">
                             </select>
                             <span class="field-validation-valid" data-valmsg-for="SematId" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline width5pc">
+                        <div class="form-group form-inline genderWidth">
                             <label for="Gender">جنسیت</label>
                             <select class="form-control" id="Gender" name="Gender">
                             </select>
                             <span class="field-validation-valid" data-valmsg-for="Gender" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline width10pc">
+                        <div class="form-group form-inline telWidth">
                             <label for="TelDirect">تلفن مستقیم</label>
                             <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر" data-val-maxlength-max="50" id="TelDirect" name="TelDirect" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="TelDirect" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline width5pc">
+                        <div class="form-group form-inline telDakheliWidth">
                             <label for="TelDakheli"> داخلی</label>
                             <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 40 کاراکتر" data-val-maxlength-max="40" id="TelDakheli" name="TelDakheli" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="TelDakheli" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline width12pc">
+                        <div class="form-group form-inline telWidth">
                             <label for="Mobile">موبایل</label>
                             <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر" data-val-maxlength-max="50" id="Mobile" name="Mobile" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Mobile" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline width28pc">
+                        <div class="form-group form-inline descriptionWidth">
                             <label for="Description">توضیحات</label>
-                            <input class="form-control" data-val="true" data-val-maxlength="حداکثر 250 کاراکتر" data-val-maxlength-max="250" id="Description" name="Description" type="text" value="" />
+                            <textarea class="form-control" rows = "3" data-val="true" data-val-maxlength="حداکثر 250 کاراکتر" data-val-maxlength-max="250" id="Description" name="Description" type="text" value=""> </textarea>
                             <span class="field-validation-valid" data-valmsg-for="Description" data-valmsg-replace="true"></span>
                         </div>
 
@@ -385,7 +385,7 @@
 
                 // Assign placeholder to other form control
                 $("#Name").val('');
-                $("#Name").attr("placeholder", "نام و نام خانوادگی / نام تماس...");
+                $("#Name").attr("placeholder", "نام و نام خانوادگی/نام تماس...");
 
                 $("#SematId").val(0);
                 $("#Gender").val(0);
