@@ -16,7 +16,7 @@
     <div class="col-lg-1 col-xs-1">
         @*@Html.ActionLink("+", "New", "Individuals", null, new { @class = "btn btn-primary btn-lg", title = "افزودن فرد جدید" })*@
         @*<a id="btnNewIndividual" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" title=" افزودن فرد جدید... ">+</a>*@
-        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" title="افزودن فرد/تماس جدید" style="font-size:20px"><i class="fa fa-user-plus"></i></button>
+        <button id="btnNewIndividual" class="btn btn-primary" data-toggle="modal" data-target="#myModal" title="افزودن فرد/تماس جدید" style="font-size:20px"><i class="fa fa-user-plus"></i></button>
     </div>
     <div class="col-lg-10 col-xs-10" align="right">
     </div>
@@ -404,6 +404,7 @@
                 $("#TelDirect").val('');
                 $("#TelDakheli").val('');
                 $("#Mobile").val('');
+                $("#Mobile").attr("placeholder", "0912 555 5555");
                 $("#Email").val('');
                 $("#Description").val('');
 
@@ -450,6 +451,12 @@
         // Set Filter for TelDakheli: Maximum 4 digit(only digit)
         setInputFilter(document.getElementById("TelDakheli"), function (value) {
             return /^\d*$/.test(value) && (value === "" || value.length <= 4);
+        });
+
+        // Set Filter for TelDakheli: 10 digit with space separator(only digit) : 0912 555 5555
+        document.getElementById('Mobile').addEventListener('input', function (e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{0,4})(\d{0,3})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : x[1] + ' ' + x[2] + (x[3] ? ' ' + x[3] : '');
         });
 
         //__________ Input Filter ___________//
