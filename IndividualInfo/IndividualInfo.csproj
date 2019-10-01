@@ -232,6 +232,10 @@
     <Compile Include="Migrations\201909301216587_AddEmailPropToIndividual.Designer.cs">
       <DependentUpon>201909301216587_AddEmailPropToIndividual.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910011416197_ChangeEmailLengthTo40.cs" />
+    <Compile Include="Migrations\201910011416197_ChangeEmailLengthTo40.Designer.cs">
+      <DependentUpon>201910011416197_ChangeEmailLengthTo40.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -539,6 +543,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909301216587_AddEmailPropToIndividual.resx">
       <DependentUpon>201909301216587_AddEmailPropToIndividual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910011416197_ChangeEmailLengthTo40.resx">
+      <DependentUpon>201910011416197_ChangeEmailLengthTo40.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

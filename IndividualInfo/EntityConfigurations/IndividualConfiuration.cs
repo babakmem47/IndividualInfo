@@ -28,7 +28,7 @@ namespace IndividualInfo.EntityConfigurations
                 .HasMaxLength(50);
 
             Property(p => p.Email)
-                .HasMaxLength(30);
+                .HasMaxLength(40);
 
             Property(p => p.Description)
                 .HasMaxLength(250);

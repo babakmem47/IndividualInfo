@@ -15,7 +15,8 @@
 <div class="row">
     <div class="col-lg-1 col-xs-1">
         @*@Html.ActionLink("+", "New", "Individuals", null, new { @class = "btn btn-primary btn-lg", title = "افزودن فرد جدید" })*@
-        <a id="btnNewIndividual" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" title=" افزودن فرد جدید... ">+</a>
+        @*<a id="btnNewIndividual" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" title=" افزودن فرد جدید... ">+</a>*@
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" title="افزودن فرد/تماس جدید" style="font-size:20px"><i class="fa fa-user-plus"></i></button>
     </div>
     <div class="col-lg-10 col-xs-10" align="right">
     </div>
@@ -35,7 +36,7 @@
                     <td> مستقیم  <span class="glyphicon glyphicon-phone-alt"></span></td>
                     <td>داخلی@*<span class="glyphicon glyphicon-earphone"></span>*@</td>
                     <td> موبایل &nbsp;<span class="glyphicon glyphicon-phone"></span></td>
-                    <td> ایمیل &nbsp; &#xe158;</td>
+                    <td> ایمیل <i class="fa fa-envelope-o" style="font-size:16px"></i></td>
                     <td>توضیحات</td>
                     <td class="fontsize9">ویرایش | حذف</td>
                 </tr>
@@ -85,7 +86,7 @@
                         </div>
                         <div class="form-group form-inline width37px">
                             <label for="TelDakheli"> داخلی</label>
-                            <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 40 کاراکتر" data-val-maxlength-max="40" id="TelDakheli" name="TelDakheli" type="text" value="" />
+                            <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 4 کاراکتر" data-val-maxlength-max="4" id="TelDakheli" name="TelDakheli" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="TelDakheli" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group form-inline width95px">
@@ -95,7 +96,7 @@
                         </div>
                         <div class="form-group form-inline width130px">
                             <label for="Mobile">ایمیل</label>
-                            <input class="form-control ltrcell" data-val="true" data-val-email="آدرس ایمیل صحیح نیست" data-val-maxlength="حداکثر 30 کاراکتر" data-val-maxlength-max="30" id="Email" name="Email" type="text" value="" />
+                            <input class="form-control ltrcell" data-val="true" data-val-email="آدرس ایمیل صحیح نیست" data-val-maxlength="حداکثر 40 کاراکتر" data-val-maxlength-max="40" id="Email" name="Email" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group form-inline width200px">
@@ -191,6 +192,7 @@
                     },
                     {
                         data: "sematDto.id",
+                        className: "width95px",
                         render: function (data, type, individual) {
                             if (data !== 0)
                                 return individual.sematDto.name;
@@ -227,7 +229,7 @@
                     },
                     {
                         orderable: false,
-                        className: "ltrcell width80px",
+                        className: "ltrcell width130px",
                         data: "email"
                     },
                     {
@@ -426,8 +428,30 @@
                     });
             });
 
+        });  // end of $(document).ready(function () {
 
+
+        // Input Filter //
+        function setInputFilter(textbox, inputFilter) {
+            ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
+                textbox.addEventListener(event, function () {
+                    if (inputFilter(this.value)) {
+                        this.oldValue = this.value;
+                        this.oldSelectionStart = this.selectionStart;
+                        this.oldSelectionEnd = this.selectionEnd;
+                    } else if (this.hasOwnProperty("oldValue")) {
+                        this.value = this.oldValue;
+                        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                    }
+                });
+            });
+        }
+
+        // Set Filter for TelDakheli: Maximum 4 digit
+        setInputFilter(document.getElementById("TelDakheli"), function (value) {
+            return /^\d*$/.test(value) && (value === "" || value.length <= 4);
         });
+
     </script>
 
 }
