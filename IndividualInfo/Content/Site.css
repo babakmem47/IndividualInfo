@@ -287,6 +287,14 @@ div.dataTables_wrapper div.dataTables_length select {
     width: 30px;
 }
 
+.width37px {
+    width: 37px;
+}
+
+.width45px {
+    width: 45px;
+}
+
 .width55px {
     width: 55px;
 }
@@ -295,8 +303,35 @@ div.dataTables_wrapper div.dataTables_length select {
     width: 65px;
 }
 
+.width75px {
+    width: 75px;
+}
+
+.width77px {
+    width: 77px;
+}
+
+.width80px {
+    width: 80px;
+}
+
+.width95px {
+    width: 95px;
+}
+
 .width100px {
     width: 100px;
+}
+
+.width130px {
+    width: 130px;
+}
+.nameWidth {
+    width: 160px;
+}
+
+.width200px {
+    width: 200px;
 }
 
 .table > tbody > tr > td {
@@ -320,36 +355,6 @@ form {
     padding: 2px 3px;
     font-size: 12px;
 }
-
-.nameWidth {
-    width: 160px;
-}
-
-
-.sematWidth {
-    width: 100px;
-}
-
-.genderWidth {
-    width: 45px;
-}
-
-.telWidth {
-    width: 95px;
-}
-
-.telDakheliWidth {
-    width: 37px;
-}
-
-.width20pc {
-    width: 20%;
-}
-
-.descriptionWidth {
-    width: 200px;
-}
-
 
 label {
     margin-right: 5px;

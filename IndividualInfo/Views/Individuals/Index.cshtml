@@ -32,9 +32,10 @@
                     <td>نام</td>
                     <td>سمت</td>
                     <td><i class="fa fa-intersex" style="font-size:16px"></i></td>
-                    <td> مستقیم &nbsp; <span class="glyphicon glyphicon-phone-alt"></span></td>
-                    <td> داخلی &nbsp;<span class="glyphicon glyphicon-earphone"></span></td>
+                    <td> مستقیم  <span class="glyphicon glyphicon-phone-alt"></span></td>
+                    <td>داخلی@*<span class="glyphicon glyphicon-earphone"></span>*@</td>
                     <td> موبایل &nbsp;<span class="glyphicon glyphicon-phone"></span></td>
+                    <td> ایمیل &nbsp; &#xe158;</td>
                     <td>توضیحات</td>
                     <td class="fontsize9">ویرایش | حذف</td>
                 </tr>
@@ -67,36 +68,39 @@
                                    id="Name" name="Name" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline sematWidth">
+                        <div class="form-group form-inline width100px">
                             <label for="SematId">سِمَت</label>
-                            <select class="form-control" data-val="true" data-val-number="The field سِمَت must be a number." id="SematId" name="SematId">
-                            </select>
+                            <select class="form-control" data-val="true" data-val-number="The field سِمَت must be a number." id="SematId" name="SematId"></select>
                             <span class="field-validation-valid" data-valmsg-for="SematId" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline genderWidth">
+                        <div class="form-group form-inline width45px">
                             <label for="Gender">جنسیت</label>
-                            <select class="form-control" id="Gender" name="Gender">
-                            </select>
+                            <select class="form-control" id="Gender" name="Gender"></select>
                             <span class="field-validation-valid" data-valmsg-for="Gender" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline telWidth">
+                        <div class="form-group form-inline width95px">
                             <label for="TelDirect">تلفن مستقیم</label>
                             <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر" data-val-maxlength-max="50" id="TelDirect" name="TelDirect" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="TelDirect" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline telDakheliWidth">
+                        <div class="form-group form-inline width37px">
                             <label for="TelDakheli"> داخلی</label>
                             <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 40 کاراکتر" data-val-maxlength-max="40" id="TelDakheli" name="TelDakheli" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="TelDakheli" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline telWidth">
+                        <div class="form-group form-inline width95px">
                             <label for="Mobile">موبایل</label>
                             <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر" data-val-maxlength-max="50" id="Mobile" name="Mobile" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Mobile" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline descriptionWidth">
+                        <div class="form-group form-inline width130px">
+                            <label for="Mobile">ایمیل</label>
+                            <input class="form-control ltrcell" data-val="true" data-val-email="آدرس ایمیل صحیح نیست" data-val-maxlength="حداکثر 30 کاراکتر" data-val-maxlength-max="30" id="Email" name="Email" type="text" value="" />
+                            <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="form-group form-inline width200px">
                             <label for="Description">توضیحات</label>
-                            <textarea class="form-control" rows = "3" data-val="true" data-val-maxlength="حداکثر 250 کاراکتر" data-val-maxlength-max="250" id="Description" name="Description" type="text" value=""> </textarea>
+                            <textarea class="form-control" rows="3" data-val="true" data-val-maxlength="حداکثر 250 کاراکتر" data-val-maxlength-max="250" id="Description" name="Description" type="text" value=""> </textarea>
                             <span class="field-validation-valid" data-valmsg-for="Description" data-valmsg-replace="true"></span>
                         </div>
 
@@ -209,17 +213,22 @@
                     {
                         orderable: false,
                         data: "telDirect",
-                        className: "width65px"
+                        className: "ltrcell width77px"
                     },
                     {
                         orderable: false,
                         data: "telDakheli",
-                        className: "width65px"
+                        className: "ltrcell width37px"
                     },
                     {
                         orderable: false,
-                        className: "ltrcell width100px",
+                        className: "ltrcell width80px",
                         data: "mobile"
+                    },
+                    {
+                        orderable: false,
+                        className: "ltrcell width80px",
+                        data: "email"
                     },
                     {
                         data: "description"
@@ -235,7 +244,7 @@
                                 "<span class='glyphicon glyphicon-edit' title='... ویرایش'</span></a>" +
                                 "&nbsp;" +
                                 "<a href='' class='link-open-edit-modal' data-toggle='modal' data-target='#myModal' data-individual-id='" +
-                                data +"'><span class='glyphicon glyphicon-edit' title='... ویرایش'></span></a>" +
+                                data + "'><span class='glyphicon glyphicon-edit' title='... ویرایش'></span></a>" +
                                 "&nbsp;&nbsp;" +
                                 "<button class='btn-link js-delete' data-person-id='" +
                                 data +
@@ -286,11 +295,11 @@
                         }
                     });
                 });
-            
+
             ////// Click on Edit button (Modal window) //////
             individualTable.on("click",
                 ".link-open-edit-modal",
-                function() {
+                function () {
                     var editButton = $(this);
                     console.log(editButton.attr("data-individual-id"));
 
@@ -302,16 +311,16 @@
                     }).done(function (data) {
                         var sematSelectOption = $("#SematId");
 
-                        sematSelectOption.empty();  // reset(clear) 
+                        sematSelectOption.empty();  // reset(clear)
 
                         sematSelectOption.append("<option value></option>");
 
                         $.each(data,
-                            function() {
+                            function () {
                                 sematSelectOption.append($("<option />").val(this.id).text(this.name));
                             });
 
-                    }).fail(function(status) {
+                    }).fail(function (status) {
                         alert("fail to read semats: status: ", status);
                     });
 
@@ -340,17 +349,18 @@
                         $("#TelDirect").val(data.telDirect);
                         $("#TelDakheli").val(data.telDakheli);
                         $("#Mobile").val(data.mobile);
+                        $("#Email").val(data.email);
                         $("#Description").val(data.description);
                         $("#Id").val(data.id);
 
-                    }).fail(function(status) {
+                    }).fail(function (status) {
                         alert("fail to real data");
                         console.log(status);
                     });
                 });
 
             //// Click on + button (New Individual) (Modal window) //////
-            $("#btnNewIndividual").click(function() {
+            $("#btnNewIndividual").click(function () {
                 $(".modal-title").text("افزودن فرد(تماس) جدید");
                 // Populate Semat Select Option
                 $.ajax({
@@ -360,7 +370,7 @@
                 }).done(function (data) {
                     var sematSelectOption = $("#SematId");
 
-                    sematSelectOption.empty();  // reset(clear) 
+                    sematSelectOption.empty();  // reset(clear)
 
                     sematSelectOption.append("<option value></option>");
 
@@ -392,6 +402,7 @@
                 $("#TelDirect").val('');
                 $("#TelDakheli").val('');
                 $("#Mobile").val('');
+                $("#Email").val('');
                 $("#Description").val('');
 
             });
@@ -409,13 +420,13 @@
             $(window).load(function () {
                 $('.sorting_asc').removeClass('sorting_asc');
                 $("#myModal").on('shown.bs.modal',
-                    function() {
+                    function () {
                         //$(".form-group > span").addClass('newline');
                         $(".form-group > span").css("display", "block");   // it is better(no need to .newline class)
                     });
             });
 
-            
+
         });
     </script>
 

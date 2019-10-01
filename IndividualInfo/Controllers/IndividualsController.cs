@@ -50,6 +50,7 @@ namespace IndividualInfo.Controllers
                 TelDirect = individual.TelDirect,
                 TelDakheli = individual.TelDakheli,
                 Mobile = individual.Mobile,
+                Email = individual.Email,
                 Description = individual.Description,
                 SematId = individual.SematId ?? 0,
                 Semats = _context.Semats.ToList(),
@@ -92,6 +93,7 @@ namespace IndividualInfo.Controllers
                     TelDirect = individualViewModel.TelDirect,
                     TelDakheli = individualViewModel.TelDakheli,
                     Mobile = individualViewModel.Mobile,
+                    Email = individualViewModel.Email,
                     Description = individualViewModel.Description
                 };
 
@@ -109,6 +111,7 @@ namespace IndividualInfo.Controllers
                 individualInDb.TelDirect = individualViewModel.TelDirect;
                 individualInDb.TelDakheli = individualViewModel.TelDakheli;
                 individualInDb.Mobile = individualViewModel.Mobile;
+                individualInDb.Email = individualViewModel.Email;
                 individualInDb.Description = individualViewModel.Description;
             }
 

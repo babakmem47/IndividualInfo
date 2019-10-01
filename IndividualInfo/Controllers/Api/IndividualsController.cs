@@ -37,6 +37,7 @@ namespace IndividualInfo.Controllers.Api
                 TelDirect = x.TelDirect,
                 TelDakheli = x.TelDakheli,
                 Mobile = x.Mobile,
+                Email = x.Email,
                 Description = x.Description,
                 SematDto = new SematDto
                 {
@@ -67,6 +68,7 @@ namespace IndividualInfo.Controllers.Api
                 TelDirect = individual.TelDirect,
                 TelDakheli = individual.TelDakheli,
                 Mobile = individual.Mobile,
+                Email = individual.Email,
                 Description = individual.Description,
                 SematDto = new SematDto()
                 {

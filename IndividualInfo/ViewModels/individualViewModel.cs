@@ -31,6 +31,10 @@ namespace IndividualInfo.ViewModels
         [MaxLength(50, ErrorMessage = "حداکثر 50 کاراکتر")]
         public string Mobile { get; set; }
 
+        [Display(Name = "ایمیل")]
+        [EmailAddress(ErrorMessage = "آدرس ایمیل صحیح نیست")]
+        public string Email { get; set; }
+
         [Display(Name = "توضیحات")]
         [MaxLength(250, ErrorMessage = "حداکثر 250 کاراکتر")]
         public string Description { get; set; }

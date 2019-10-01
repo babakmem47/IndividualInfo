@@ -27,6 +27,9 @@ namespace IndividualInfo.EntityConfigurations
             Property(p => p.Mobile)                     //00989126384181
                 .HasMaxLength(50);
 
+            Property(p => p.Email)
+                .HasMaxLength(30);
+
             Property(p => p.Description)
                 .HasMaxLength(250);
 
