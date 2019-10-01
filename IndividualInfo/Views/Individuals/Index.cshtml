@@ -431,7 +431,7 @@
         });  // end of $(document).ready(function () {
 
 
-        // Input Filter //
+        //////      Input Filter    ///////
         function setInputFilter(textbox, inputFilter) {
             ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
                 textbox.addEventListener(event, function () {
@@ -447,10 +447,12 @@
             });
         }
 
-        // Set Filter for TelDakheli: Maximum 4 digit
+        // Set Filter for TelDakheli: Maximum 4 digit(only digit)
         setInputFilter(document.getElementById("TelDakheli"), function (value) {
             return /^\d*$/.test(value) && (value === "" || value.length <= 4);
         });
+
+        //__________ Input Filter ___________//
 
     </script>
 
