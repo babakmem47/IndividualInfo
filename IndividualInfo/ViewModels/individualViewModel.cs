@@ -18,6 +18,9 @@ namespace IndividualInfo.ViewModels
         [MaxLength(50, ErrorMessage = "حداکثر 50 کاراکتر")]
         public string WorkPlace { get; set; }
 
+        [Display(Name = "نام محل کار")]
+        public int? WorkPlaceId { get; set; }
+
         public Semat Semat { get; set; }
 
         [Display(Name = "سِمَت")]

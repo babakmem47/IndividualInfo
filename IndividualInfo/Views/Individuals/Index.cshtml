@@ -70,23 +70,17 @@
                             <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
                         </div>
 
-                        <div class="form-group form-inline width150px">
-                            <label for="WorkPlace">محل کار</label>
-                            <input class="form-control" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر"
-                                   data-val-maxlength-max="50" id="WorkPlace" name="WorkPlace" type="text" value="" />
-                            <span class="field-validation-valid" data-valmsg-for="WorkPlace" data-valmsg-replace="true"></span>
+                        <div class="form-group form-inline width65px">
+                            <label for="WorkPlaceType">نوع محل کار</label>
+                            <select class="form-control" id="WorkPlaceType" name="WorkPlaceType"></select>
                         </div>
 
-                        @*<div class="form-group form-inline width65px">
-                            <label for="WorkPlaceId">محل کار</label>
-                            <select class="form-control" id="WorkPlaceId" name="WorkPlaceId">
-                                <option value="0">شرکت</option>
-                                <option value="1">اداره</option>
-                                <option value="2" title="مدیریت شعب منطقه">سرپرستی</option>
-                                <option value="3">شعبه</option>
-                                <option value="4">غیره</option>
-                            </select>
-                        </div>*@
+                        <div class="form-group form-inline width100px">
+                            <label for="WorkPlaceId">نام محل کار</label>
+                            <input class="form-control" data-val="true" data-val-maxlength="حداکثر 60 کاراکتر"
+                                   data-val-maxlength-max="50" id="WorkPlaceId" name="WorkPlaceId" type="text" value="" />
+                            <span class="field-validation-valid" data-valmsg-for="WorkPlaceId" data-valmsg-replace="true"></span>
+                        </div>
 
                         <div class="form-group form-inline width95px">
                             <label for="SematId">سِمَت</label>
@@ -383,6 +377,29 @@
             //// Click on + button (New Individual) (Modal window) //////
             $("#btnNewIndividual").click(function () {
                 $(".modal-title").text("افزودن فرد(تماس) جدید");
+                // Populate WorkPlaceType Select Option
+                $.ajax({
+                    url: "/api/workplacetypes/",
+                    method: "GET"
+
+                }).done(function (data) {
+                    var workPlaceTypeSelectOption = $("#WorkPlaceType");
+
+                    workPlaceTypeSelectOption.empty();  // reset(clear)
+
+                    //sematSelectOption.append("<option value></option>");   // no need for '' at top of select
+                    
+                    $.each(data,
+                        function () {
+                            workPlaceTypeSelectOption.append($("<option />").val(this.id).text(this.name));
+                        });
+
+                }).fail(function (status) {
+                    alert("fail to read workplacetypes: status: ", status);
+                });
+                // add placeholder "مدیریت شعب مناطق" to سرپرستی
+                $("#WorkPlaceType option[value='3']").attr("title", "مدیریت شعب مناطق");
+
                 // Populate Semat Select Option
                 $.ajax({
                     url: "/api/semats/",
@@ -417,8 +434,7 @@
                 // Assign placeholder to other form control
                 $("#Name").val('');
                 $("#Name").attr("placeholder", "نام و نام خانوادگی/نام تماس...");
-                $("#WorkPlace").val('');
-                $("#WorkPlace").attr("placeholder", "نام شرکت/اداره/سرپرستی/شعبه...");
+                $("#WorkPlaceType option[value='3']").attr("title", "مدیریت شعب مناطق");  // not working
                 $("#SematId").val(0);
                 $("#Gender").val(0);
                 $("#TelDirect").val('');

@@ -178,6 +178,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\IndividualsController.cs" />
     <Compile Include="Controllers\Api\SematsController.cs" />
+    <Compile Include="Controllers\Api\WorkPlaceTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndividualsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -247,6 +248,10 @@
     <Compile Include="Migrations\201910030805072_AddFluentApiForWorkPlaceAndWorkPlaceType.cs" />
     <Compile Include="Migrations\201910030805072_AddFluentApiForWorkPlaceAndWorkPlaceType.Designer.cs">
       <DependentUpon>201910030805072_AddFluentApiForWorkPlaceAndWorkPlaceType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910031044335_PopulateWorkPlaceType.cs" />
+    <Compile Include="Migrations\201910031044335_PopulateWorkPlaceType.Designer.cs">
+      <DependentUpon>201910031044335_PopulateWorkPlaceType.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -566,6 +571,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910030805072_AddFluentApiForWorkPlaceAndWorkPlaceType.resx">
       <DependentUpon>201910030805072_AddFluentApiForWorkPlaceAndWorkPlaceType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910031044335_PopulateWorkPlaceType.resx">
+      <DependentUpon>201910031044335_PopulateWorkPlaceType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
