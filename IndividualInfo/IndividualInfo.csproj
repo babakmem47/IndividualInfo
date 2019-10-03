@@ -183,8 +183,12 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Dtos\IndividualDto.cs" />
     <Compile Include="Dtos\SematDto.cs" />
+    <Compile Include="Dtos\WorkPlaceDto.cs" />
+    <Compile Include="Dtos\WorkPlaceTypeDto.cs" />
     <Compile Include="EntityConfigurations\IndividualConfiuration.cs" />
     <Compile Include="EntityConfigurations\SematConfiguration.cs" />
+    <Compile Include="EntityConfigurations\WorkPlaceConfiguration.cs" />
+    <Compile Include="EntityConfigurations\WorkPlaceTypeConfiguration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -236,6 +240,14 @@
     <Compile Include="Migrations\201910011416197_ChangeEmailLengthTo40.Designer.cs">
       <DependentUpon>201910011416197_ChangeEmailLengthTo40.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910030726367_AddWorkPlaceAndWorkPlaceType.cs" />
+    <Compile Include="Migrations\201910030726367_AddWorkPlaceAndWorkPlaceType.Designer.cs">
+      <DependentUpon>201910030726367_AddWorkPlaceAndWorkPlaceType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910030805072_AddFluentApiForWorkPlaceAndWorkPlaceType.cs" />
+    <Compile Include="Migrations\201910030805072_AddFluentApiForWorkPlaceAndWorkPlaceType.Designer.cs">
+      <DependentUpon>201910030805072_AddFluentApiForWorkPlaceAndWorkPlaceType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -244,6 +256,8 @@
     <Compile Include="Models\Individual.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Semat.cs" />
+    <Compile Include="Models\WorkPlace.cs" />
+    <Compile Include="Models\WorkPlaceType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\IndividualViewModel.cs" />
@@ -546,6 +560,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910011416197_ChangeEmailLengthTo40.resx">
       <DependentUpon>201910011416197_ChangeEmailLengthTo40.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910030726367_AddWorkPlaceAndWorkPlaceType.resx">
+      <DependentUpon>201910030726367_AddWorkPlaceAndWorkPlaceType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910030805072_AddFluentApiForWorkPlaceAndWorkPlaceType.resx">
+      <DependentUpon>201910030805072_AddFluentApiForWorkPlaceAndWorkPlaceType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -8,11 +8,15 @@ namespace IndividualInfo.Models
     {
         public DbSet<Individual> Individuals { get; set; }
         public DbSet<Semat> Semats { get; set; }
+        public DbSet<WorkPlace> WorkPlaces { get; set; }
+        public DbSet<WorkPlaceType> WorkPlaceTypes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new IndividualConfiuration());
             modelBuilder.Configurations.Add(new SematConfiguration());
+            modelBuilder.Configurations.Add(new WorkPlaceConfiguration());
+            modelBuilder.Configurations.Add(new WorkPlaceTypeConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

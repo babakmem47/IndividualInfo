@@ -1,6 +1,6 @@
-﻿using System;
-using IndividualInfo.Dtos;
+﻿using IndividualInfo.Dtos;
 using IndividualInfo.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
@@ -27,6 +27,7 @@ namespace IndividualInfo.Controllers.Api
             var individuals = _context.Individuals
                 .Where(i => i.Deleted != true)
                 .Include(i => i.Semat)
+                .Include(i => i.WorkPlace)
                 .ToList();
 
             var resultDto = individuals.Select(x => new IndividualDto()
@@ -44,7 +45,12 @@ namespace IndividualInfo.Controllers.Api
                     Id = x.SematId ?? 0,
                     Name = (x.SematId != null) ? x.Semat.Name : String.Empty
                 },
-                Deleted = x.Deleted
+                Deleted = x.Deleted,
+                WorkPlaceDto = new WorkPlaceDto
+                {
+                    Id = x.WorkPlaceId ?? 0,
+                    Name = (x.WorkPlaceId != null) ? x.WorkPlace.Name : String.Empty
+                }
             });
 
             return Ok(resultDto);
@@ -55,6 +61,7 @@ namespace IndividualInfo.Controllers.Api
         {
             var individual = _context.Individuals
                 .Include(i => i.Semat)
+                .Include(i => i.WorkPlace)
                 .SingleOrDefault(i => i.Id == id);
 
             if (individual == null || individual.Deleted == true)
@@ -74,6 +81,11 @@ namespace IndividualInfo.Controllers.Api
                 {
                     Id = individual.SematId ?? 0,
                     Name = (individual.SematId != null) ? individual.Semat.Name : String.Empty
+                },
+                WorkPlaceDto = new WorkPlaceDto
+                {
+                    Id = individual.WorkPlaceId ?? 0,
+                    Name = (individual.WorkPlaceId != null) ? individual.WorkPlace.Name : String.Empty
                 }
             };
 

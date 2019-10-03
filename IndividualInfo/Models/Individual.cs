@@ -15,8 +15,6 @@ namespace IndividualInfo.Models
 
         public string Mobile { get; set; }
 
-        public string Email { get; set; }
-
         public string Description { get; set; }
 
         public Semat Semat { get; set; }
@@ -24,5 +22,11 @@ namespace IndividualInfo.Models
         public byte? SematId { get; set; }
 
         public bool? Deleted { get; set; }
+
+        public string Email { get; set; }
+
+        public WorkPlace WorkPlace { get; set; }
+
+        public int? WorkPlaceId { get; set; }
     }
 }

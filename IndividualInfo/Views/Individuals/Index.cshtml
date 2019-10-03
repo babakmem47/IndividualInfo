@@ -36,7 +36,7 @@
                     <td> مستقیم  <span class="glyphicon glyphicon-phone-alt"></span></td>
                     <td>داخلی@*<span class="glyphicon glyphicon-earphone"></span>*@</td>
                     <td> موبایل &nbsp;<span class="glyphicon glyphicon-phone"></span></td>
-                    <td> ایمیل <i class="fa fa-envelope-o" style="font-size:16px"></i></td>
+                    <td> ایمیل <i class="fa fa-envelope-o" style="font-size:14px"></i></td>
                     <td>توضیحات</td>
                     <td class="fontsize9">ویرایش | حذف</td>
                 </tr>
@@ -62,14 +62,33 @@
                 @using (Html.BeginForm("Save", "Individuals", FormMethod.Post, new { @class = "form-inline" }))
                 {
                     <div class="row">
-                        <div class="form-group form-inline nameWidth">
+                        <div class="form-group form-inline width140px">
                             <label for="Name">نام</label>
                             <input class="form-control" data-val="true" data-val-maxlength="حداکثر 70 کاراکتر"
                                    data-val-maxlength-max="70" data-val-required="پر کردن فیلد نام ضروری است"
                                    id="Name" name="Name" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline width100px">
+
+                        <div class="form-group form-inline width150px">
+                            <label for="WorkPlace">محل کار</label>
+                            <input class="form-control" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر"
+                                   data-val-maxlength-max="50" id="WorkPlace" name="WorkPlace" type="text" value="" />
+                            <span class="field-validation-valid" data-valmsg-for="WorkPlace" data-valmsg-replace="true"></span>
+                        </div>
+
+                        @*<div class="form-group form-inline width65px">
+                            <label for="WorkPlaceId">محل کار</label>
+                            <select class="form-control" id="WorkPlaceId" name="WorkPlaceId">
+                                <option value="0">شرکت</option>
+                                <option value="1">اداره</option>
+                                <option value="2" title="مدیریت شعب منطقه">سرپرستی</option>
+                                <option value="3">شعبه</option>
+                                <option value="4">غیره</option>
+                            </select>
+                        </div>*@
+
+                        <div class="form-group form-inline width95px">
                             <label for="SematId">سِمَت</label>
                             <select class="form-control" data-val="true" data-val-number="The field سِمَت must be a number." id="SematId" name="SematId"></select>
                             <span class="field-validation-valid" data-valmsg-for="SematId" data-valmsg-replace="true"></span>
@@ -89,9 +108,9 @@
                             <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 4 کاراکتر" data-val-maxlength-max="4" id="TelDakheli" name="TelDakheli" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="TelDakheli" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline width95px">
+                        <div class="form-group form-inline width100px">
                             <label for="Mobile">موبایل</label>
-                            <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر" data-val-maxlength-max="50" id="Mobile" name="Mobile" type="text" value="" />
+                            <input class="form-control ltrcell" data-val="true" data-val-length="شماره صحیح نیست" data-val-length-max="13" data-val-length-min="13" id="Mobile" name="Mobile" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Mobile" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group form-inline width130px">
@@ -99,7 +118,7 @@
                             <input class="form-control ltrcell" data-val="true" data-val-email="آدرس ایمیل صحیح نیست" data-val-maxlength="حداکثر 40 کاراکتر" data-val-maxlength-max="40" id="Email" name="Email" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline width200px">
+                        <div class="form-group form-inline width150px">
                             <label for="Description">توضیحات</label>
                             <textarea class="form-control" rows="3" data-val="true" data-val-maxlength="حداکثر 250 کاراکتر" data-val-maxlength-max="250" id="Description" name="Description" type="text" value=""> </textarea>
                             <span class="field-validation-valid" data-valmsg-for="Description" data-valmsg-replace="true"></span>
@@ -398,7 +417,8 @@
                 // Assign placeholder to other form control
                 $("#Name").val('');
                 $("#Name").attr("placeholder", "نام و نام خانوادگی/نام تماس...");
-
+                $("#WorkPlace").val('');
+                $("#WorkPlace").attr("placeholder", "نام شرکت/اداره/سرپرستی/شعبه...");
                 $("#SematId").val(0);
                 $("#Gender").val(0);
                 $("#TelDirect").val('');

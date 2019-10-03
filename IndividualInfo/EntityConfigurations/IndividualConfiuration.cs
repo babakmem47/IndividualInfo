@@ -15,17 +15,14 @@ namespace IndividualInfo.EntityConfigurations
                 .HasMaxLength(70)
                 .HasColumnName("Name");
 
-            //Property(p => p.Gender)
-            //    .HasColumnOrder(2);
-
             Property(p => p.TelDirect)
-                .HasMaxLength(50);                      //0098[-]2188267781
+                .HasMaxLength(13);                      //021 8826 7781
 
             Property(p => p.TelDakheli)
-                .HasMaxLength(40);
+                .HasMaxLength(4);
 
-            Property(p => p.Mobile)                     //00989126384181
-                .HasMaxLength(50);
+            Property(p => p.Mobile)                     //0912 638 4181
+                .HasMaxLength(13);
 
             Property(p => p.Email)
                 .HasMaxLength(40);
@@ -38,7 +35,10 @@ namespace IndividualInfo.EntityConfigurations
                 .WithMany(s => s.Individuals)
                 .HasForeignKey(p => p.SematId);
 
-
+            //Many-To-(0..1) with WorkPlace
+            HasOptional(p => p.WorkPlace)
+                .WithMany(w => w.Individuals)
+                .HasForeignKey(p => p.WorkPlaceId);
         }
     }
 }

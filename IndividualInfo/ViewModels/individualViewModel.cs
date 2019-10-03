@@ -14,6 +14,17 @@ namespace IndividualInfo.ViewModels
         [MaxLength(70, ErrorMessage = "حداکثر 70 کاراکتر")]
         public string Name { get; set; }
 
+        [Display(Name = "محل کار")]
+        [MaxLength(50, ErrorMessage = "حداکثر 50 کاراکتر")]
+        public string WorkPlace { get; set; }
+
+        public Semat Semat { get; set; }
+
+        [Display(Name = "سِمَت")]
+        public byte? SematId { get; set; }
+
+        public IEnumerable<Semat> Semats { get; set; }
+
         [Display(Name = "جنسیت")]
         public bool? Gender { get; set; }
 
@@ -28,7 +39,8 @@ namespace IndividualInfo.ViewModels
         public string TelDakheli { get; set; }
 
         [Display(Name = "موبایل")]
-        [MaxLength(50, ErrorMessage = "حداکثر 50 کاراکتر")]
+        //[MaxLength(50, ErrorMessage = "حداکثر 50 کاراکتر")]
+        [StringLength(13, MinimumLength = 13, ErrorMessage = "شماره صحیح نیست")]
         public string Mobile { get; set; }
 
         [Display(Name = "ایمیل")]
@@ -40,12 +52,6 @@ namespace IndividualInfo.ViewModels
         [MaxLength(250, ErrorMessage = "حداکثر 250 کاراکتر")]
         public string Description { get; set; }
 
-        public Semat Semat { get; set; }
-
-        [Display(Name = "سِمَت")]
-        public byte? SematId { get; set; }
-
-        public IEnumerable<Semat> Semats { get; set; }
         //public bool? Deleted { get; set; }
 
     }
