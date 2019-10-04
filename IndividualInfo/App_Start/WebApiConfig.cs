@@ -11,6 +11,18 @@ namespace IndividualInfo
             var settings = config.Formatters.JsonFormatter.SerializerSettings;
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             settings.Formatting = Formatting.Indented;
+
+
+            // ---------- Avoid loop when returning non DTO object using Include() with Null value -----
+            //GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            //or:
+            // Prevent "Self referencing loop detected" error occurring for recursive objects
+            //var serializerSettings = new JsonSerializerSettings()
+            //{
+            //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            //};
+            //config.Formatters.JsonFormatter.SerializerSettings = serializerSettings;
+
             
             config.MapHttpAttributeRoutes();
 

@@ -27,7 +27,7 @@ namespace IndividualInfo.Controllers.Api
             var individuals = _context.Individuals
                 .Where(i => i.Deleted != true)
                 .Include(i => i.Semat)
-                .Include(i => i.WorkPlace)
+                .Include(i => i.WorkPlace.WorkPlaceType)
                 .ToList();
 
             var resultDto = individuals.Select(x => new IndividualDto()
@@ -49,11 +49,17 @@ namespace IndividualInfo.Controllers.Api
                 WorkPlaceDto = new WorkPlaceDto
                 {
                     Id = x.WorkPlaceId ?? 0,
-                    Name = (x.WorkPlaceId != null) ? x.WorkPlace.Name : String.Empty
+                    Name = (x.WorkPlaceId != null) ? x.WorkPlace.Name : String.Empty,
+                    WorkPlaceTypeDto = new WorkPlaceTypeDto
+                    {
+                        Id = (x.WorkPlaceId != null) ? x.WorkPlace.WorkPlaceTypeId : 0,
+                        Name = (x.WorkPlaceId != null) ? x.WorkPlace.WorkPlaceType.Name : String.Empty
+                    }
                 }
             });
 
             return Ok(resultDto);
+            //return Ok(individuals);
         }
 
         // Get /api/individuals/id

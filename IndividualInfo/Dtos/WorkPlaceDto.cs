@@ -8,6 +8,8 @@
 
         public WorkPlaceTypeDto WorkPlaceTypeDto { get; set; }
 
+        public byte WorkPlaceTypeDtoId { get; set; }
+
         public string Tel { get; set; }
 
         public string Address { get; set; }

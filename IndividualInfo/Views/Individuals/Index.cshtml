@@ -31,12 +31,13 @@
                 <tr>
                     <td>ردیف</td>
                     <td>نام</td>
+                    <td>محل کار</td>
                     <td>سمت</td>
                     <td><i class="fa fa-intersex" style="font-size:16px"></i></td>
                     <td> مستقیم  <span class="glyphicon glyphicon-phone-alt"></span></td>
                     <td>داخلی@*<span class="glyphicon glyphicon-earphone"></span>*@</td>
                     <td> موبایل &nbsp;<span class="glyphicon glyphicon-phone"></span></td>
-                    <td> ایمیل <i class="fa fa-envelope-o" style="font-size:14px"></i></td>
+                    <td> ایمیل @*<i class="fa fa-envelope-o" style="font-size:14px"></i>*@</td>
                     <td>توضیحات</td>
                     <td class="fontsize9">ویرایش | حذف</td>
                 </tr>
@@ -76,10 +77,10 @@
                         </div>
 
                         <div class="form-group form-inline width100px">
-                            <label for="WorkPlaceId">نام محل کار</label>
+                            <label for="WorkPlaceName">نام محل کار</label>
                             <input class="form-control" data-val="true" data-val-maxlength="حداکثر 60 کاراکتر"
-                                   data-val-maxlength-max="50" id="WorkPlaceId" name="WorkPlaceId" type="text" value="" />
-                            <span class="field-validation-valid" data-valmsg-for="WorkPlaceId" data-valmsg-replace="true"></span>
+                                   data-val-maxlength-max="50" id="WorkPlaceName" name="WorkPlaceName" type="text" value="" />
+                            <span class="field-validation-valid" data-valmsg-for="WorkPlaceName" data-valmsg-replace="true"></span>
                         </div>
 
                         <div class="form-group form-inline width95px">
@@ -141,9 +142,30 @@
 {
     @Scripts.Render("~/bundles/jqueryval")
 
-
-    @*<script src='https://kit.fontawesome.com/a076d05399.js'></script>*@
     <script>
+        function GetJsonDataFromApiWithAjaxCall(url, callback) {
+            $.ajax({
+                url: url,
+                method: "GET"
+                //success: callback                 // better to use .done(callback)
+            })
+                .done(callback)             // this will return jsonObj to callback
+            
+                .fail(function (status) {
+                console.log("fail to get data from " + url + "  status: ", status);
+            });
+        }
+
+        function PopulateSelectOptionsWithNameProp(select, jsonData) {
+            select.empty();             // reset(clear) first
+            $.each(jsonData,
+                function () {
+                    select.append($("<option />").val(this.id).text(this.name));
+                });
+        }
+
+
+
         $(document).ready(function () {
             $(".table").persiaNumber();
 
@@ -204,6 +226,16 @@
                         data: "name"
                     },
                     {
+                        data: "workPlaceDto.name",
+                        className: "width95px",
+                        render: function (data, type, individual) {
+                            if (data !== 0)
+                                return individual.workPlaceDto.name;
+                            else
+                                return '';
+                        }
+                    },
+                    {
                         data: "sematDto.id",
                         className: "width95px",
                         render: function (data, type, individual) {
@@ -243,7 +275,13 @@
                     {
                         orderable: false,
                         className: "ltrcell width130px",
-                        data: "email"
+                        data: "email",
+                        render: function(data) {
+                            if (data !== null)
+                                return "<td><a href='' class='openEmailInfo' ><i class='fa fa-envelope-o' style='font-size:14px;'></i></button></td>";
+                            else
+                                return '';
+                        }
                     },
                     {
                         data: "description"
@@ -268,7 +306,9 @@
                         }
                     }
                 ]
-            });
+            }), function() {
+                $('.sorting_asc').removeClass('sorting_asc');    // remove sorting icon from ردیف
+            };
 
             individualTable.on("click", ".js-delete",
                 function () {
@@ -285,9 +325,9 @@
                                 className: 'btn-danger pull-left',
                                 callback: function () {
                                     $.ajax({
-                                        url: "/api/individuals/" + delButton.attr("data-person-id"),
-                                        method: "DELETE"
-                                    })
+                                            url: "/api/individuals/" + delButton.attr("data-person-id"),
+                                            method: "DELETE"
+                                        })
                                         .done(function () {
                                             var rowToBeDelete = delButton.parents("tr");
                                             rowToBeDelete.fadeOut(200,
@@ -316,28 +356,20 @@
                 ".link-open-edit-modal",
                 function () {
                     var editButton = $(this);
-                    console.log(editButton.attr("data-individual-id"));
+                    // Populate WorkPlaceType select options
+                    GetJsonDataFromApiWithAjaxCall("/api/workplacetypes/",
+                        function (workPlacetypes) {
+                            var select = $("#WorkPlaceType");
+                            PopulateSelectOptionsWithNameProp(select, workPlacetypes);
+                            $("#WorkPlaceType option[value='3']").attr("title", "مدیریت شعب مناطق");
+                        });
 
-                    // Populate Semat Select Option
-                    $.ajax({
-                        url: "/api/semats/",
-                        method: "GET"
-
-                    }).done(function (data) {
-                        var sematSelectOption = $("#SematId");
-
-                        sematSelectOption.empty();  // reset(clear)
-
-                        sematSelectOption.append("<option value></option>");
-
-                        $.each(data,
-                            function () {
-                                sematSelectOption.append($("<option />").val(this.id).text(this.name));
-                            });
-
-                    }).fail(function (status) {
-                        alert("fail to read semats: status: ", status);
-                    });
+                    // Populate Semat select options
+                    GetJsonDataFromApiWithAjaxCall("/api/semats/",
+                        function (semats) {
+                            var select = $("#SematId");
+                            PopulateSelectOptionsWithNameProp(select, semats);
+                        });
 
                     // Populate Gender Select Option
                     var genderSelect = $("#Gender");
@@ -353,6 +385,8 @@
                     }).done(function (data) {
                         console.log(data);
                         $("#Name").val(data.name);
+                        $("#WorkPlaceType").val(data.workPlaceDto.id);
+                        $("#WorkPlaceName").val(data.workPlaceDto.name);
                         $("#SematId").val(data.sematDto.id);
                         if (data.gender === null)
                             $("#Gender").val(0);
@@ -377,50 +411,22 @@
             //// Click on + button (New Individual) (Modal window) //////
             $("#btnNewIndividual").click(function () {
                 $(".modal-title").text("افزودن فرد(تماس) جدید");
-                // Populate WorkPlaceType Select Option
-                $.ajax({
-                    url: "/api/workplacetypes/",
-                    method: "GET"
 
-                }).done(function (data) {
-                    var workPlaceTypeSelectOption = $("#WorkPlaceType");
-
-                    workPlaceTypeSelectOption.empty();  // reset(clear)
-
-                    //sematSelectOption.append("<option value></option>");   // no need for '' at top of select
-                    
-                    $.each(data,
-                        function () {
-                            workPlaceTypeSelectOption.append($("<option />").val(this.id).text(this.name));
-                        });
-
-                }).fail(function (status) {
-                    alert("fail to read workplacetypes: status: ", status);
-                });
-                // add placeholder "مدیریت شعب مناطق" to سرپرستی
-                $("#WorkPlaceType option[value='3']").attr("title", "مدیریت شعب مناطق");
-
-                // Populate Semat Select Option
-                $.ajax({
-                    url: "/api/semats/",
-                    method: "GET"
-
-                }).done(function (data) {
-                    var sematSelectOption = $("#SematId");
-
-                    sematSelectOption.empty();  // reset(clear)
-
-                    sematSelectOption.append("<option value></option>");
-
-                    $.each(data,
-                        function () {
-                            sematSelectOption.append($("<option />").val(this.id).text(this.name));
-                        });
-
-                }).fail(function (status) {
-                    alert("fail to read semats: status: ", status);
-                });
-
+                // Populate WorkPlaceType select options
+                GetJsonDataFromApiWithAjaxCall("/api/workplacetypes/",
+                    function (workPlacetypes) {
+                        var select = $("#WorkPlaceType");
+                        PopulateSelectOptionsWithNameProp(select, workPlacetypes);
+                        $("#WorkPlaceType option[value='3']").attr("title", "مدیریت شعب مناطق");
+                    });
+               
+                // Populate Semat select options
+                GetJsonDataFromApiWithAjaxCall("/api/semats/",
+                    function (semats) {
+                        var select = $("#SematId");
+                        PopulateSelectOptionsWithNameProp(select, semats);
+                    });
+               
                 // Populate Gender Select Option
                 var genderSelect = $("#Gender");
                 genderSelect.empty();
@@ -431,12 +437,9 @@
                 // Assign form control id value
                 $("#Id").val(0);
 
-                // Assign placeholder to other form control
+                // Initialize value of form control for adding new record
                 $("#Name").val('');
                 $("#Name").attr("placeholder", "نام و نام خانوادگی/نام تماس...");
-                $("#WorkPlaceType option[value='3']").attr("title", "مدیریت شعب مناطق");  // not working
-                $("#SematId").val(0);
-                $("#Gender").val(0);
                 $("#TelDirect").val('');
                 $("#TelDakheli").val('');
                 $("#Mobile").val('');
@@ -455,14 +458,14 @@
                 });
 
 
-            // remove(hide) sorting icon on first column
+            // move validation span under inputs
             $(window).load(function () {
-                $('.sorting_asc').removeClass('sorting_asc');
                 $("#myModal").on('shown.bs.modal',
                     function () {
                         //$(".form-group > span").addClass('newline');
                         $(".form-group > span").css("display", "block");   // it is better(no need to .newline class)
                     });
+                $('.sorting_asc').removeClass('sorting_asc');    // remove sorting icon from ردیف
             });
 
         });  // end of $(document).ready(function () {
