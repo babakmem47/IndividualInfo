@@ -8,7 +8,7 @@
 
         public WorkPlaceTypeDto WorkPlaceTypeDto { get; set; }
 
-        public byte WorkPlaceTypeDtoId { get; set; }
+        //public byte WorkPlaceTypeDtoId { get; set; }
 
         public string Tel { get; set; }
 

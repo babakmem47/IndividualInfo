@@ -9,6 +9,7 @@ namespace IndividualInfo
         {
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/popper.min.js",         // for tooltip(must be before bootstrap.js)
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/bootbox.js",
                         "~/Scripts/persianumber.js",

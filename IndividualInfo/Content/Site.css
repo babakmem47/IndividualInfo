@@ -348,7 +348,7 @@ div.dataTables_wrapper div.dataTables_length select {
 }*/
 
 /* Modal CSS override */
-.modal-dialog {
+.modal-edit-form {
     width: inherit;
 }
 

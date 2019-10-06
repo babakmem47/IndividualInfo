@@ -67,7 +67,7 @@ namespace IndividualInfo.Controllers.Api
         {
             var individual = _context.Individuals
                 .Include(i => i.Semat)
-                .Include(i => i.WorkPlace)
+                .Include(i => i.WorkPlace.WorkPlaceType)
                 .SingleOrDefault(i => i.Id == id);
 
             if (individual == null || individual.Deleted == true)
@@ -91,7 +91,12 @@ namespace IndividualInfo.Controllers.Api
                 WorkPlaceDto = new WorkPlaceDto
                 {
                     Id = individual.WorkPlaceId ?? 0,
-                    Name = (individual.WorkPlaceId != null) ? individual.WorkPlace.Name : String.Empty
+                    Name = (individual.WorkPlaceId != null) ? individual.WorkPlace.Name : String.Empty,
+                    WorkPlaceTypeDto = new WorkPlaceTypeDto
+                    {
+                        Id = (individual.WorkPlaceId != null) ? individual.WorkPlace.WorkPlaceTypeId : 0,
+                        Name = (individual.WorkPlaceId != null) ? individual.WorkPlace.WorkPlaceType.Name : String.Empty
+                    }
                 }
             };
 
@@ -111,6 +116,29 @@ namespace IndividualInfo.Controllers.Api
             _context.SaveChanges();
 
             return Ok("Individual: " + individual.Name + " deleted logically");
+        }
+
+        [HttpPost]
+        public IHttpActionResult CreateIndividual(IndividualDto individualDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var individual = new Individual()
+            {
+                Id = individualDto.Id,
+                Gender = individualDto.Gender,
+                TelDirect = individualDto.TelDirect,
+                TelDakheli = individualDto.TelDakheli,
+                Mobile = individualDto.Mobile,
+                Description = individualDto.Description,
+                SematId = individualDto.SematDto.Id,
+                Name = individualDto.Name,
+                Email = individualDto.Email,
+                WorkPlaceId = individualDto.WorkPlaceDto.Id
+            };
+
+            return Created()
         }
 
     }

@@ -51,7 +51,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-edit-form">
 
         <!-- Modal content-->
         <div class="modal-content">
@@ -230,7 +230,7 @@
                         className: "width95px",
                         render: function (data, type, individual) {
                             if (data !== 0)
-                                return individual.workPlaceDto.name;
+                                return individual.workPlaceDto.workPlaceTypeDto.name + " " + individual.workPlaceDto.name;
                             else
                                 return '';
                         }
@@ -274,11 +274,11 @@
                     },
                     {
                         orderable: false,
-                        className: "ltrcell width130px",
+                        className: "ltrcell width30px",
                         data: "email",
                         render: function(data) {
                             if (data !== null)
-                                return "<td><a href='' class='openEmailInfo' ><i class='fa fa-envelope-o' style='font-size:14px;'></i></button></td>";
+                                return "<td><i class='fa fa-envelope-o' style='font-size:14px;' data-toggle='tooltip' data-placement='top' title='" + data + "'></i></button></td>";
                             else
                                 return '';
                         }
@@ -305,11 +305,22 @@
                                 "<span class='glyphicon glyphicon-remove' title='حذف'</span></button>";
                         }
                     }
-                ]
-            }), function() {
-                $('.sorting_asc').removeClass('sorting_asc');    // remove sorting icon from ردیف
-            };
+                ],
+                // DataTables has fully been initialized:
+                "initComplete": function (settings, json) {
+                    $('.sorting_asc').removeClass('sorting_asc');    // remove sorting icon from ردیف
 
+                    $('[data-toggle="tooltip"]').tooltip();
+                    
+                    // show email 
+                    $(".fa-envelope-o").click(function () {
+                        console.log("clicked");
+                        var tip = $(this).attr("title");
+                        bootbox.alert(tip);
+                    });
+                }
+            }); // end of DataTable
+            
             individualTable.on("click", ".js-delete",
                 function () {
                     var delButton = $(this);
@@ -351,32 +362,56 @@
                     });
                 });
 
+          // Populate Select Options: WorkPlaceType, Semat and Gender for once (because they do not get updated in this page) //
+            // Populate WorkPlaceType select options
+            GetJsonDataFromApiWithAjaxCall("/api/workplacetypes/",
+                function (workPlacetypes) {
+                    var select = $("#WorkPlaceType");
+                    PopulateSelectOptionsWithNameProp(select, workPlacetypes);
+                    $("#WorkPlaceType option[value='3']").attr("title", "مدیریت شعب مناطق");
+                });
+
+            // Populate Semat select options
+            GetJsonDataFromApiWithAjaxCall("/api/semats/",
+                function (semats) {
+                    var select = $("#SematId");
+                    PopulateSelectOptionsWithNameProp(select, semats);
+                });
+
+            // Populate Gender Select Option
+            var genderSelect = $("#Gender");
+            genderSelect.empty();
+            genderSelect.append("<option value></option>");
+            genderSelect.append("<option value='true'>زن</option>");
+            genderSelect.append("<option value='false'>مرد</option>");
+          //_________________________________________________________________________________________________________________//
+
+            //// Click on + button (New Individual) (Modal window) //////
+            $("#btnNewIndividual").click(function () {
+                $(".modal-title").text("افزودن فرد(تماس) جدید");
+
+                // Assign form control id value
+                $("#Id").val(0);
+
+                // Initialize value of form control for adding new record
+                $("#Name").val('');
+                $("#Name").attr("placeholder", "نام و نام خانوادگی/نام تماس...");
+                //$("#WorkPlaceType").val(0);   //if we want it to be nothing
+                $("#TelDirect").val('');
+                $("#TelDakheli").val('');
+                $("#Mobile").val('');
+                $("#Mobile").attr("placeholder", "0912 555 5555");
+                $("#Email").val('');
+                $("#Description").val('');
+
+            });
+
             ////// Click on Edit button (Modal window) //////
             individualTable.on("click",
                 ".link-open-edit-modal",
                 function () {
                     var editButton = $(this);
-                    // Populate WorkPlaceType select options
-                    GetJsonDataFromApiWithAjaxCall("/api/workplacetypes/",
-                        function (workPlacetypes) {
-                            var select = $("#WorkPlaceType");
-                            PopulateSelectOptionsWithNameProp(select, workPlacetypes);
-                            $("#WorkPlaceType option[value='3']").attr("title", "مدیریت شعب مناطق");
-                        });
-
-                    // Populate Semat select options
-                    GetJsonDataFromApiWithAjaxCall("/api/semats/",
-                        function (semats) {
-                            var select = $("#SematId");
-                            PopulateSelectOptionsWithNameProp(select, semats);
-                        });
-
-                    // Populate Gender Select Option
-                    var genderSelect = $("#Gender");
-                    genderSelect.append("<option value></option>");
-                    genderSelect.append("<option value='true'>زن</option>");
-                    genderSelect.append("<option value='false'>مرد</option>");
-
+                    
                     // Assign form control values to selected record for editing
                     $.ajax({
                         url: "/api/individuals/" + editButton.attr("data-individual-id"),
@@ -385,7 +420,9 @@
                     }).done(function (data) {
                         console.log(data);
                         $("#Name").val(data.name);
-                        $("#WorkPlaceType").val(data.workPlaceDto.id);
+                        // var workPlaceTypeId = data.workPlaceDto.workPlaceTypeDto.id;
+                        //console.log(workPlaceTypeId);
+                        $("#WorkPlaceType").val(data.workPlaceDto.workPlaceTypeDto.id);
                         $("#WorkPlaceName").val(data.workPlaceDto.name);
                         $("#SematId").val(data.sematDto.id);
                         if (data.gender === null)
@@ -408,47 +445,6 @@
                     });
                 });
 
-            //// Click on + button (New Individual) (Modal window) //////
-            $("#btnNewIndividual").click(function () {
-                $(".modal-title").text("افزودن فرد(تماس) جدید");
-
-                // Populate WorkPlaceType select options
-                GetJsonDataFromApiWithAjaxCall("/api/workplacetypes/",
-                    function (workPlacetypes) {
-                        var select = $("#WorkPlaceType");
-                        PopulateSelectOptionsWithNameProp(select, workPlacetypes);
-                        $("#WorkPlaceType option[value='3']").attr("title", "مدیریت شعب مناطق");
-                    });
-               
-                // Populate Semat select options
-                GetJsonDataFromApiWithAjaxCall("/api/semats/",
-                    function (semats) {
-                        var select = $("#SematId");
-                        PopulateSelectOptionsWithNameProp(select, semats);
-                    });
-               
-                // Populate Gender Select Option
-                var genderSelect = $("#Gender");
-                genderSelect.empty();
-                genderSelect.append("<option value></option>");
-                genderSelect.append("<option value='true'>زن</option>");
-                genderSelect.append("<option value='false'>مرد</option>");
-
-                // Assign form control id value
-                $("#Id").val(0);
-
-                // Initialize value of form control for adding new record
-                $("#Name").val('');
-                $("#Name").attr("placeholder", "نام و نام خانوادگی/نام تماس...");
-                $("#TelDirect").val('');
-                $("#TelDakheli").val('');
-                $("#Mobile").val('');
-                $("#Mobile").attr("placeholder", "0912 555 5555");
-                $("#Email").val('');
-                $("#Description").val('');
-
-            });
-
             // hide validatin error when modal closed: because the error msg remain for other records when clicking on edit
             $("#myModal").on('hidden.bs.modal',
                 function (e) {
@@ -457,6 +453,7 @@
                     $(".form-group > .form-control").removeClass("input-validation-error");
                 });
 
+            
 
             // move validation span under inputs
             $(window).load(function () {
@@ -465,9 +462,9 @@
                         //$(".form-group > span").addClass('newline');
                         $(".form-group > span").css("display", "block");   // it is better(no need to .newline class)
                     });
-                $('.sorting_asc').removeClass('sorting_asc');    // remove sorting icon from ردیف
+               
             });
-
+            
         });  // end of $(document).ready(function () {
 
 
@@ -497,7 +494,6 @@
             var x = e.target.value.replace(/\D/g, '').match(/(\d{0,4})(\d{0,3})(\d{0,4})/);
             e.target.value = !x[2] ? x[1] : x[1] + ' ' + x[2] + (x[3] ? ' ' + x[3] : '');
         });
-
         //__________ Input Filter ___________//
 
     </script>

@@ -23,6 +23,8 @@ namespace IndividualInfo.Controllers.Api
             _context.Dispose();
         }
 
+        [HttpGet]
+        [Route("api/workplacetypes")]
         public IHttpActionResult GetWorkPlaceTypes()
         {
             var workPlaceTypes = _context.WorkPlaceTypes.ToList();
@@ -35,5 +37,33 @@ namespace IndividualInfo.Controllers.Api
 
             return Ok(workPlaceTypeDto);
         }
+
+        [HttpGet]
+        [Route("api/workplaces")]
+        public IHttpActionResult GetWorkPlaces()
+        {
+            var wp = _context.WorkPlaces.ToList();
+            return Ok(wp);
+        }
+        
+        [HttpGet]
+        [Route("api/workplacesIdAndName")]
+        public IHttpActionResult WorkplacesIdAndName()
+        {
+            var wp = _context.WorkPlaces.ToList();
+            return Ok(wp.Select(x => new WorkPlaceDto2()
+            {
+                Id = x.Id,
+                Name = x.Name
+            }));
+        }
+
+    }
+
+    public class WorkPlaceDto2
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
     }
 }
