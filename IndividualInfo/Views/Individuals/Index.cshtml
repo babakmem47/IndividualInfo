@@ -15,8 +15,8 @@
 <div class="row">
     <div class="col-lg-1 col-xs-1">
         @*@Html.ActionLink("+", "New", "Individuals", null, new { @class = "btn btn-primary btn-lg", title = "افزودن فرد جدید" })*@
-        @*<a id="btnNewIndividual" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" title=" افزودن فرد جدید... ">+</a>*@
-        <button id="btnNewIndividual" class="btn btn-primary" data-toggle="modal" data-target="#myModal" title="افزودن فرد/تماس جدید" style="font-size:20px"><i class="fa fa-user-plus"></i></button>
+        @*<a id="btnNewIndividual" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#individualFormModal" title=" افزودن فرد جدید... ">+</a>*@
+        <button id="btnNewIndividual" class="btn btn-primary" data-toggle="modal" data-target="#individualFormModal" title="افزودن فرد/تماس جدید" style="font-size:20px"><i class="fa fa-user-plus"></i></button>
     </div>
     <div class="col-lg-10 col-xs-10" align="right">
     </div>
@@ -50,7 +50,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="individualFormModal" role="dialog">
     <div class="modal-dialog modal-edit-form">
 
         <!-- Modal content-->
@@ -60,8 +60,10 @@
                 <h4 class="modal-title">ویرایش</h4>
             </div>
             <div class="modal-body">
-                @using (Html.BeginForm("Save", "Individuals", FormMethod.Post, new { @class = "form-inline" }))
-                {
+                @*@using (Html.BeginForm("Save", "Individuals", FormMethod.Post, new { @class = "form-inline" }))
+                {*@
+                <form id="individualForm" method="post" class="form-inline">
+
                     <div class="row">
                         <div class="form-group form-inline width140px">
                             <label for="Name">نام</label>
@@ -126,9 +128,13 @@
                     <br />
                     <input data-val="true" data-val-number="The field Id must be a number."
                            data-val-required="The Id field is required." id="Id" name="Id" type="hidden" />
-                    @Html.AntiForgeryToken()
-                    <button id="savebutton" type="submit" class="btn btn-primary">ذخیره</button>
-                }
+                    @*@Html.AntiForgeryToken()*@
+                    @*<button id="savebutton" type="submit" class="btn btn-primary">ذخیره</button>*@
+                    <button type="button" id="saveButton2" class="btn btn-primary">تست ذخیره</button>
+
+                </form>
+
+                @*}*@  <!-- End of Form Html.BeginForm -->
             </div>
             @*<div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -145,28 +151,26 @@
     <script>
         function GetJsonDataFromApiWithAjaxCall(url, callback) {
             $.ajax({
-                url: url,
-                method: "GET"
-                //success: callback                 // better to use .done(callback)
-            })
-                .done(callback)             // this will return jsonObj to callback
-            
-                .fail(function (status) {
-                console.log("fail to get data from " + url + "  status: ", status);
-            });
+                    url: url,
+                    method: "GET"
+                    //success: callback                 // better to use .done(callback)
+                })
+                .done(callback) // this will return jsonObj to callback
+                .fail(function(status) {
+                    console.log("fail to get data from " + url + "  status: ", status);
+                });
         }
 
         function PopulateSelectOptionsWithNameProp(select, jsonData) {
-            select.empty();             // reset(clear) first
+            select.empty(); // reset(clear) first
             $.each(jsonData,
-                function () {
+                function() {
                     select.append($("<option />").val(this.id).text(this.name));
                 });
         }
 
 
-
-        $(document).ready(function () {
+        $(document).ready(function() {
             $(".table").persiaNumber();
 
             var individualTable = $("#individualTable");
@@ -218,7 +222,7 @@
                         className: "width30px",
                         //searchable: false,
                         //sortable: false,
-                        render: function () {
+                        render: function() {
                             return row++;
                         }
                     },
@@ -228,9 +232,11 @@
                     {
                         data: "workPlaceDto.name",
                         className: "width95px",
-                        render: function (data, type, individual) {
+                        render: function(data, type, individual) {
                             if (data !== 0)
-                                return individual.workPlaceDto.workPlaceTypeDto.name + " " + individual.workPlaceDto.name;
+                                return individual.workPlaceDto.workPlaceTypeDto.name +
+                                    " " +
+                                    individual.workPlaceDto.name;
                             else
                                 return '';
                         }
@@ -238,7 +244,7 @@
                     {
                         data: "sematDto.id",
                         className: "width95px",
-                        render: function (data, type, individual) {
+                        render: function(data, type, individual) {
                             if (data !== 0)
                                 return individual.sematDto.name;
                             else
@@ -248,7 +254,7 @@
                     {
                         orderable: false,
                         data: "gender",
-                        render: function (data) {
+                        render: function(data) {
                             if (data === true)
                                 return "<td><i class='fa fa-female' style='font-size:14px;'></i></td>";
                             else if (data === false)
@@ -278,7 +284,9 @@
                         data: "email",
                         render: function(data) {
                             if (data !== null)
-                                return "<td><i class='fa fa-envelope-o' style='font-size:14px;' data-toggle='tooltip' data-placement='top' title='" + data + "'></i></button></td>";
+                                return "<td><i class='fa fa-envelope-o' style='font-size:14px;' data-toggle='tooltip' data-placement='top' title='" +
+                                    data +
+                                    "'></i></button></td>";
                             else
                                 return '';
                         }
@@ -290,14 +298,15 @@
                         orderable: false,
                         className: "text-left EditRemoveColumn",
                         data: "id",
-                        render: function (data) {
+                        render: function(data) {
                             return "<a href='/Individuals/Edit/" +
                                 data +
                                 "'> " +
                                 "<span class='glyphicon glyphicon-edit' title='... ویرایش'</span></a>" +
                                 "&nbsp;" +
-                                "<a href='' class='link-open-edit-modal' data-toggle='modal' data-target='#myModal' data-individual-id='" +
-                                data + "'><span class='glyphicon glyphicon-edit' title='... ویرایش'></span></a>" +
+                                "<a href='' class='link-open-edit-modal' data-toggle='modal' data-target='#individualFormModal' data-individual-id='" +
+                                data +
+                                "'><span class='glyphicon glyphicon-edit' title='... ویرایش'></span></a>" +
                                 "&nbsp;&nbsp;" +
                                 "<button class='btn-link js-delete' data-person-id='" +
                                 data +
@@ -307,46 +316,47 @@
                     }
                 ],
                 // DataTables has fully been initialized:
-                "initComplete": function (settings, json) {
-                    $('.sorting_asc').removeClass('sorting_asc');    // remove sorting icon from ردیف
+                "initComplete": function(settings, json) {
+                    $('.sorting_asc').removeClass('sorting_asc'); // remove sorting icon from ردیف
 
                     $('[data-toggle="tooltip"]').tooltip();
-                    
+
                     // show email 
-                    $(".fa-envelope-o").click(function () {
+                    $(".fa-envelope-o").click(function() {
                         console.log("clicked");
                         var tip = $(this).attr("title");
                         bootbox.alert(tip);
                     });
                 }
             }); // end of DataTable
-            
-            individualTable.on("click", ".js-delete",
-                function () {
+
+            individualTable.on("click",
+                ".js-delete",
+                function() {
                     var delButton = $(this);
                     var delbtn = this;
                     console.log(delButton.closest("tr").attr);
                     //console.log(delbtn.parent("tr"));
                     var dialog = bootbox.dialog({
                         title: 'تائید',
-                        message: "آیا مطمئن هستید که می خواهید رکورد " + " '" + +  "' " + "حذف شود؟",
+                        message: "آیا مطمئن هستید که می خواهید رکورد " + " '" + + "' " + "حذف شود؟",
                         buttons: {
                             yes: {
                                 label: "حذف",
                                 className: 'btn-danger pull-left',
-                                callback: function () {
+                                callback: function() {
                                     $.ajax({
                                             url: "/api/individuals/" + delButton.attr("data-person-id"),
                                             method: "DELETE"
                                         })
-                                        .done(function () {
+                                        .done(function() {
                                             var rowToBeDelete = delButton.parents("tr");
                                             rowToBeDelete.fadeOut(200,
-                                                function () {
+                                                function() {
                                                     table.row(rowToBeDelete).remove().draw();
                                                 });
                                         })
-                                        .fail(function () {
+                                        .fail(function() {
                                             alert("Something failed");
                                         });
                                 }
@@ -354,7 +364,7 @@
                             no: {
                                 label: "خیر",
                                 className: 'btn-default btn-left-bootbox',
-                                callback: function () {
+                                callback: function() {
                                     bootbox.hideAll();
                                 }
                             }
@@ -362,10 +372,10 @@
                     });
                 });
 
-          // Populate Select Options: WorkPlaceType, Semat and Gender for once (because they do not get updated in this page) //
+            // Populate Select Options: WorkPlaceType, Semat and Gender for once (because they do not get updated in this page) //
             // Populate WorkPlaceType select options
             GetJsonDataFromApiWithAjaxCall("/api/workplacetypes/",
-                function (workPlacetypes) {
+                function(workPlacetypes) {
                     var select = $("#WorkPlaceType");
                     PopulateSelectOptionsWithNameProp(select, workPlacetypes);
                     $("#WorkPlaceType option[value='3']").attr("title", "مدیریت شعب مناطق");
@@ -373,7 +383,7 @@
 
             // Populate Semat select options
             GetJsonDataFromApiWithAjaxCall("/api/semats/",
-                function (semats) {
+                function(semats) {
                     var select = $("#SematId");
                     PopulateSelectOptionsWithNameProp(select, semats);
                 });
@@ -384,10 +394,10 @@
             genderSelect.append("<option value></option>");
             genderSelect.append("<option value='true'>زن</option>");
             genderSelect.append("<option value='false'>مرد</option>");
-          //_________________________________________________________________________________________________________________//
+            //_________________________________________________________________________________________________________________//
 
             //// Click on + button (New Individual) (Modal window) //////
-            $("#btnNewIndividual").click(function () {
+            $("#btnNewIndividual").click(function() {
                 $(".modal-title").text("افزودن فرد(تماس) جدید");
 
                 // Assign form control id value
@@ -409,15 +419,15 @@
             ////// Click on Edit button (Modal window) //////
             individualTable.on("click",
                 ".link-open-edit-modal",
-                function () {
+                function() {
                     var editButton = $(this);
-                    
+
                     // Assign form control values to selected record for editing
                     $.ajax({
                         url: "/api/individuals/" + editButton.attr("data-individual-id"),
                         method: "GET"
 
-                    }).done(function (data) {
+                    }).done(function(data) {
                         console.log(data);
                         $("#Name").val(data.name);
                         // var workPlaceTypeId = data.workPlaceDto.workPlaceTypeDto.id;
@@ -439,63 +449,135 @@
                         $("#Description").val(data.description);
                         $("#Id").val(data.id);
 
-                    }).fail(function (status) {
+                    }).fail(function(status) {
                         alert("fail to real data");
                         console.log(status);
                     });
                 });
 
             // hide validatin error when modal closed: because the error msg remain for other records when clicking on edit
-            $("#myModal").on('hidden.bs.modal',
-                function (e) {
+            $("#individualFormModal").on('hidden.bs.modal',
+                function(e) {
                     console.log("modal closed");
                     $(".form-group > span").removeClass("field-validation-error").children("span").remove();
                     $(".form-group > .form-control").removeClass("input-validation-error");
                 });
 
-            
 
             // move validation span under inputs
-            $(window).load(function () {
-                $("#myModal").on('shown.bs.modal',
-                    function () {
+            $(window).load(function() {
+                $("#individualFormModal").on('shown.bs.modal',
+                    function() {
                         //$(".form-group > span").addClass('newline');
-                        $(".form-group > span").css("display", "block");   // it is better(no need to .newline class)
+                        $(".form-group > span").css("display", "block"); // it is better(no need to .newline class)
                     });
-               
+
             });
-            
-        });  // end of $(document).ready(function () {
+
+
+            // Save Data using api controller
+            $("#saveButton2").click(function() {
+                var dataIsvalid = $("#individualForm").valid();
+
+                if (dataIsvalid) {
+                    // Check for new Company/Office name:
+                    $.getJSON("/api/workplacesIdAndName",
+                        function(data) {
+                            //console.log(data);
+                            var workPlaceName = document.getElementById("individualForm").WorkPlaceName.value;
+                            var idOfExistingPlace = -1;
+                            for (var i in data) {
+                                if (workPlaceName.search(data[i].name) !== -1)
+                                    idOfExistingPlace = data[i].id;
+                            }
+
+                            // Create a hidden input element for form if not already exist
+                            if (("WorkPlaceId" in window) !== true) {
+                                $("<input>").attr({
+                                    type: 'hidden',
+                                    id: 'WorkPlaceId',
+                                    name: 'WorkPlaceId',
+                                    value: null
+                                }).appendTo("#individualForm");
+                            }
+
+                            // fill WorkPlaceId value 
+                            if ($("#WorkPlaceName").val() === "") {
+                                $("#WorkPlaceId").val(null);
+                            }
+                            else if (idOfExistingPlace !== -1) {
+                                $("#WorkPlaceId").val(idOfExistingPlace);
+                            }
+                            else if (idOfExistingPlace === -1) {  // workplace filled by user
+                                console.log("adding new workplace");
+                            }
+
+                        });
+
+                    //var formData = $("#individualForm").serialize();
+                    ////console.log(formData);
+
+                    //var idOfForm = document.getElementById("individualForm").Id.value;
+
+                    //if (idOfForm === '0') { // New individual (id='0')
+                    //    $.post("/api/individuals",
+                    //        formData,
+                    //        function(data, status) {
+                    //            console.log(data);
+                    //            console.log(status);
+
+                    //            $("#individualFormModal").modal('toggle');  // close modal
+                    //            location.reload();
+                    //        });
+                    //} else { // Edit existing individual (id != '0')
+                    //    $.post("/api/individuals/" + idOfForm,
+                    //        formData,
+                    //        function(data, status) {
+                    //            console.log(data);
+                    //            console.log(status);
+                    //            if (status === 'success')
+                    //                console.log('updated successfully');
+                    //        });
+                    //}
+                }
+
+            });
+
+        }); // end of $(document).ready(function () {
 
 
         //////      Input Filter    ///////
         function setInputFilter(textbox, inputFilter) {
-            ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
-                textbox.addEventListener(event, function () {
-                    if (inputFilter(this.value)) {
-                        this.oldValue = this.value;
-                        this.oldSelectionStart = this.selectionStart;
-                        this.oldSelectionEnd = this.selectionEnd;
-                    } else if (this.hasOwnProperty("oldValue")) {
-                        this.value = this.oldValue;
-                        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-                    }
+            ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(
+                function(event) {
+                    textbox.addEventListener(event,
+                        function() {
+                            if (inputFilter(this.value)) {
+                                this.oldValue = this.value;
+                                this.oldSelectionStart = this.selectionStart;
+                                this.oldSelectionEnd = this.selectionEnd;
+                            } else if (this.hasOwnProperty("oldValue")) {
+                                this.value = this.oldValue;
+                                this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                            }
+                        });
                 });
-            });
         }
 
         // Set Filter for TelDakheli: Maximum 4 digit(only digit)
-        setInputFilter(document.getElementById("TelDakheli"), function (value) {
-            return /^\d*$/.test(value) && (value === "" || value.length <= 4);
-        });
+        setInputFilter(document.getElementById("TelDakheli"),
+            function(value) {
+                return /^\d*$/.test(value) && (value === "" || value.length <= 4);
+            });
 
         // Set Filter for TelDakheli: 10 digit with space separator(only digit) : 0912 555 5555
-        document.getElementById('Mobile').addEventListener('input', function (e) {
-            var x = e.target.value.replace(/\D/g, '').match(/(\d{0,4})(\d{0,3})(\d{0,4})/);
-            e.target.value = !x[2] ? x[1] : x[1] + ' ' + x[2] + (x[3] ? ' ' + x[3] : '');
-        });
+        document.getElementById('Mobile').addEventListener('input',
+            function(e) {
+                var x = e.target.value.replace(/\D/g, '').match(/(\d{0,4})(\d{0,3})(\d{0,4})/);
+                e.target.value = !x[2] ? x[1] : x[1] + ' ' + x[2] + (x[3] ? ' ' + x[3] : '');
+            });
         //__________ Input Filter ___________//
 
     </script>
 
-}
+    }

@@ -127,18 +127,49 @@ namespace IndividualInfo.Controllers.Api
             var individual = new Individual()
             {
                 Id = individualDto.Id,
+                Name = individualDto.Name,
+                SematId = individualDto.SematId,
                 Gender = individualDto.Gender,
                 TelDirect = individualDto.TelDirect,
                 TelDakheli = individualDto.TelDakheli,
                 Mobile = individualDto.Mobile,
-                Description = individualDto.Description,
-                SematId = individualDto.SematDto.Id,
-                Name = individualDto.Name,
                 Email = individualDto.Email,
-                WorkPlaceId = individualDto.WorkPlaceDto.Id
+                Description = individualDto.Description,
+                WorkPlaceId = individualDto.WorkPlaceId
             };
 
-            return Created()
+            _context.Individuals.Add(individual);
+            _context.SaveChanges();
+
+            individualDto.Id = individual.Id;
+            return Created(new Uri(Request.RequestUri + "/" + individual.Id), individualDto);
+        }
+
+        [HttpPut]
+        public IHttpActionResult UpdateIndividual(int id, IndividualDto individualDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var individualInDb = _context.Individuals.SingleOrDefault(i => i.Id == id);
+
+            if (individualInDb == null)
+                return NotFound();
+
+            individualInDb.Name = individualDto.Name;
+            individualInDb.SematId = individualDto.SematId;
+            individualInDb.Gender = individualDto.Gender;
+            individualInDb.TelDirect = individualDto.TelDirect;
+            individualInDb.TelDakheli = individualDto.TelDakheli;
+            individualInDb.Mobile = individualDto.Mobile;
+            individualInDb.Email = individualDto.Email;
+            individualInDb.Description = individualDto.Description;
+            individualInDb.WorkPlaceId = individualInDb.WorkPlaceId;
+            //individualInDb.WorkPlaceId = (individualDto.WorkPlaceDto != null) ? individualDto.WorkPlaceDto.Id : (int?)null;
+
+            _context.SaveChanges();
+
+            return Ok();
         }
 
     }

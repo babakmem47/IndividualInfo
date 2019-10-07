@@ -18,10 +18,14 @@
 
         public SematDto SematDto { get; set; }
 
+        public byte? SematId { get; set; }
+
         public bool? Deleted { get; set; }
 
         public string Email { get; set; }
 
         public WorkPlaceDto WorkPlaceDto { get; set; }
+
+        public int? WorkPlaceId { get; set; }
     }
 }

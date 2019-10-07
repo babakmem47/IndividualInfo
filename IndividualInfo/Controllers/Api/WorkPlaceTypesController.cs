@@ -58,6 +58,14 @@ namespace IndividualInfo.Controllers.Api
             }));
         }
 
+        [HttpGet]
+        [Route("api/workplacesOnlyName")]
+        public IHttpActionResult WorkplacesOnlyName()
+        {
+            var workplaceNames = _context.WorkPlaces.ToList().Select(wp => wp.Name);
+            return Ok(workplaceNames);
+        }
+
     }
 
     public class WorkPlaceDto2
