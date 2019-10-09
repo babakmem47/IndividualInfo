@@ -123,14 +123,14 @@
 
                     </div>
 
-                    <br />
-                    <br />
-                    <br />
                     <input data-val="true" data-val-number="The field Id must be a number."
                            data-val-required="The Id field is required." id="Id" name="Id" type="hidden" />
                     @*@Html.AntiForgeryToken()*@
                     @*<button id="savebutton" type="submit" class="btn btn-primary">ذخیره</button>*@
-                    <button type="button" id="saveButton2" class="btn btn-primary">تست ذخیره</button>
+                    <div class="modal-footer">
+                        <button type="button" id="saveButton" class="btn btn-primary">ذخیره</button>
+                        <a href="#myModal" data-backdrop="false" data-toggle="modal">Click Me</a>
+                    </div>
 
                 </form>
 
@@ -144,6 +144,30 @@
     </div>
 </div>
 <!-- End of Modal -->
+
+<!--Second Modal-->
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Settings</h4>
+
+            </div>
+            <div class="modal-body">
+                <p>Settings</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
@@ -159,13 +183,17 @@
 
 
         $(document).ready(function () {
+            $("#myModal").draggable({
+                handle: ".modal-header"
+            });
+
             $(".table").persiaNumber();
 
             var individualTable = $("#individualTable");
             var row = 1;
 
             individualTable.DataTable({
-                "pageLength": 20,
+                "pageLength": 30,
 
                 "oLanguage": {
                     "sSearch": "جستجو  ",
@@ -197,7 +225,7 @@
                 "columnDefs": [
                     { "className": "text-center", "targets": "_all" }
                 ],
-
+                
                 ajax: {
                     url: "/api/individuals",
                     dataSrc: ""
@@ -264,12 +292,12 @@
                     },
                     {
                         orderable: false,
-                        //className: "ltrcell width100px",
+                        className: "ltrcell",
                         data: "mobile"
                     },
                     {
                         orderable: false,
-                        //className: "ltrcell width95px",
+                        className: "ltrcell",
                         data: "email",
                         render: function (data) {
                             if (data !== null)
@@ -288,12 +316,7 @@
                         className: "text-left EditRemoveColumn",
                         data: "id",
                         render: function (data) {
-                            return "<a href='/Individuals/Edit/" +
-                                data +
-                                "'> " +
-                                "<span class='glyphicon glyphicon-edit' title='... ویرایش'</span></a>" +
-                                "&nbsp;" +
-                                "<a href='' class='link-open-edit-modal' data-toggle='modal' data-target='#individualFormModal' data-individual-id='" +
+                            return "<a href='' class='link-open-edit-modal' data-toggle='modal' data-target='#individualFormModal' data-individual-id='" +
                                 data +
                                 "'><span class='glyphicon glyphicon-edit' title='... ویرایش'></span></a>" +
                                 "&nbsp;&nbsp;" +
@@ -304,19 +327,19 @@
                         }
                     }
                 ],
-                // DataTables has fully been initialized:
-                "initComplete": function (settings, json) {
+                // DataTables has fully been initialized:   
+                "initComplete": function (settings, json) {     // better to replicate below codes in "fnDrawCallback"
                     $('.sorting_asc').removeClass('sorting_asc'); // remove sorting icon from ردیف
 
                     $('[data-toggle="tooltip"]').tooltip();
+                },
 
-                    // show email
-                    $(".fa-envelope-o").click(function () {
-                        console.log("clicked");
-                        var tip = $(this).attr("title");
-                        bootbox.alert(tip);
-                    });
+                "fnDrawCallback": function () {  
+                    individualTable.persiaNumber();                 // because next pages are not Farsi
+                    $('.sorting_asc').removeClass('sorting_asc');   // because after using ajax.reload(), sorting keep coming back
+                    $('[data-toggle="tooltip"]').tooltip();         // because after using ajax.reload(), tooltip disappearing
                 }
+
             }); // end of DataTable
 
             individualTable.on("click",
@@ -396,6 +419,8 @@
                 $("#Name").val('');
                 $("#Name").attr("placeholder", "نام و نام خانوادگی/نام تماس...");
                 //$("#WorkPlaceType").val(0);   //if we want it to be nothing
+                $("#WorkPlaceName").val('');
+
                 $("#TelDirect").val('');
                 $("#TelDakheli").val('');
                 $("#Mobile").val('');
@@ -452,6 +477,16 @@
                     $(".form-group > .form-control").removeClass("input-validation-error");
                 });
 
+            // make body page behind modal scrollable
+            $("#individualFormModal").on("shown.bs.modal",
+                function() {
+                    $("body").removeClass("modal-open");
+                });
+
+            //make modal draggable                   
+            $("#individualFormModal").draggable({
+                handle: ".modal-header"
+            });
 
             // move validation span under inputs
             $(window).load(function () {
@@ -460,26 +495,33 @@
                         //$(".form-group > span").addClass('newline');
                         $(".form-group > span").css("display", "block"); // it is better(no need to .newline class)
                     });
-
             });
 
 
             // Save Data using api controller
-            $("#saveButton2").click(function () {
+            $("#saveButton").click(function () {
                 var dataIsvalid = $("#individualForm").valid();
 
                 if (dataIsvalid) {
                     // Check for new Company/Office name:
                     $.getJSON("/api/workplacesIdAndName",
-                        function (data) {
-                            //console.log(data);
+                        function (results) {
+                            console.log("workplacesIdName:" + results);
                             var workPlaceName = document.getElementById("individualForm").WorkPlaceName.value;
+                            console.log("workplacesName entered by user: " + workPlaceName);
                             var idOfExistingPlace = -1;
-                            for (var i in data) {
-                                if (workPlaceName.search(data[i].name) !== -1)
-                                    idOfExistingPlace = data[i].id;
-                            }
-
+                            $.each(results,
+                                function (index) {
+                                    ///console.log(results[index].name);
+                                    if (results[index].name === workPlaceName) {
+                                        idOfExistingPlace = results[index].id;
+                                    }
+                                });
+                            //for (var i in data) {
+                            //    if (workPlaceName.search(data[i].name) !== -1)
+                            //        idOfExistingPlace = data[i].id;
+                            //}
+                            console.log("idOfExistingPlace:" + idOfExistingPlace);
                             // Create a hidden input element for form if not already exist
                             if (("WorkPlaceId" in window) !== true) {
                                 $("<input>").attr({
@@ -491,54 +533,56 @@
                             }
 
                             // fill WorkPlaceId value
-                            if ($("#WorkPlaceName").val() === "") {
+                            if ($("#WorkPlaceName").val() === "") {  // no workplace filled by user
                                 $("#WorkPlaceId").val(null);
                             }
-                            else if (idOfExistingPlace !== -1) {
+                            else if (idOfExistingPlace !== -1) {        // user select workplace from list
                                 $("#WorkPlaceId").val(idOfExistingPlace);
                                 console.log(idOfExistingPlace);
                             }
-                            else if (idOfExistingPlace === -1) {  // workplace filled by user
+                            else if (idOfExistingPlace === -1) {  // new workplace filled by user
                                 console.log("adding new workplace");
                             }
 
-                        });
+                            var formData = $("#individualForm").serialize();
+                            console.log("Form Data: " + formData);
 
-                    var formData = $("#individualForm").serialize();
-                    console.log(formData);
+                            var idOfForm = document.getElementById("individualForm").Id.value;
+                            console.log("idOfForm: " + idOfForm);
 
-                    var idOfForm = document.getElementById("individualForm").Id.value;
-                    console.log(idOfForm);
+                            if (idOfForm === '0') {     // New individual (id='0')
+                                console.log("new record added");
+                                $.post("/api/individuals",
+                                    formData,
+                                    function (data, status) {
+                                        console.log(data);
+                                        console.log(status);
 
-                    if (idOfForm === '0') {     // New individual (id='0')
-                        $.post("/api/individuals",
-                            formData,
-                            function (data, status) {
-                                console.log(data);
-                                console.log(status);
-
-                                $("#individualFormModal").modal('toggle');  // close modal
-                                location.reload();
-                            });
-                    } else {                    // Edit existing individual (id != '0')
-                        $.ajax({
-                            url: "/api/individuals/" + idOfForm,
-                            method: "PUT",
-                            data: formData,
-                            success: function (status) {
-                                console.log(status);
-                                if (status === 'success') {
-                                    console.log('updated successfully');
-                                    $("#individualFormModal").modal('toggle');  // close modal
-                                    location.reload();
-                                }
-
+                                        
+                                        $("#individualFormModal").modal('toggle');  // close modal
+                                        row = 1;
+                                        individualTable.DataTable().ajax.reload();
+                                        //location.reload();
+                                    });
+                            } else {                    // Edit existing individual (id != '0')
+                                console.log("record updated");
+                                $.ajax({
+                                    url: "/api/individuals/" + idOfForm,
+                                    method: "PUT",
+                                    data: formData,
+                                    success: function(data, status) {
+                                        console.log("updated data result: " + data);
+                                        console.log("update status: " + status);
+                                        console.log('updated successfully');
+                                        $("#individualFormModal").modal('toggle');  // close modal
+                                        row = 1;
+                                        individualTable.DataTable().ajax.reload();
+                                    }
+                                });
                             }
-
                         });
 
-
-                    }
+                    
                 }
 
             });
@@ -583,7 +627,7 @@
         //Auto Complete WorkPlace name input
         $.getJSON("/api/workplacesOnlyName",
             function (workplaceNames) {
-                console.log(workplaceNames);
+                console.log("workplacesOnlyName: " + workplaceNames);
                 var workplaceInput = document.getElementById("WorkPlaceName");
                 autocomplete(workplaceInput, workplaceNames);
             });
