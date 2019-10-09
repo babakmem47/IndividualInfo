@@ -129,7 +129,7 @@
                     @*<button id="savebutton" type="submit" class="btn btn-primary">ذخیره</button>*@
                     <div class="modal-footer">
                         <button type="button" id="saveButton" class="btn btn-primary">ذخیره</button>
-                        <a href="#myModal" data-backdrop="false" data-toggle="modal">Click Me</a>
+                        <a href="#WorkPlaceModal" data-backdrop="false" data-toggle="modal">Click Me</a>
                     </div>
 
                 </form>
@@ -146,20 +146,21 @@
 <!-- End of Modal -->
 
 <!--Second Modal-->
-<div id="myModal" class="modal fade">
+<div id="WorkPlaceModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Settings</h4>
+                <h4 class="modal-title">افزودن محل کار جدید</h4>
 
             </div>
             <div class="modal-body">
-                <p>Settings</p>
+                <p><i id="typeOfWorkPlace">شرکت</i> <strong id="nameOfWorkPlace">فربین</strong> یک <i id="typeOfWorkPlace">شرکت</i> جدید می باشد که اطلاعات آن قبلا ثبت نشده است.</p>
+                <br/>
+                لطفا در صورت داشتن اطلاعات، مقادیر فیلدهای زیر را برای آن درج و ثبت نمائید.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" id="saveWorkPlaceButton" class="btn btn-primary">ثبت</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -183,7 +184,7 @@
 
 
         $(document).ready(function () {
-            $("#myModal").draggable({
+            $("#WorkPlaceModal").draggable({
                 handle: ".modal-header"
             });
 
@@ -542,6 +543,7 @@
                             }
                             else if (idOfExistingPlace === -1) {  // new workplace filled by user
                                 console.log("adding new workplace");
+
                             }
 
                             var formData = $("#individualForm").serialize();
@@ -557,8 +559,6 @@
                                     function (data, status) {
                                         console.log(data);
                                         console.log(status);
-
-                                        
                                         $("#individualFormModal").modal('toggle');  // close modal
                                         row = 1;
                                         individualTable.DataTable().ajax.reload();

@@ -164,7 +164,7 @@ namespace IndividualInfo.Controllers.Api
             individualInDb.Mobile = individualDto.Mobile;
             individualInDb.Email = individualDto.Email;
             individualInDb.Description = individualDto.Description;
-            individualInDb.WorkPlaceId = individualInDb.WorkPlaceId;
+            individualInDb.WorkPlaceId = individualDto.WorkPlaceId;
             //individualInDb.WorkPlaceId = (individualDto.WorkPlaceDto != null) ? individualDto.WorkPlaceDto.Id : (int?)null;
 
             _context.SaveChanges();
