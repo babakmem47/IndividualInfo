@@ -151,13 +151,49 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">افزودن محل کار جدید</h4>
+                <h4 class="modal-title">ثبت محل کار جدید</h4>
 
             </div>
             <div class="modal-body">
-                <p><i id="typeOfWorkPlace">شرکت</i> <strong id="nameOfWorkPlace">فربین</strong> یک <i id="typeOfWorkPlace">شرکت</i> جدید می باشد که اطلاعات آن قبلا ثبت نشده است.</p>
-                <br/>
+                <p><i class="typeOfWorkPlace">شرکت</i> <strong id="name-work-place">فربین</strong> که توسط شما به عنوان محل کار وارد شده، یک داده جدید می باشد که قبلا ثبت <strong>نشده</strong> است.</p>
                 لطفا در صورت داشتن اطلاعات، مقادیر فیلدهای زیر را برای آن درج و ثبت نمائید.
+                <form id="workPlaceForm" method="post">
+
+                    <div class="form-group">
+                        <label for="workPlaceTypeOfPlace">نوع محل کار</label>
+                        <select class="form-control" id="workPlaceTypeOfPlace" name="workPlaceTypeOfPlace"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nameOfWorkPlace">نام</label>
+                        <input class="form-control" data-val="true" data-val-maxlength="حداکثر 60 کاراکتر"
+                               data-val-maxlength-max="60" data-val-required="پر کردن فیلد نام محل کار ضروری است"
+                               id="nameOfWorkPlace" name="nameOfWorkPlace" type="text" value=""/>
+                        <span class="field-validation-valid" data-valmsg-for="nameOfWorkPlace" data-valmsg-replace="true"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telOfWorkPlace">تلفن </label>
+                        <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر" data-val-maxlength-max="50" id="telOfWorkPlace" name="telOfWorkPlace" type="text" value=""/>
+                        <span class="field-validation-valid" data-valmsg-for="telOfWorkPlace" data-valmsg-replace="true"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">آدرس</label>
+                        <textarea class="form-control" rows="3" data-val="true" data-val-maxlength="حداکثر 130 کاراکتر" data-val-maxlength-max="250" id="address" name="address" type="text" value=""> </textarea>
+                        <span class="field-validation-valid" data-valmsg-for="address" data-valmsg-replace="true"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fieldOfActivity">آدرس</label>
+                        <textarea class="form-control" rows="3" data-val="true" data-val-maxlength="حداکثر 130 کاراکتر" data-val-maxlength-max="250" id="fieldOfActivity" name="fieldOfActivity" type="text" value=""> </textarea>
+                        <span class="field-validation-valid" data-valmsg-for="fieldOfActivity" data-valmsg-replace="true"></span>
+                    </div>
+
+                    <input data-val="true" data-val-number="The field Id must be a number."
+                           data-val-required="The Id field is required." id="IdofWorkPlace" name="IdofWorkPlace" type="hidden" />
+
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" id="saveWorkPlaceButton" class="btn btn-primary">ثبت</button>
@@ -411,7 +447,7 @@
 
             //// Click on + button (New Individual) (Modal window) //////
             $("#btnNewIndividual").click(function () {
-                $(".modal-title").text("افزودن فرد(تماس) جدید");
+                $("#individualFormModal .modal-title").text("افزودن فرد(تماس) جدید");
 
                 // Assign form control id value
                 $("#Id").val(0);
@@ -489,6 +525,14 @@
                 handle: ".modal-header"
             });
 
+            // load data in WorkPlace Modal
+            $("#WorkPlaceModal").on("shown.bs.modal",
+                function() {
+                    var workplacetype = $("#WorkPlaceType option:selected").text();
+                    console.log(workplacetype);
+                    $("#typeOfWorkPlace").innerHTML = workplacetype;
+                });
+
             // move validation span under inputs
             $(window).load(function () {
                 $("#individualFormModal").on('shown.bs.modal',
@@ -507,7 +551,7 @@
                     // Check for new Company/Office name:
                     $.getJSON("/api/workplacesIdAndName",
                         function (results) {
-                            console.log("workplacesIdName:" + results);
+                            console.log("workplacesIdName:" + $.parseJSON(JSON.stringify(results)));
                             var workPlaceName = document.getElementById("individualForm").WorkPlaceName.value;
                             console.log("workplacesName entered by user: " + workPlaceName);
                             var idOfExistingPlace = -1;
@@ -518,10 +562,7 @@
                                         idOfExistingPlace = results[index].id;
                                     }
                                 });
-                            //for (var i in data) {
-                            //    if (workPlaceName.search(data[i].name) !== -1)
-                            //        idOfExistingPlace = data[i].id;
-                            //}
+                            
                             console.log("idOfExistingPlace:" + idOfExistingPlace);
                             // Create a hidden input element for form if not already exist
                             if (("WorkPlaceId" in window) !== true) {
@@ -543,7 +584,14 @@
                             }
                             else if (idOfExistingPlace === -1) {  // new workplace filled by user
                                 console.log("adding new workplace");
+                                $("#WorkPlaceModal").modal("show");
+                                var selectedypeofwork = $("#WorkPlaceType option:selected").text();
+                                if (selectedypeofwork === "غیره")
+                                    selectedypeofwork = "داده";
+                                $(".typeOfWorkPlace").text(selectedypeofwork);
+                                $("#name-work-place").text($("#WorkPlaceName").val());
 
+                                return;
                             }
 
                             var formData = $("#individualForm").serialize();

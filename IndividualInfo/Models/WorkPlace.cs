@@ -16,6 +16,8 @@ namespace IndividualInfo.Models
 
         public string Address { get; set; }
 
+        public string FieldOfActivity { get; set; }
+
         public IList<Individual> Individuals { get; set; }
     }
 }

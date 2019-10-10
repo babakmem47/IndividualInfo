@@ -253,6 +253,10 @@
     <Compile Include="Migrations\201910031044335_PopulateWorkPlaceType.Designer.cs">
       <DependentUpon>201910031044335_PopulateWorkPlaceType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910100945513_AddFieldOfActivityToWorkPlace.cs" />
+    <Compile Include="Migrations\201910100945513_AddFieldOfActivityToWorkPlace.Designer.cs">
+      <DependentUpon>201910100945513_AddFieldOfActivityToWorkPlace.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -576,6 +580,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910031044335_PopulateWorkPlaceType.resx">
       <DependentUpon>201910031044335_PopulateWorkPlaceType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910100945513_AddFieldOfActivityToWorkPlace.resx">
+      <DependentUpon>201910100945513_AddFieldOfActivityToWorkPlace.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

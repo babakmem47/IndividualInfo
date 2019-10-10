@@ -409,6 +409,13 @@ label {
 .modal {
     overflow: hidden;
 }
+.modal-header {
+    height: 35px;
+    padding: 8px;
+}
+.modal-footer {
+    padding: 5px 15px 5px;
+}
 /*.modal-dialog{
     margin-right: 0;
     margin-left: 0;

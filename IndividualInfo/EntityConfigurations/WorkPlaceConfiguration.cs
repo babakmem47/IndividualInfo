@@ -17,6 +17,9 @@ namespace IndividualInfo.EntityConfigurations
             Property(w => w.Address)
                 .HasMaxLength(130);
 
+            Property(w => w.FieldOfActivity)
+                .HasMaxLength(130);
+
             //(0..1)-To-Many with Individual
             HasMany(w => w.Individuals)
                 .WithOptional(p => p.WorkPlace)
