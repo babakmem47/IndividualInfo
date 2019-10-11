@@ -178,6 +178,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\IndividualsController.cs" />
     <Compile Include="Controllers\Api\SematsController.cs" />
+    <Compile Include="Controllers\Api\WorkPlaceDto2.cs" />
+    <Compile Include="Controllers\Api\WorkPlacesController.cs" />
     <Compile Include="Controllers\Api\WorkPlaceTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndividualsController.cs" />

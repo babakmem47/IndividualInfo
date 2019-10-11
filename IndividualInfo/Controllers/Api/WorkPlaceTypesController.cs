@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using IndividualInfo.Dtos;
+﻿using IndividualInfo.Dtos;
 using IndividualInfo.Models;
+using System;
+using System.Linq;
+using System.Web.Http;
 
 namespace IndividualInfo.Controllers.Api
 {
@@ -24,7 +21,7 @@ namespace IndividualInfo.Controllers.Api
         }
 
         [HttpGet]
-        [Route("api/workplacetypes")]
+        //[Route("api/workplacetypes")]   // cause problem for httppost request
         public IHttpActionResult GetWorkPlaceTypes()
         {
             var workPlaceTypes = _context.WorkPlaceTypes.ToList();
@@ -38,40 +35,34 @@ namespace IndividualInfo.Controllers.Api
             return Ok(workPlaceTypeDto);
         }
 
-        [HttpGet]
-        [Route("api/workplaces")]
-        public IHttpActionResult GetWorkPlaces()
+        [HttpPost]
+        public IHttpActionResult CreateWorkPlaceType(WorkPlaceTypeDto workPlaceTypeDto)
         {
-            var wp = _context.WorkPlaces.ToList();
-            return Ok(wp);
-        }
-        
-        [HttpGet]
-        [Route("api/workplacesIdAndName")]
-        public IHttpActionResult WorkplacesIdAndName()
-        {
-            var wp = _context.WorkPlaces.ToList();
-            return Ok(wp.Select(x => new WorkPlaceDto2()
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var newWorkPlaceType = new WorkPlaceType()
             {
-                Id = x.Id,
-                Name = x.Name
-            }));
+                Id = (byte)workPlaceTypeDto.Id,
+                Name = workPlaceTypeDto.Name
+            };
+
+            _context.WorkPlaceTypes.Add(newWorkPlaceType);
+            _context.SaveChanges();
+
+            workPlaceTypeDto.Id = newWorkPlaceType.Id;
+            return Created(new Uri(Request.RequestUri + "/" + newWorkPlaceType.Id), workPlaceTypeDto);
         }
 
-        [HttpGet]
-        [Route("api/workplacesOnlyName")]
-        public IHttpActionResult WorkplacesOnlyName()
-        {
-            var workplaceNames = _context.WorkPlaces.ToList().Select(wp => wp.Name);
-            return Ok(workplaceNames);
-        }
+        //[HttpGet]
+        //[Route("api/workplaces")]
+        //public IHttpActionResult GetWorkPlaces()
+        //{
+        //    var wp = _context.WorkPlaces.ToList();
+        //    return Ok(wp);
+        //}
 
-    }
 
-    public class WorkPlaceDto2
-    {
-        public int Id { get; set; }
 
-        public string Name { get; set; }
     }
 }

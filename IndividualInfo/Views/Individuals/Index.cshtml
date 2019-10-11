@@ -73,7 +73,7 @@
                             <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
                         </div>
 
-                        <div class="form-group form-inline width65px">
+                        <div class="form-group form-inline width75px">
                             <label for="WorkPlaceType">نوع محل کار</label>
                             <select class="form-control" id="WorkPlaceType" name="WorkPlaceType"></select>
                         </div>
@@ -110,7 +110,7 @@
                             <input class="form-control ltrcell" data-val="true" data-val-length="شماره صحیح نیست" data-val-length-max="13" data-val-length-min="13" id="Mobile" name="Mobile" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Mobile" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="form-group form-inline width95px">
+                        <div class="form-group form-inline width75px">
                             <label for="Mobile">ایمیل</label>
                             <input class="form-control ltrcell" data-val="true" data-val-email="آدرس ایمیل صحیح نیست" data-val-maxlength="حداکثر 40 کاراکتر" data-val-maxlength-max="40" id="Email" name="Email" type="text" value="" />
                             <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
@@ -144,7 +144,6 @@
     </div>
 </div>
 <!-- End of Modal -->
-
 <!--Second Modal-->
 <div id="WorkPlaceModal" class="modal fade">
     <div class="modal-dialog">
@@ -155,43 +154,46 @@
 
             </div>
             <div class="modal-body">
-                <p><i class="typeOfWorkPlace">شرکت</i> <strong id="name-work-place">فربین</strong> که توسط شما به عنوان محل کار وارد شده، یک داده جدید می باشد که قبلا ثبت <strong>نشده</strong> است.</p>
-                لطفا در صورت داشتن اطلاعات، مقادیر فیلدهای زیر را برای آن درج و ثبت نمائید.
-                <form id="workPlaceForm" method="post">
+                <p><i id="TypeOfWorkPlace">شرکت</i> <strong id="name-work-place">فربین</strong> که توسط شما به عنوان محل کار وارد شده، یک داده جدید می باشد که قبلا ثبت <strong>نشده</strong> است.</p>
+                لطفا در صورت داشتن اطلاعات بیشتر، مقادیر فیلدهای زیر را برای آن درج و ثبت نمائید.
+                <br />
+                <br />
+                <br />
+                <form id="workPlaceForm" method="post" class="form-inline" autocomplete="off">
 
-                    <div class="form-group">
-                        <label for="workPlaceTypeOfPlace">نوع محل کار</label>
-                        <select class="form-control" id="workPlaceTypeOfPlace" name="workPlaceTypeOfPlace"></select>
+                    <div class="form-group form-inline width75px">
+                        <label for="WorkPlaceTypeOfPlace">نوع محل کار</label>
+                        <select class="form-control" id="WorkPlaceTypeOfPlace" name="WorkPlaceTypeOfPlace"></select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="nameOfWorkPlace">نام</label>
+                    <div class="form-group form-inline width150px">
+                        <label for="NameOfWorkPlace">نام محل کار</label>
                         <input class="form-control" data-val="true" data-val-maxlength="حداکثر 60 کاراکتر"
                                data-val-maxlength-max="60" data-val-required="پر کردن فیلد نام محل کار ضروری است"
-                               id="nameOfWorkPlace" name="nameOfWorkPlace" type="text" value=""/>
-                        <span class="field-validation-valid" data-valmsg-for="nameOfWorkPlace" data-valmsg-replace="true"></span>
+                               id="NameOfWorkPlace" name="NameOfWorkPlace" type="text" value="" />
+                        <span class="field-validation-valid" data-valmsg-for="NameOfWorkPlace" data-valmsg-replace="true"></span>
+                    </div>
+
+                    <div class="form-group form-inline width130px">
+                        <label for="TelOfWorkPlace">تلفن </label>
+                        <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر" data-val-maxlength-max="50" id="TelOfWorkPlace" name="TelOfWorkPlace" type="text" value="" />
+                        <span class="field-validation-valid" data-valmsg-for="TelOfWorkPlace" data-valmsg-replace="true"></span>
+                    </div>
+                    <p>
+                    <div class="form-group form-inline">
+                        <label for="FieldOfActivity">زمینه فعالیت</label>
+                        <textarea class="form-control" rows="3" data-val="true" data-val-maxlength="حداکثر 130 کاراکتر" data-val-maxlength-max="250" id="FieldOfActivity" name="FieldOfActivity" type="text" value=""> </textarea>
+                        <span class="field-validation-valid" data-valmsg-for="FieldOfActivity" data-valmsg-replace="true"></span>
                     </div>
 
                     <div class="form-group">
-                        <label for="telOfWorkPlace">تلفن </label>
-                        <input class="form-control ltrcell" data-val="true" data-val-maxlength="حداکثر 50 کاراکتر" data-val-maxlength-max="50" id="telOfWorkPlace" name="telOfWorkPlace" type="text" value=""/>
-                        <span class="field-validation-valid" data-valmsg-for="telOfWorkPlace" data-valmsg-replace="true"></span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="address">آدرس</label>
-                        <textarea class="form-control" rows="3" data-val="true" data-val-maxlength="حداکثر 130 کاراکتر" data-val-maxlength-max="250" id="address" name="address" type="text" value=""> </textarea>
-                        <span class="field-validation-valid" data-valmsg-for="address" data-valmsg-replace="true"></span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="fieldOfActivity">آدرس</label>
-                        <textarea class="form-control" rows="3" data-val="true" data-val-maxlength="حداکثر 130 کاراکتر" data-val-maxlength-max="250" id="fieldOfActivity" name="fieldOfActivity" type="text" value=""> </textarea>
-                        <span class="field-validation-valid" data-valmsg-for="fieldOfActivity" data-valmsg-replace="true"></span>
+                        <label for="Address">آدرس</label>
+                        <textarea class="form-control" rows="3" data-val="true" data-val-maxlength="حداکثر 130 کاراکتر" data-val-maxlength-max="250" id="Address" name="Address" type="text" value=""> </textarea>
+                        <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
                     </div>
 
                     <input data-val="true" data-val-number="The field Id must be a number."
-                           data-val-required="The Id field is required." id="IdofWorkPlace" name="IdofWorkPlace" type="hidden" />
+                            data-val-required="The Id field is required." id="IdofWorkPlace" name="IdofWorkPlace" type="hidden" />
 
                 </form>
             </div>
@@ -204,7 +206,6 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
@@ -262,7 +263,7 @@
                 "columnDefs": [
                     { "className": "text-center", "targets": "_all" }
                 ],
-                
+
                 ajax: {
                     url: "/api/individuals",
                     dataSrc: ""
@@ -364,14 +365,14 @@
                         }
                     }
                 ],
-                // DataTables has fully been initialized:   
+                // DataTables has fully been initialized:
                 "initComplete": function (settings, json) {     // better to replicate below codes in "fnDrawCallback"
                     $('.sorting_asc').removeClass('sorting_asc'); // remove sorting icon from ردیف
 
                     $('[data-toggle="tooltip"]').tooltip();
                 },
 
-                "fnDrawCallback": function () {  
+                "fnDrawCallback": function () {
                     individualTable.persiaNumber();                 // because next pages are not Farsi
                     $('.sorting_asc').removeClass('sorting_asc');   // because after using ajax.reload(), sorting keep coming back
                     $('[data-toggle="tooltip"]').tooltip();         // because after using ajax.reload(), tooltip disappearing
@@ -428,6 +429,8 @@
                     var select = $("#WorkPlaceType");
                     PopulateSelectOptionsWithNameProp(select, workPlacetypes);
                     $("#WorkPlaceType option[value='3']").attr("title", "مدیریت شعب مناطق");
+                    select = $("#WorkPlaceTypeOfPlace");
+                    PopulateSelectOptionsWithNameProp(select, workPlacetypes);
                 });
 
             // Populate Semat select options
@@ -516,22 +519,34 @@
 
             // make body page behind modal scrollable
             $("#individualFormModal").on("shown.bs.modal",
-                function() {
+                function () {
                     $("body").removeClass("modal-open");
                 });
 
-            //make modal draggable                   
+            //make modal draggable
             $("#individualFormModal").draggable({
                 handle: ".modal-header"
             });
 
             // load data in WorkPlace Modal
             $("#WorkPlaceModal").on("shown.bs.modal",
-                function() {
-                    var workplacetype = $("#WorkPlaceType option:selected").text();
-                    console.log(workplacetype);
-                    $("#typeOfWorkPlace").innerHTML = workplacetype;
+                function () {
+                    //var workplacetype = $("#WorkPlaceType option:selected").text();
+                    //console.log(workplacetype);
+                    //$("#TypeOfWorkPlace").innerHTML = workplacetype;
                 });
+
+            // when user close second modal, set focus on WorkPlaceName input
+            $("#WorkPlaceModal").on("hidden.bs.modal",
+                function() {
+                    $("#WorkPlaceName").focus();
+                });
+
+            //$("#individualFormModal").on("hidden.bs.modal",
+            //    function () {
+            //        $('.modal-backdrop').remove();
+            //    });
+
 
             // move validation span under inputs
             $(window).load(function () {
@@ -562,7 +577,7 @@
                                         idOfExistingPlace = results[index].id;
                                     }
                                 });
-                            
+
                             console.log("idOfExistingPlace:" + idOfExistingPlace);
                             // Create a hidden input element for form if not already exist
                             if (("WorkPlaceId" in window) !== true) {
@@ -588,8 +603,12 @@
                                 var selectedypeofwork = $("#WorkPlaceType option:selected").text();
                                 if (selectedypeofwork === "غیره")
                                     selectedypeofwork = "داده";
-                                $(".typeOfWorkPlace").text(selectedypeofwork);
-                                $("#name-work-place").text($("#WorkPlaceName").val());
+                                $("#TypeOfWorkPlace").text(selectedypeofwork);  // <i> tag initialization
+                                $("#name-work-place").text($("#WorkPlaceName").val()); // <strong> initialization
+                                
+                                // form initialization
+                                $("#WorkPlaceTypeOfPlace").val($("#WorkPlaceType").val());
+                                $("#NameOfWorkPlace").val($("#WorkPlaceName").val());
 
                                 return;
                             }
@@ -607,7 +626,7 @@
                                     function (data, status) {
                                         console.log(data);
                                         console.log(status);
-                                        $("#individualFormModal").modal('toggle');  // close modal
+                                        $("#individualFormModal").modal('hide');  // close modal
                                         row = 1;
                                         individualTable.DataTable().ajax.reload();
                                         //location.reload();
@@ -618,21 +637,46 @@
                                     url: "/api/individuals/" + idOfForm,
                                     method: "PUT",
                                     data: formData,
-                                    success: function(data, status) {
+                                    success: function (data, status) {
                                         console.log("updated data result: " + data);
                                         console.log("update status: " + status);
                                         console.log('updated successfully');
-                                        $("#individualFormModal").modal('toggle');  // close modal
+                                        $("#individualFormModal").modal('hide');  // close modal
                                         row = 1;
                                         individualTable.DataTable().ajax.reload();
+                                        $('.modal-backdrop').remove();
                                     }
                                 });
                             }
                         });
 
-                    
+
                 }
 
+            });
+
+            // Save new WorkPlace
+            $("#saveWorkPlaceButton").click(function(parameters) {
+                var dataIsvalid = $("#individualForm").valid();
+
+                if (dataIsvalid) {
+
+                    var jsonObj = {
+                        id: 0,
+                        name: $("#NameOfWorkPlace").val(),
+                        workPlaceTypeDtoId: $("#WorkPlaceTypeOfPlace").val(),
+                        tel: $("#TelOfWorkPlace").val(),
+                        fieldOfActivity: $("#FieldOfActivity").val(),
+                        address: $("#Address").val()
+                    };
+                    console.log(jsonObj);
+                    $.post("/api/workplaces",
+                        jsonObj,
+                        function(data, status) {
+                            console.log("data: " + data + " status: " + status);
+                            $("#WorkPlaceModal").modal('hide');
+                        });
+                }
             });
 
         }); // end of $(document).ready(function () {
