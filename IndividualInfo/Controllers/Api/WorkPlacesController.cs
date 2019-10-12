@@ -48,7 +48,8 @@ namespace IndividualInfo.Controllers.Api
             return Ok(wp.Select(x => new WorkPlaceDto2()
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                WorkPlaceTypeId = x.WorkPlaceTypeId
             }));
         }
 

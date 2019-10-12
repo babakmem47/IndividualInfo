@@ -73,7 +73,7 @@
                             <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
                         </div>
 
-                        <div class="form-group form-inline width75px">
+                        <div class="form-group form-inline width100px">
                             <label for="WorkPlaceType">نوع محل کار</label>
                             <select class="form-control" id="WorkPlaceType" name="WorkPlaceType"></select>
                         </div>
@@ -129,7 +129,7 @@
                     @*<button id="savebutton" type="submit" class="btn btn-primary">ذخیره</button>*@
                     <div class="modal-footer">
                         <button type="button" id="saveButton" class="btn btn-primary">ذخیره</button>
-                        <a href="#WorkPlaceModal" data-backdrop="false" data-toggle="modal">Click Me</a>
+                        @*<a href="#WorkPlaceModal" data-backdrop="false" data-toggle="modal">Click Me</a>*@
                     </div>
 
                 </form>
@@ -161,7 +161,7 @@
                 <br />
                 <form id="workPlaceForm" method="post" class="form-inline" autocomplete="off">
 
-                    <div class="form-group form-inline width75px">
+                    <div class="form-group form-inline width100px">
                         <label for="WorkPlaceTypeOfPlace">نوع محل کار</label>
                         <select class="form-control" id="WorkPlaceTypeOfPlace" name="WorkPlaceTypeOfPlace"></select>
                     </div>
@@ -330,7 +330,7 @@
                     },
                     {
                         orderable: false,
-                        className: "ltrcell",
+                        className: "ltrcell width100px",
                         data: "mobile"
                     },
                     {
@@ -557,23 +557,23 @@
                     });
             });
 
-
-            // Save Data using api controller
-            $("#saveButton").click(function () {
+            function saveIndividual() {
                 var dataIsvalid = $("#individualForm").valid();
 
                 if (dataIsvalid) {
                     // Check for new Company/Office name:
                     $.getJSON("/api/workplacesIdAndName",
                         function (results) {
-                            console.log("workplacesIdName:" + $.parseJSON(JSON.stringify(results)));
+                            console.log("workplacesIdName:" + JSON.stringify(results));
                             var workPlaceName = document.getElementById("individualForm").WorkPlaceName.value;
                             console.log("workplacesName entered by user: " + workPlaceName);
+                            var selectedWorkPlaceTypeIdByUser = $("#WorkPlaceType option:selected").val();
+                            console.log("workplacetypeid selected by user: " + selectedWorkPlaceTypeIdByUser);
                             var idOfExistingPlace = -1;
                             $.each(results,
                                 function (index) {
-                                    ///console.log(results[index].name);
-                                    if (results[index].name === workPlaceName) {
+                                    console.log("results[index].name: " + results[index].name + " results[index].workPlaceTypeId: " + results[index].workPlaceTypeId);
+                                    if (results[index].name === workPlaceName && results[index].workPlaceTypeId == selectedWorkPlaceTypeIdByUser) {
                                         idOfExistingPlace = results[index].id;
                                     }
                                 });
@@ -598,65 +598,68 @@
                                 console.log(idOfExistingPlace);
                             }
                             else if (idOfExistingPlace === -1) {  // new workplace filled by user
-                                console.log("adding new workplace");
+                                //console.log("adding new workplace");
                                 $("#WorkPlaceModal").modal("show");
                                 var selectedypeofwork = $("#WorkPlaceType option:selected").text();
                                 if (selectedypeofwork === "غیره")
                                     selectedypeofwork = "داده";
                                 $("#TypeOfWorkPlace").text(selectedypeofwork);  // <i> tag initialization
                                 $("#name-work-place").text($("#WorkPlaceName").val()); // <strong> initialization
-                                
+
                                 // form initialization
                                 $("#WorkPlaceTypeOfPlace").val($("#WorkPlaceType").val());
                                 $("#NameOfWorkPlace").val($("#WorkPlaceName").val());
+                                $("#TelOfWorkPlace").val($("#TelDirect").val());
+                                $("#FieldOfActivity").val('');
+                                $("#Address").val('');
 
                                 return;
                             }
 
                             var formData = $("#individualForm").serialize();
-                            console.log("Form Data: " + formData);
+                            //console.log("Form Data: " + formData);
 
                             var idOfForm = document.getElementById("individualForm").Id.value;
-                            console.log("idOfForm: " + idOfForm);
+                            //console.log("idOfForm: " + idOfForm);
 
                             if (idOfForm === '0') {     // New individual (id='0')
-                                console.log("new record added");
+                                //console.log("new record added");
                                 $.post("/api/individuals",
                                     formData,
                                     function (data, status) {
-                                        console.log(data);
-                                        console.log(status);
                                         $("#individualFormModal").modal('hide');  // close modal
                                         row = 1;
                                         individualTable.DataTable().ajax.reload();
                                         //location.reload();
                                     });
                             } else {                    // Edit existing individual (id != '0')
-                                console.log("record updated");
+                                //console.log("record updated");
                                 $.ajax({
                                     url: "/api/individuals/" + idOfForm,
                                     method: "PUT",
                                     data: formData,
                                     success: function (data, status) {
-                                        console.log("updated data result: " + data);
-                                        console.log("update status: " + status);
-                                        console.log('updated successfully');
+                                        //console.log("updated data result: " + data + "update status: " + status);
+                                        //console.log('updated successfully');
                                         $("#individualFormModal").modal('hide');  // close modal
                                         row = 1;
                                         individualTable.DataTable().ajax.reload();
-                                        $('.modal-backdrop').remove();
+                                        //$('.modal-backdrop').remove();    // no need after using modal hide instead of toggle
                                     }
                                 });
                             }
                         });
 
-
                 }
+            }
 
+            // Save Data using api controller
+            $("#saveButton").click(function () {
+                saveIndividual();
             });
 
             // Save new WorkPlace
-            $("#saveWorkPlaceButton").click(function(parameters) {
+            $("#saveWorkPlaceButton").click(function() {
                 var dataIsvalid = $("#individualForm").valid();
 
                 if (dataIsvalid) {
@@ -673,8 +676,16 @@
                     $.post("/api/workplaces",
                         jsonObj,
                         function(data, status) {
-                            console.log("data: " + data + " status: " + status);
-                            $("#WorkPlaceModal").modal('hide');
+                            console.log("data: " + JSON.stringify(data) + " status: " + status);
+                            if (status === 'success') {
+                                console.log("data.name: " + data.name + "data.workPlaceTypeDtoId: " + data.workPlaceTypeDtoId)
+                                $("#WorkPlaceName").val(jsonObj.name);
+                                $("#WorkPlaceType").val(jsonObj.workPlaceTypeDtoId);
+                                $("#WorkPlaceModal").modal('hide');
+                                var workplaceInput = document.getElementById("WorkPlaceName");
+                                FillAutoCompleteFromApi(workplaceInput, "/api/workplacesOnlyName");
+                                saveIndividual();
+                            }
                         });
                 }
             });
@@ -717,12 +728,18 @@
         //////      Auto Complete       //////
         // On page load:
         //Auto Complete WorkPlace name input
-        $.getJSON("/api/workplacesOnlyName",
-            function (workplaceNames) {
-                console.log("workplacesOnlyName: " + workplaceNames);
-                var workplaceInput = document.getElementById("WorkPlaceName");
-                autocomplete(workplaceInput, workplaceNames);
-            });
+        var workplaceInput = document.getElementById("WorkPlaceName");
+        FillAutoCompleteFromApi(workplaceInput, "/api/workplacesOnlyName");
+
+
+
+        function FillAutoCompleteFromApi(idOfInput, apiUrl) {
+            $.getJSON(apiUrl,
+                function(results) {
+                    console.log("list for autocomplete: " + results);
+                    autocomplete(idOfInput, results);
+                });
+        }
 
         function autocomplete(inp, arr) {
             /*the autocomplete function takes two arguments,
