@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace IndividualInfo.Models
 {
     public class Individual
@@ -28,5 +30,9 @@ namespace IndividualInfo.Models
         public WorkPlace WorkPlace { get; set; }
 
         public int? WorkPlaceId { get; set; }
+
+        public DateTime? Created { get; set; }
+
+        public DateTime? Updated { get; set; }
     }
 }
