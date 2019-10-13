@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace IndividualInfo.Models
 {
@@ -17,6 +18,10 @@ namespace IndividualInfo.Models
         public string Address { get; set; }
 
         public string FieldOfActivity { get; set; }
+
+        public DateTime? Created { get; set; }
+
+        public DateTime? Updated { get; set; }
 
         public IList<Individual> Individuals { get; set; }
     }

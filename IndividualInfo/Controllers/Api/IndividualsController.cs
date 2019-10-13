@@ -135,7 +135,8 @@ namespace IndividualInfo.Controllers.Api
                 Mobile = individualDto.Mobile,
                 Email = individualDto.Email,
                 Description = individualDto.Description,
-                WorkPlaceId = individualDto.WorkPlaceId
+                WorkPlaceId = individualDto.WorkPlaceId,
+                Created = DateTime.Now
             };
 
             _context.Individuals.Add(individual);
@@ -165,6 +166,7 @@ namespace IndividualInfo.Controllers.Api
             individualInDb.Email = individualDto.Email;
             individualInDb.Description = individualDto.Description;
             individualInDb.WorkPlaceId = individualDto.WorkPlaceId;
+            individualInDb.Updated = DateTime.Now;
             //individualInDb.WorkPlaceId = (individualDto.WorkPlaceDto != null) ? individualDto.WorkPlaceDto.Id : (int?)null;
 
             _context.SaveChanges();

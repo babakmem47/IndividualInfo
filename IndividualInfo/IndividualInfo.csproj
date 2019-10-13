@@ -263,6 +263,10 @@
     <Compile Include="Migrations\201910121733401_AddCreatedAndUpdatedPropToIndividual.Designer.cs">
       <DependentUpon>201910121733401_AddCreatedAndUpdatedPropToIndividual.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910130506200_AddCreatedUpdatedToWorkPlace.cs" />
+    <Compile Include="Migrations\201910130506200_AddCreatedUpdatedToWorkPlace.Designer.cs">
+      <DependentUpon>201910130506200_AddCreatedUpdatedToWorkPlace.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -592,6 +596,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910121733401_AddCreatedAndUpdatedPropToIndividual.resx">
       <DependentUpon>201910121733401_AddCreatedAndUpdatedPropToIndividual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910130506200_AddCreatedUpdatedToWorkPlace.resx">
+      <DependentUpon>201910130506200_AddCreatedUpdatedToWorkPlace.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

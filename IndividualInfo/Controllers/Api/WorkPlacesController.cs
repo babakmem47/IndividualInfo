@@ -74,7 +74,8 @@ namespace IndividualInfo.Controllers.Api
                 WorkPlaceTypeId = workPlaceDto.WorkPlaceTypeDtoId,
                 Tel = workPlaceDto.Tel,
                 Address = workPlaceDto.Address,
-                FieldOfActivity = workPlaceDto.FieldOfActivity
+                FieldOfActivity = workPlaceDto.FieldOfActivity,
+                Created = DateTime.Now
             };
 
             _context.WorkPlaces.Add(workPlace);

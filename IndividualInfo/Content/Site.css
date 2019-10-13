@@ -420,3 +420,8 @@ label {
     margin-right: 0;
     margin-left: 0;
 }*/
+
+/*Move navbar-right a little bit to the left*/
+.navbar-collapse .navbar-nav.navbar-right:last-child {
+     margin-right: 300px;
+}
