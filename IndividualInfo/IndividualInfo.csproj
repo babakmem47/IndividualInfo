@@ -177,6 +177,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\IndividualsController.cs" />
+    <Compile Include="Controllers\Api\RoutersController.cs" />
     <Compile Include="Controllers\Api\SematsController.cs" />
     <Compile Include="Controllers\Api\WorkPlaceDto2.cs" />
     <Compile Include="Controllers\Api\WorkPlacesController.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndividualsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RouterController.cs" />
     <Compile Include="Dtos\IndividualDto.cs" />
     <Compile Include="Dtos\SematDto.cs" />
     <Compile Include="Dtos\WorkPlaceDto.cs" />
@@ -393,6 +395,12 @@
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Icons\cisco-router-icon-16X16.ico" />
+    <Content Include="Content\Icons\cisco-router-icon-32X32.ico" />
+    <Content Include="Content\Icons\cisco-router-icon-64X64.ico" />
+    <Content Include="Content\Images\cisco-router-64X64.png" />
+    <Content Include="Content\Images\cisco-router-DarkBluePlus.jpg" />
+    <Content Include="Content\Images\cisco-router-icon-7.jpg.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -534,6 +542,7 @@
     <Content Include="Views\Individuals\IndividualForm.cshtml" />
     <Content Include="Views\Individuals\IndexRazorRendered.cshtml" />
     <Content Include="Views\Individuals\_IndividualForm.cshtml" />
+    <Content Include="Views\Router\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

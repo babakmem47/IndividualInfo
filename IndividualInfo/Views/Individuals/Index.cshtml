@@ -154,9 +154,11 @@
 
             </div>
             <div class="modal-body">
-                <p><i id="TypeOfWorkPlace">شرکت</i> <strong id="name-work-place">فربین</strong> که توسط شما به عنوان محل کار وارد شده، یک داده جدید می باشد که قبلا ثبت <strong>نشده</strong> است.</p>
-                لطفا در صورت داشتن اطلاعات بیشتر، مقادیر فیلدهای زیر را برای آن درج و ثبت نمائید.
-                <br />
+                <p class="alert alert-info">
+                    <i id="TypeOfWorkPlace">شرکت</i> <strong id="name-work-place">فربین</strong> که توسط شما به عنوان محل کار وارد شده، یک داده جدید می باشد که قبلا ثبت <strong>نشده</strong> است.
+                    <br />
+                    لطفا در صورت داشتن اطلاعات بیشتر، مقادیر فیلدهای زیر را برای آن درج و ثبت نمائید.
+                </p>
                 <br />
                 <br />
                 <form id="workPlaceForm" method="post" class="form-inline" autocomplete="off">
@@ -528,12 +530,10 @@
                 handle: ".modal-header"
             });
 
-            // load data in WorkPlace Modal
+            // event in WorkPlace Modal
             $("#WorkPlaceModal").on("shown.bs.modal",
                 function () {
-                    //var workplacetype = $("#WorkPlaceType option:selected").text();
-                    //console.log(workplacetype);
-                    //$("#TypeOfWorkPlace").innerHTML = workplacetype;
+                    $("#NameOfWorkPlace").focus();
                 });
 
             // when user close second modal, set focus on WorkPlaceName input
@@ -546,14 +546,14 @@
             //    function () {
             //        $('.modal-backdrop').remove();
             //    });
-
-
+           
             // move validation span under inputs
             $(window).load(function () {
                 $("#individualFormModal").on('shown.bs.modal',
                     function () {
                         //$(".form-group > span").addClass('newline');
                         $(".form-group > span").css("display", "block"); // it is better(no need to .newline class)
+                        $("#Name").focus();
                     });
             });
 

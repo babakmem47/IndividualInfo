@@ -39,6 +39,8 @@ textarea {
 
 .navbar-inverse {
     font-family: IranSansWeb;
+    /*Change the background color of the NavBAr*/   
+    background-color: #772953;
 }
 
     .navbar-inverse navbar-fixed-top {
@@ -108,6 +110,10 @@ textarea {
 
 .dropdown-menu {
     float: right;
+    text-align: right;
+    margin: 2px -25px 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 .btn-group > .btn,
@@ -186,10 +192,6 @@ caption {
 }
 
 th {
-    text-align: right;
-}
-
-.dropdown-menu {
     text-align: right;
 }
 
@@ -342,6 +344,10 @@ div.dataTables_wrapper div.dataTables_length select {
     width: 200px;
 }
 
+.width125percent {
+    width: 125%;
+}
+
 .table > tbody > tr > td {
     vertical-align: middle;
 }
@@ -423,5 +429,64 @@ label {
 
 /*Move navbar-right a little bit to the left*/
 .navbar-collapse .navbar-nav.navbar-right:last-child {
-     margin-right: 300px;
+     margin-right: 400px;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #ffffff;
+}
+.navbar-inverse .navbar-nav > li > a:hover {
+    color: #999999;
+}
+.navbar > .container .navbar-brand {
+    color: #ffffff;
+}
+.navbar > .container .navbar-brand:hover {
+    color: #999999;
+}
+
+.navbar-inverse .navbar-nav > .dropdown > a .caret {
+    border-top-color: #ffffff;
+}
+
+.navbar-inverse .navbar-nav > .dropdown > a .caret:hover {
+    border-top-color: #999999;
+}
+
+.btn {
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.modal-footer .btn-primary {
+    float: left;
+}
+
+.navbar-nav > li > .dropdown-menu {
+    min-width: max-content;
+    margin: auto;
+}
+
+.btn-united {
+    color: #fff;
+    background-color: #E95420;
+    border-color: #E95420;
+}
+
+.btn-addrouter {
+    /*display: contents;*/
+    /*background-image: url(/Content/Images/cisco-router-DarkBluePlus.jpg);*/
+    /*display:block;*/
+    width: 80px;
+    height: 55px;
+    background: url(/Content/Images/cisco-router-DarkBluePlus.jpg) no-repeat center;
+    background-size: 70px 44px; 
+    /*background-size: cover;*/
+    /*background-origin: content-box;*/
+}
+
+.btn-addrouter:hover {
+    background-color: #ffffff;
+    font-size: 20px;
 }
