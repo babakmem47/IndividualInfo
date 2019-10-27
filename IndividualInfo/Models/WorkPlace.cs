@@ -24,5 +24,7 @@ namespace IndividualInfo.Models
         public DateTime? Updated { get; set; }
 
         public IList<Individual> Individuals { get; set; }
+
+        public IList<Router> Routers { get; set; }
     }
 }

@@ -116,6 +116,14 @@ textarea {
     box-shadow: none;
 }
 
+.dropdown-menu > li > a {
+    padding: 3px 6px;  /*decrease the padding of all dropdown items*/
+}
+
+.dropdown-network-devices > li > a {
+    padding: 3px 18px;  /*decrease the padding of devices' dropdown items*/
+}
+
 .btn-group > .btn,
 .btn-group-vertical > .btn {
     float: right;
@@ -422,15 +430,6 @@ label {
 .modal-footer {
     padding: 5px 15px 5px;
 }
-/*.modal-dialog{
-    margin-right: 0;
-    margin-left: 0;
-}*/
-
-/*Move navbar-right a little bit to the left*/
-.navbar-collapse .navbar-nav.navbar-right:last-child {
-     margin-right: 400px;
-}
 
 .navbar-inverse .navbar-nav > li > a {
     color: #ffffff;
@@ -478,10 +477,10 @@ label {
     /*display: contents;*/
     /*background-image: url(/Content/Images/cisco-router-DarkBluePlus.jpg);*/
     /*display:block;*/
-    width: 80px;
-    height: 55px;
-    background: url(/Content/Images/cisco-router-DarkBluePlus.jpg) no-repeat center;
-    background-size: 70px 44px; 
+    width: 90px;
+    height: 50px;
+    background: url(/Content/Images/RouterW.png) no-repeat center;
+    background-size: 80px 40px; 
     /*background-size: cover;*/
     /*background-origin: content-box;*/
 }
@@ -490,3 +489,4 @@ label {
     background-color: #ffffff;
     font-size: 20px;
 }
+

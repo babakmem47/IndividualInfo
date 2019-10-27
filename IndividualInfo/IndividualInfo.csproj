@@ -191,6 +191,7 @@
     <Compile Include="Dtos\WorkPlaceDto.cs" />
     <Compile Include="Dtos\WorkPlaceTypeDto.cs" />
     <Compile Include="EntityConfigurations\IndividualConfiuration.cs" />
+    <Compile Include="EntityConfigurations\RouterConfiguration.cs" />
     <Compile Include="EntityConfigurations\SematConfiguration.cs" />
     <Compile Include="EntityConfigurations\WorkPlaceConfiguration.cs" />
     <Compile Include="EntityConfigurations\WorkPlaceTypeConfiguration.cs" />
@@ -269,13 +270,29 @@
     <Compile Include="Migrations\201910130506200_AddCreatedUpdatedToWorkPlace.Designer.cs">
       <DependentUpon>201910130506200_AddCreatedUpdatedToWorkPlace.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910271148367_AddRouterIpIpRangeBigIpRangeWithFluentApis.cs" />
+    <Compile Include="Migrations\201910271148367_AddRouterIpIpRangeBigIpRangeWithFluentApis.Designer.cs">
+      <DependentUpon>201910271148367_AddRouterIpIpRangeBigIpRangeWithFluentApis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910271356535_AddDescriptionToIpRange.cs" />
+    <Compile Include="Migrations\201910271356535_AddDescriptionToIpRange.Designer.cs">
+      <DependentUpon>201910271356535_AddDescriptionToIpRange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\BigIPRange.cs" />
+    <Compile Include="Models\BigIpRangeConfiguration.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\Individual.cs" />
+    <Compile Include="Models\Interface.cs" />
+    <Compile Include="Models\IpAddress.cs" />
+    <Compile Include="Models\IpAddressConfiguration.cs" />
+    <Compile Include="Models\IpRangeConfiguration.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\IpRange.cs" />
+    <Compile Include="Models\Router.cs" />
     <Compile Include="Models\Semat.cs" />
     <Compile Include="Models\WorkPlace.cs" />
     <Compile Include="Models\WorkPlaceType.cs" />
@@ -401,6 +418,8 @@
     <Content Include="Content\Images\cisco-router-64X64.png" />
     <Content Include="Content\Images\cisco-router-DarkBluePlus.jpg" />
     <Content Include="Content\Images\cisco-router-icon-7.jpg.png" />
+    <Content Include="Content\Images\RouterW.png" />
+    <Content Include="Content\Images\Router.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -608,6 +627,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910130506200_AddCreatedUpdatedToWorkPlace.resx">
       <DependentUpon>201910130506200_AddCreatedUpdatedToWorkPlace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910271148367_AddRouterIpIpRangeBigIpRangeWithFluentApis.resx">
+      <DependentUpon>201910271148367_AddRouterIpIpRangeBigIpRangeWithFluentApis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910271356535_AddDescriptionToIpRange.resx">
+      <DependentUpon>201910271356535_AddDescriptionToIpRange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
