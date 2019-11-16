@@ -187,6 +187,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RouterController.cs" />
     <Compile Include="Dtos\IndividualDto.cs" />
+    <Compile Include="Dtos\RouterDto.cs" />
     <Compile Include="Dtos\SematDto.cs" />
     <Compile Include="Dtos\WorkPlaceDto.cs" />
     <Compile Include="Dtos\WorkPlaceTypeDto.cs" />
@@ -277,6 +278,14 @@
     <Compile Include="Migrations\201910271356535_AddDescriptionToIpRange.cs" />
     <Compile Include="Migrations\201910271356535_AddDescriptionToIpRange.Designer.cs">
       <DependentUpon>201910271356535_AddDescriptionToIpRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910281129089_AddDeletedCreatedUpdatedPropToRouterAndIps.cs" />
+    <Compile Include="Migrations\201910281129089_AddDeletedCreatedUpdatedPropToRouterAndIps.Designer.cs">
+      <DependentUpon>201910281129089_AddDeletedCreatedUpdatedPropToRouterAndIps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910310723327_AddClockPropToRouter.cs" />
+    <Compile Include="Migrations\201910310723327_AddClockPropToRouter.Designer.cs">
+      <DependentUpon>201910310723327_AddClockPropToRouter.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -633,6 +642,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910271356535_AddDescriptionToIpRange.resx">
       <DependentUpon>201910271356535_AddDescriptionToIpRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910281129089_AddDeletedCreatedUpdatedPropToRouterAndIps.resx">
+      <DependentUpon>201910281129089_AddDeletedCreatedUpdatedPropToRouterAndIps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910310723327_AddClockPropToRouter.resx">
+      <DependentUpon>201910310723327_AddClockPropToRouter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

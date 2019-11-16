@@ -21,6 +21,8 @@ namespace IndividualInfo.EntityConfigurations
             Property(r => r.IosVersion)
                 .HasMaxLength(50);
 
+            Property(r => r.Clock)
+                .HasMaxLength(50);
 
             //(0..1)-To-(0..1) with IpAddress(Mgmt ip)  
             //  Router ------- IP

@@ -293,6 +293,10 @@ div.dataTables_wrapper div.dataTables_length select {
     width: 95% !important;
 }
 
+#routerTable {
+    width: 98% !important;
+}
+
 .width30px {
     width: 30px;
 }

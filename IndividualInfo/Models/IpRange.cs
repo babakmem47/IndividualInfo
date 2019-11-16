@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace IndividualInfo.Models
 {
@@ -17,5 +18,11 @@ namespace IndividualInfo.Models
         public BigIpRange BigIpRange { get; set; }
 
         public IList<IpAddress> Ips { get; set; }
+
+        public bool Deleted { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public DateTime Updated { get; set; }
     }
 }

@@ -9,20 +9,178 @@
         <h3>لیست روترها</h3>
     </div>
     <div class="col-lg-1 col-xs-1"></div>
-</div>  
+</div>
 
 <div class="row">
     <div class="col-lg-1 col-xs-1">
-        @*<button id="btnNewRouter" class="btn btn-link" data-toggle="modal" data-target="#individualFormModal" title="افزودن روتر جدید" style="font-size:20px"><img class="width200percent" src="/Content/Images/cisco-router-DarkBluePlus.jpg" /></button>*@
-        @*<button id="btnNewRouter" class="btn btn-default" data-toggle="modal" data-target="#individualFormModal" title="افزودن روتر جدید" style="font-size:20px"><img class="width125percent" src="/Content/Images/cisco-router-DarkBluePlus.jpg" /></button>*@
         <button id="btnNewRouter" class="btn btn-default btn-addrouter" data-toggle="modal" data-target="#individualFormModal" title="افزودن روتر جدید"></button>
-        @*<input type="image" src="/Content/Images/cisco-router-DarkBluePlus.jpg"/>*@
-        @*<a href="#"><img class="width125percent" src="/Content/Images/cisco-router-DarkBluePlus.jpg" title="افزودن روتر جدید" /></a>*@
     </div>
-    <div class="col-lg-10 col-xs-10" align="right">
-
-    </div>
+    <div class="col-lg-10 col-xs-10" align="right"></div>
     <div class="col-lg-1 col-xs-1"></div>
 </div>
 
+<div class="row voffset2">
+    <div class="col-lg-12 col-xs-12">
+        <table id="routerTable" class="table table-bordered table-hover table-striped table-condensed table-responsive">
+            <thead>
+                <tr>
+                    <td>ردیف</td>
+                    <td>نام روتر</td>
+                    <td>Mgmt IP</td>
+                    <td>محل نصب</td>
+                    <td>مدل</td>
+                    <td>host name</td>
+                    <td>IOS Version</td>
+                    <td>SSH</td>
+                    <td>ISE</td>
+                    <td>Uptime</td>
+                    <td>تانل</td>
+                    <td>Default Route</td>
+                    <td>خط روت</td>
+                    <td>Down Interfaces</td>
+                    <td>پاور یدک</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
 
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+
+            var routerTable = $("#routerTable");
+            var row = 1;
+
+            routerTable.DataTable({
+                "pageLength": 20,
+
+                "oLanguage": {
+                    "sSearch": "جستجو  ",
+                    "sSearchPlaceholder": "یه چیزی بنویس ...",
+                    "sLengthMenu": "نمایش  _MENU_  رکورد در جدول",
+                    "decimal": "",
+                    "sEmptyTable": "هیچ داده قابل دسترسی در جدول یافت نشد",
+                    "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ ورودی",
+                    "sInfoEmpty": "نمایش 0 تا 0 از صفر ورودی",
+                    "sInfoFiltered": "(فیلتر شده از _MAX_ کل ورودی ها)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "sLoadingRecords": "بارگذاری ...",
+                    "sProcessing": "پردازش ...",
+                    "sZeroRecords": "هیچ رکوردی که مطابقت داشته باشد یافت نشد",
+                    "oPaginate": {
+                        "sFirst": "اول",
+                        "sLast": "آخر",
+                        "sNext": "بعدی",
+                        "sPrevious": "قبلی"
+                    }
+                },
+
+                "sDom":
+                    "<'row'<'col-sm-6'f><'col-sm-6'l>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+
+                "columnDefs": [
+                    { "className": "text-center", "targets": "_all" }
+                ],
+
+                ajax: {
+                    url: "/api/routers",
+                    dataSrc: ""
+                },
+
+                columns: [
+                    {
+                        data: "",
+                        orderable: false,
+                        render: function () {
+                            return row++;
+                        }
+                    },
+                    {
+                        orderable: false,
+                        data: "name"
+                    },
+                    {
+                        orderable: false,
+                        data: "ipAddress"
+                        
+                    },
+                    {
+                        orderable: false,
+                        data: "workPlace"
+                    },
+                    {
+                        orderable: false,
+                        data: "model"
+                    },
+                    {
+                        orderable: false,
+                        data: "hostName"
+                    },
+                    {
+                        orderable: false,
+                        data: "iosVersion"
+                    },
+                    {
+                        orderable: false,
+                        data: "ssh"
+                    },
+                    {
+                        orderable: false,
+                        data: "ise"
+                    },
+                    {
+                        orderable: false,
+                        data: "uptime"
+                    },
+                    {
+                        orderable: false,
+                        data: "tunnelNumber",
+                        className: "farsi-beshe"
+                    },
+                    {
+                        orderable: false,
+                        data: "defaultRouteNumber",
+                        className: "farsi-beshe"
+                    },
+                    {
+                        orderable: false,
+                        data: "ipRouteNumber",
+                        className: "farsi-beshe"
+                    },
+                    {
+                        orderable: false,
+                        data: "downInterfacesNumber",
+                        className: "farsi-beshe"
+                    },
+                    {
+                        orderable: false,
+                        data: "dualPower"
+                    }
+                    
+                ],
+                // DataTables has fully been initialized:
+                "initComplete": function (settings, json) {     // better to replicate below codes in "fnDrawCallback"
+                    $('.sorting_asc').removeClass('sorting_asc'); // remove sorting icon from ردیف
+
+                    $('[data-toggle="tooltip"]').tooltip();
+
+                    $(".farsi-beshe").persiaNumber();
+                },
+
+                "fnDrawCallback": function () {
+                    $('.sorting_asc').removeClass('sorting_asc');   // because after using ajax.reload(), sorting keep coming back
+                    $('[data-toggle="tooltip"]').tooltip();         // because after using ajax.reload(), tooltip disappearing
+                    $(".farsi-beshe").persiaNumber();               // make numbers in a few columns persian
+                }
+
+            }); // end of DataTable
+        });
+    </script>
+}

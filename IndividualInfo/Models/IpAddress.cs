@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace IndividualInfo.Models
 {
     public class IpAddress
@@ -14,5 +16,11 @@ namespace IndividualInfo.Models
         public string Description { get; set; }
 
         public Router Router { get; set; }
+
+        public bool Deleted { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public DateTime Updated { get; set; }
     }
 }

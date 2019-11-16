@@ -11,5 +11,7 @@
         public int IpId { get; set; }
 
         public IpAddress IpAddress { get; set; }
+
+        public string MacAddress { get; set; }
     }
 }

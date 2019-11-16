@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace IndividualInfo.Models
+namespace IndividualInfo.Dtos
 {
-    public class Router
+    public class RouterDto
     {
         public int Id { get; set; }
 
@@ -10,15 +10,9 @@ namespace IndividualInfo.Models
 
         public string Model { get; set; }
 
-        //Mgmt IpAddress
-        //public int? IpAddressId { get; set; }    // Migration not setting it as FK, so it is useless(dont know why?)
-        // Migration create IpAddress_Id instead and I cannot change it to IpAddressId!! (in migration)
+        public string IpAddress { get; set; }
 
-        public IpAddress IpAddress { get; set; }
-
-        public int WorkPlaceId { get; set; }
-
-        public WorkPlace WorkPlace { get; set; }
+        public string WorkPlace { get; set; }
 
         public string HostName { get; set; }
 
@@ -41,15 +35,5 @@ namespace IndividualInfo.Models
         public DateTime? Uptime { get; set; }
 
         public byte? DualPower { get; set; }
-
-        public bool Deleted { get; set; }
-
-        public DateTime Created { get; set; }
-
-        public DateTime Updated { get; set; }
-
-        public string Clock { get; set; }
-
-        //interface One-To-Many
     }
 }
