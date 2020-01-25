@@ -1,10 +1,10 @@
-﻿using IndividualInfo.Dtos;
-using IndividualInfo.Models;
-using System;
+﻿using System;
 using System.Linq;
 using System.Web.Http;
+using IndividualInfo.Dtos;
+using IndividualInfo.Models;
 
-namespace IndividualInfo.Controllers.Api
+namespace IndividualInfo.Controllers
 {
     public class WorkPlaceTypesController : ApiController
     {
@@ -21,8 +21,8 @@ namespace IndividualInfo.Controllers.Api
         }
 
         [HttpGet]
-        //[Route("api/workplacetypes")]   // cause problem for httppost request
-        public IHttpActionResult GetWorkPlaceTypes()
+        //[Route("api/workplacetypes/getallworkplacetypes")]   // cause problem for httppost request
+        public IHttpActionResult GetAllWorkPlaceTypes()
         {
             var workPlaceTypes = _context.WorkPlaceTypes.ToList();
 
@@ -56,7 +56,7 @@ namespace IndividualInfo.Controllers.Api
 
         //[HttpGet]
         //[Route("api/workplaces")]
-        //public IHttpActionResult GetWorkPlaces()
+        //public IHttpActionResult GetAllWorkPlaces()
         //{
         //    var wp = _context.WorkPlaces.ToList();
         //    return Ok(wp);

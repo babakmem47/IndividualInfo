@@ -8,7 +8,7 @@
 
 @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
 <h2>لیست افراد</h2>
-@Html.ActionLink("+", "New", "Individuals", null, new { @class = "btn btn-primary", title = "افزودن فرد جدید" })
+@Html.ActionLink("+", "New", "Individual", null, new { @class = "btn btn-primary", title = "افزودن فرد جدید" })
 <br />
 <br />
 <table id="individualTable" class="table table-bordered table-hover table-striped table-condensed table-responsive">
@@ -63,9 +63,9 @@
             <td class="ltrcell">@person.Mobile</td>
             <td>@person.Description</td>
             <td>
-                <a href="@Url.Action("Edit", "Individuals", new {id = person.Id})"><span class="glyphicon glyphicon-edit" title="...ویرایش"></span></a>
+                <a href="@Url.Action("Edit", "Individual", new {id = person.Id})"><span class="glyphicon glyphicon-edit" title="...ویرایش"></span></a>
                 &nbsp;&nbsp;&nbsp;
-                <button class="btn-link js-delete" data-person-id="@person.Id"><span class="glyphicon glyphicon-remove" title="Remove"></span></button> </td>
+                <button class="btn btn-link js-delete" data-person-id="@person.Id"><span class="glyphicon glyphicon-remove" title="Remove"></span></button> </td>
         </tr>
     }
     </tbody>
@@ -87,7 +87,7 @@
                         function(respond) {
                             if (respond) {
                                 $.ajax({
-                                    url: "/api/individuals/" + delButton.attr("data-person-id"),
+                                    url: "/api/individuals/deleteindividual/" + delButton.attr("data-person-id"),
                                     method: "Delete",
                                     success: function() {
                                         console.log("successfully deleted");

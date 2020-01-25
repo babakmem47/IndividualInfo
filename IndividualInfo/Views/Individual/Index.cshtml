@@ -1,13 +1,12 @@
-﻿@using IndividualInfo.ViewModels
-@{
-    ViewBag.Title = "اسامی افراد";
+﻿@{
+    ViewBag.Title = "اطلاعات تماس های کاری";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row">
     <div class="col-lg-1 col-xs-1"></div>
     <div class="col-lg-10 col-xs-10" align="center">
-        <h3>لیست افراد (شماره تماس)</h3>
+        <h3>اطلاعات تماس های کاری</h3>
     </div>
     <div class="col-lg-1 col-xs-1"></div>
 </div>
@@ -232,7 +231,7 @@
             var individualTable = $("#individualTable");
             var row = 1;
 
-            individualTable.DataTable({
+            var table = individualTable.DataTable({
                 "pageLength": 30,
 
                 "oLanguage": {
@@ -267,7 +266,7 @@
                 ],
 
                 ajax: {
-                    url: "/api/individuals",
+                    url: "/api/individuals/getallindividuals",
                     dataSrc: ""
                 },
 
@@ -283,7 +282,8 @@
                         }
                     },
                     {
-                        data: "name"
+                        data: "name",
+                        className: "name-of-record"
                     },
                     {
                         data: "workPlaceDto.name",
@@ -387,19 +387,21 @@
                 function () {
                     var delButton = $(this);
                     var delbtn = this;
-                    console.log(delButton.closest("tr").attr);
-                    //console.log(delbtn.parent("tr"));
+                    var nameOfRecord = delButton.closest("tr").find(".name-of-record").text();
+                    //var personId = delButton.attr("data-person-id");
+                    //console.log(personId);
                     var dialog = bootbox.dialog({
                         title: 'تائید',
-                        message: "آیا مطمئن هستید که می خواهید رکورد " + " '" + + "' " + "حذف شود؟",
+                        message: "آیا مطمئن هستید که می خواهید رکورد " + " '" + nameOfRecord + "' " + "حذف شود؟",
                         buttons: {
                             yes: {
                                 label: "حذف",
                                 className: 'btn-danger pull-left',
                                 callback: function () {
                                     $.ajax({
-                                        url: "/api/individuals/" + delButton.attr("data-person-id"),
-                                        method: "DELETE"
+                                        url: "/api/individuals/deleteindividual/" + delButton.attr("data-person-id"),
+                                        method: "DELETE",
+                                        contentType: "application/json"
                                     })
                                         .done(function () {
                                             var rowToBeDelete = delButton.parents("tr");
@@ -426,7 +428,7 @@
             // On Page load:
             // Populate Select Options: WorkPlaceType, Semat and Gender for once (because they do not get updated in this page) //
             // Populate WorkPlaceType select options
-            $.getJSON("/api/workplacetypes/",
+            $.getJSON("/api/workplacetypes/getallworkplacetypes/",
                 function (workPlacetypes) {
                     var select = $("#WorkPlaceType");
                     PopulateSelectOptionsWithNameProp(select, workPlacetypes);
@@ -436,7 +438,7 @@
                 });
 
             // Populate Semat select options
-            $.getJSON("/api/semats/",
+            $.getJSON("/api/semats/getallsemats",
                 function (semats) {
                     var select = $("#SematId");
                     PopulateSelectOptionsWithNameProp(select, semats);
@@ -480,11 +482,11 @@
 
                     // Assign form control values to selected record for editing
                     $.ajax({
-                        url: "/api/individuals/" + editButton.attr("data-individual-id"),
+                        url: "/api/individuals/getindividual/" + editButton.attr("data-individual-id"),
                         method: "GET"
 
                     }).done(function (data) {
-                        console.log(data);
+                        //console.log(data);
                         $("#Name").val(data.name);
                         // var workPlaceTypeId = data.workPlaceDto.workPlaceTypeDto.id;
                         //console.log(workPlaceTypeId);
@@ -507,14 +509,14 @@
 
                     }).fail(function (status) {
                         alert("fail to real data");
-                        console.log(status);
+                        //console.log(status);
                     });
                 });
 
             // hide validatin error when modal closed: because the error msg remain for other records when clicking on edit
             $("#individualFormModal").on('hidden.bs.modal',
                 function (e) {
-                    console.log("modal closed");
+                    //console.log("modal closed");
                     $(".form-group > span").removeClass("field-validation-error").children("span").remove();
                     $(".form-group > .form-control").removeClass("input-validation-error");
                 });
@@ -562,23 +564,23 @@
 
                 if (dataIsvalid) {
                     // Check for new Company/Office name:
-                    $.getJSON("/api/workplacesIdAndName",
+                    $.getJSON("/api/workplaces/workplacesIdAndName",
                         function (results) {
-                            console.log("workplacesIdName:" + JSON.stringify(results));
+                            //console.log("workplacesIdName:" + JSON.stringify(results));
                             var workPlaceName = document.getElementById("individualForm").WorkPlaceName.value;
-                            console.log("workplacesName entered by user: " + workPlaceName);
+                            //console.log("workplacesName entered by user: " + workPlaceName);
                             var selectedWorkPlaceTypeIdByUser = $("#WorkPlaceType option:selected").val();
-                            console.log("workplacetypeid selected by user: " + selectedWorkPlaceTypeIdByUser);
+                            //console.log("workplacetypeid selected by user: " + selectedWorkPlaceTypeIdByUser);
                             var idOfExistingPlace = -1;
                             $.each(results,
                                 function (index) {
-                                    console.log("results[index].name: " + results[index].name + " results[index].workPlaceTypeId: " + results[index].workPlaceTypeId);
+                                    //console.log("results[index].name: " + results[index].name + " results[index].workPlaceTypeId: " + results[index].workPlaceTypeId);
                                     if (results[index].name === workPlaceName && results[index].workPlaceTypeId == selectedWorkPlaceTypeIdByUser) {
                                         idOfExistingPlace = results[index].id;
                                     }
                                 });
 
-                            console.log("idOfExistingPlace:" + idOfExistingPlace);
+                            //console.log("idOfExistingPlace:" + idOfExistingPlace);
                             // Create a hidden input element for form if not already exist
                             if (("WorkPlaceId" in window) !== true) {
                                 $("<input>").attr({
@@ -595,7 +597,7 @@
                             }
                             else if (idOfExistingPlace !== -1) {        // user select workplace from list
                                 $("#WorkPlaceId").val(idOfExistingPlace);
-                                console.log(idOfExistingPlace);
+                                //console.log(idOfExistingPlace);
                             }
                             else if (idOfExistingPlace === -1) {  // new workplace filled by user
                                 //console.log("adding new workplace");
@@ -624,7 +626,7 @@
 
                             if (idOfForm === '0') {     // New individual (id='0')
                                 //console.log("new record added");
-                                $.post("/api/individuals",
+                                $.post("/api/individuals/createindividual",
                                     formData,
                                     function (data, status) {
                                         $("#individualFormModal").modal('hide');  // close modal
@@ -635,7 +637,7 @@
                             } else {                    // Edit existing individual (id != '0')
                                 //console.log("record updated");
                                 $.ajax({
-                                    url: "/api/individuals/" + idOfForm,
+                                    url: "/api/individuals/updateindividual/" + idOfForm,
                                     method: "PUT",
                                     data: formData,
                                     success: function (data, status) {
@@ -672,18 +674,18 @@
                         fieldOfActivity: $("#FieldOfActivity").val(),
                         address: $("#Address").val()
                     };
-                    console.log(jsonObj);
-                    $.post("/api/workplaces",
+                    //console.log(jsonObj);
+                    $.post("/api/workplaces/CreateWorkPlace",
                         jsonObj,
                         function(data, status) {
-                            console.log("data: " + JSON.stringify(data) + " status: " + status);
+                            //console.log("data: " + JSON.stringify(data) + " status: " + status);
                             if (status === 'success') {
-                                console.log("data.name: " + data.name + "data.workPlaceTypeDtoId: " + data.workPlaceTypeDtoId)
+                                //console.log("data.name: " + data.name + "data.workPlaceTypeDtoId: " + data.workPlaceTypeDtoId)
                                 $("#WorkPlaceName").val(jsonObj.name);
                                 $("#WorkPlaceType").val(jsonObj.workPlaceTypeDtoId);
                                 $("#WorkPlaceModal").modal('hide');
                                 var workplaceInput = document.getElementById("WorkPlaceName");
-                                FillAutoCompleteFromApi(workplaceInput, "/api/workplacesOnlyName");
+                                FillAutoCompleteFromApi(workplaceInput, "/api/workplaces/workplacesOnlyName");
                                 saveIndividual();
                             }
                         });
@@ -729,14 +731,14 @@
         // On page load:
         //Auto Complete WorkPlace name input
         var workplaceInput = document.getElementById("WorkPlaceName");
-        FillAutoCompleteFromApi(workplaceInput, "/api/workplacesOnlyName");
+        FillAutoCompleteFromApi(workplaceInput, "/api/workplaces/workplacesOnlyName");
 
 
 
         function FillAutoCompleteFromApi(idOfInput, apiUrl) {
             $.getJSON(apiUrl,
                 function(results) {
-                    console.log("list for autocomplete: " + results);
+                    //console.log("list for autocomplete: " + results);
                     autocomplete(idOfInput, results);
                 });
         }

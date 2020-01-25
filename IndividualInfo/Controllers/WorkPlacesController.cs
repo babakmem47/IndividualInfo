@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using IndividualInfo.Dtos;
 using IndividualInfo.Models;
-using System.Data.Entity;
 
-namespace IndividualInfo.Controllers.Api
+namespace IndividualInfo.Controllers
 {
     public class WorkPlacesController : ApiController
     {
@@ -20,7 +17,7 @@ namespace IndividualInfo.Controllers.Api
         }
 
         [HttpGet]
-        public IHttpActionResult GetWorkPlaces()
+        public IHttpActionResult GetAllWorkPlaces()
         {
             var workplaces = _context.WorkPlaces.Include(wp => wp.WorkPlaceType).ToList();
 
@@ -39,9 +36,8 @@ namespace IndividualInfo.Controllers.Api
                 }
             }));
         }
-        
+
         [HttpGet]
-        [Route("api/workplacesIdAndName")]
         public IHttpActionResult WorkplacesIdAndName()
         {
             var wp = _context.WorkPlaces.ToList();
@@ -54,7 +50,6 @@ namespace IndividualInfo.Controllers.Api
         }
 
         [HttpGet]
-        [Route("api/workplacesOnlyName")]
         public IHttpActionResult WorkplacesOnlyName()
         {
             var workplaceNames = _context.WorkPlaces.ToList().Select(wp => wp.Name);

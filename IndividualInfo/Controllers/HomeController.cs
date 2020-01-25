@@ -10,7 +10,7 @@ namespace IndividualInfo.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View("~/Views/Individual/Index.cshtml");
         }
 
         public ActionResult About()

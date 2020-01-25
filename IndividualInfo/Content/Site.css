@@ -370,7 +370,9 @@ div.dataTables_wrapper div.dataTables_length select {
 
 /* Modal CSS override */
 .modal-edit-form {
-    width: inherit;
+    width: fit-content;
+    width: -moz-max-content;
+    width: -webkit-max-content;
 }
 
 form {

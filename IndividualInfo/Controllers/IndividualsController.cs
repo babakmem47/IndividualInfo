@@ -1,13 +1,13 @@
-﻿using IndividualInfo.Models;
-using IndividualInfo.ViewModels;
-using System.Collections.Generic;
+﻿using IndividualInfo.Dtos;
+using IndividualInfo.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
-using System.Web.Mvc;
+using System.Web.Http;
 
 namespace IndividualInfo.Controllers
 {
-    public class IndividualsController : Controller
+    public class IndividualsController : ApiController
     {
         private ApplicationDbContext _context;
 
@@ -21,28 +21,60 @@ namespace IndividualInfo.Controllers
             _context.Dispose();
         }
 
-        // GET: Individuals
-        public ActionResult Index()
+        // Get   /api/individuals/GetAllIndividuals
+        [HttpGet]
+        public IHttpActionResult GetAllIndividuals()
         {
-            return View();
+            var individuals = _context.Individuals
+                .Where(i => i.Deleted != true)
+                .Include(i => i.Semat)
+                .Include(i => i.WorkPlace.WorkPlaceType)
+                .ToList();
+
+            var resultDto = individuals.Select(x => new IndividualDto()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Gender = x.Gender,
+                TelDirect = x.TelDirect,
+                TelDakheli = x.TelDakheli,
+                Mobile = x.Mobile,
+                Email = x.Email,
+                Description = x.Description,
+                SematDto = new SematDto
+                {
+                    Id = x.SematId ?? 0,
+                    Name = (x.SematId != null) ? x.Semat.Name : String.Empty
+                },
+                Deleted = x.Deleted,
+                WorkPlaceDto = new WorkPlaceDto
+                {
+                    Id = x.WorkPlaceId ?? 0,
+                    Name = (x.WorkPlaceId != null) ? x.WorkPlace.Name : String.Empty,
+                    WorkPlaceTypeDto = new WorkPlaceTypeDto
+                    {
+                        Id = (x.WorkPlaceId != null) ? x.WorkPlace.WorkPlaceTypeId : 0,
+                        Name = (x.WorkPlaceId != null) ? x.WorkPlace.WorkPlaceType.Name : String.Empty
+                    }
+                }
+            });
+
+            return Ok(resultDto);
         }
 
-        public ActionResult IndexRazorRendered()
+        // Get /api/individuals/GetIndividual/id
+        [HttpGet]
+        public IHttpActionResult GetIndividual(int id)
         {
-            var individuals = _context.Individuals.Include(i => i.Semat).ToList();
-            return View(individuals);
-        }
+            var individual = _context.Individuals
+                .Include(i => i.Semat)
+                .Include(i => i.WorkPlace.WorkPlaceType)
+                .SingleOrDefault(i => i.Id == id);
 
-        public ActionResult Edit(int id)
-        {
-            if (id == 0)
-                return HttpNotFound();
+            if (individual == null || individual.Deleted == true)
+                return NotFound();
 
-            var individual = _context.Individuals.SingleOrDefault(i => i.Id == id);
-            if (individual == null)
-                return HttpNotFound();
-
-            var individualViewModel = new IndividualViewModel
+            var individualDto = new IndividualDto()
             {
                 Id = individual.Id,
                 Name = individual.Name,
@@ -52,88 +84,96 @@ namespace IndividualInfo.Controllers
                 Mobile = individual.Mobile,
                 Email = individual.Email,
                 Description = individual.Description,
-                SematId = individual.SematId ?? 0,
-                Semats = _context.Semats.ToList(),
-                SelectListItems = new List<SelectListItem>
+                SematDto = new SematDto()
                 {
-                    new SelectListItem() {Text = "", Value = ""},
-                    new SelectListItem() {Text = "زن", Value = "true"},
-                    new SelectListItem() {Text = "مرد", Value = "false"}
+                    Id = individual.SematId ?? 0,
+                    Name = (individual.SematId != null) ? individual.Semat.Name : String.Empty
+                },
+                WorkPlaceDto = new WorkPlaceDto
+                {
+                    Id = individual.WorkPlaceId ?? 0,
+                    Name = (individual.WorkPlaceId != null) ? individual.WorkPlace.Name : String.Empty,
+                    WorkPlaceTypeDto = new WorkPlaceTypeDto
+                    {
+                        Id = (individual.WorkPlaceId != null) ? individual.WorkPlace.WorkPlaceTypeId : 0,
+                        Name = (individual.WorkPlaceId != null) ? individual.WorkPlace.WorkPlaceType.Name : String.Empty
+                    }
                 }
-                //, Deleted = individual.Deleted
             };
 
-            return View("IndividualForm", individualViewModel);
+            return Ok(individualDto);
+        }
+
+        // Logical Delete  /api/individuals/id
+        [HttpDelete]
+        public IHttpActionResult DeleteIndividual(int id)
+        {
+            var individual = _context.Individuals.SingleOrDefault(i => i.Id == id);
+
+            if (individual == null)
+                return NotFound();
+
+            individual.Deleted = true;
+            _context.SaveChanges();
+
+            return Ok("Individual: " + individual.Name + " deleted logically");
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Save(IndividualViewModel individualViewModel)
+        public IHttpActionResult CreateIndividual(IndividualDto individualDto)
         {
             if (!ModelState.IsValid)
-            {
-                individualViewModel.Semats = _context.Semats.ToList();
-                individualViewModel.SelectListItems = new List<SelectListItem>
-                {
-                    new SelectListItem() {Text = "", Value = ""},
-                    new SelectListItem() {Text = "زن", Value = "true"},
-                    new SelectListItem() {Text = "مرد", Value = "false"}
-                };
-                return View("IndividualForm", individualViewModel);
-            }
+                return BadRequest();
 
-            if (individualViewModel.Id == 0)
+            var individual = new Individual()
             {
-                var individual = new Individual()
-                {
-                    Id = individualViewModel.Id,
-                    Name = individualViewModel.Name,
-                    SematId = individualViewModel.SematId,
-                    Gender = individualViewModel.Gender,
-                    TelDirect = individualViewModel.TelDirect,
-                    TelDakheli = individualViewModel.TelDakheli,
-                    Mobile = individualViewModel.Mobile,
-                    Email = individualViewModel.Email,
-                    Description = individualViewModel.Description
-                };
+                Id = individualDto.Id,
+                Name = individualDto.Name,
+                SematId = individualDto.SematId,
+                Gender = individualDto.Gender,
+                TelDirect = individualDto.TelDirect,
+                TelDakheli = individualDto.TelDakheli,
+                Mobile = individualDto.Mobile,
+                Email = individualDto.Email,
+                Description = individualDto.Description,
+                WorkPlaceId = individualDto.WorkPlaceId,
+                Created = DateTime.Now
+            };
 
-                _context.Individuals.Add(individual);
-            }
-            else
-            {
-                var individualInDb = _context.Individuals.SingleOrDefault(i => i.Id == individualViewModel.Id);
-                if (individualInDb == null)
-                    return HttpNotFound();
+            _context.Individuals.Add(individual);
+            _context.SaveChanges();
 
-                individualInDb.Name = individualViewModel.Name;
-                individualInDb.SematId = individualViewModel.SematId;
-                individualInDb.Gender = individualViewModel.Gender;
-                individualInDb.TelDirect = individualViewModel.TelDirect;
-                individualInDb.TelDakheli = individualViewModel.TelDakheli;
-                individualInDb.Mobile = individualViewModel.Mobile;
-                individualInDb.Email = individualViewModel.Email;
-                individualInDb.Description = individualViewModel.Description;
-            }
+            individualDto.Id = individual.Id;
+            return Created(new Uri(Request.RequestUri + "/" + individual.Id), individualDto);
+        }
+
+        [HttpPut]
+        public IHttpActionResult UpdateIndividual(int id, IndividualDto individualDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var individualInDb = _context.Individuals.SingleOrDefault(i => i.Id == id);
+
+            if (individualInDb == null)
+                return NotFound();
+
+            individualInDb.Name = individualDto.Name;
+            individualInDb.SematId = individualDto.SematId;
+            individualInDb.Gender = individualDto.Gender;
+            individualInDb.TelDirect = individualDto.TelDirect;
+            individualInDb.TelDakheli = individualDto.TelDakheli;
+            individualInDb.Mobile = individualDto.Mobile;
+            individualInDb.Email = individualDto.Email;
+            individualInDb.Description = individualDto.Description;
+            individualInDb.WorkPlaceId = individualDto.WorkPlaceId;
+            individualInDb.Updated = DateTime.Now;
+            //individualInDb.WorkPlaceId = (individualDto.WorkPlaceDto != null) ? individualDto.WorkPlaceDto.Id : (int?)null;
 
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Individuals");
+            return Ok();
         }
 
-        public ActionResult New()
-        {
-            var individualViewModel = new IndividualViewModel
-            {
-                Semats = _context.Semats.ToList(),
-                SelectListItems = new List<SelectListItem>
-                {
-                    new SelectListItem() {Text = "", Value = ""},
-                    new SelectListItem() {Text = "زن", Value = "true"},
-                    new SelectListItem() {Text = "مرد", Value = "false"}
-                }
-            };
-
-            return View("IndividualForm", individualViewModel);
-        }
     }
 }

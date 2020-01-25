@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using IndividualInfo.Dtos;
+﻿using IndividualInfo.Dtos;
 using IndividualInfo.Models;
+using System.Linq;
+using System.Web.Http;
 
-namespace IndividualInfo.Controllers.Api
+namespace IndividualInfo.Controllers
 {
     public class SematsController : ApiController
     {
@@ -23,7 +19,9 @@ namespace IndividualInfo.Controllers.Api
             _context.Dispose();
         }
 
-        public IHttpActionResult GetSemats()
+        [HttpGet]
+        // /api/semats/getallsemats
+        public IHttpActionResult GetAllSemats()
         {
             var semats = _context.Semats.ToList();
 

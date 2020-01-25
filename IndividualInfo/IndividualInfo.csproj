@@ -176,20 +176,20 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\Api\IndividualsController.cs" />
-    <Compile Include="Controllers\Api\RoutersController.cs" />
-    <Compile Include="Controllers\Api\SematsController.cs" />
-    <Compile Include="Controllers\Api\WorkPlaceDto2.cs" />
-    <Compile Include="Controllers\Api\WorkPlacesController.cs" />
-    <Compile Include="Controllers\Api\WorkPlaceTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndividualController.cs" />
     <Compile Include="Controllers\IndividualsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RouterController.cs" />
+    <Compile Include="Controllers\RoutersController.cs" />
+    <Compile Include="Controllers\SematsController.cs" />
+    <Compile Include="Controllers\WorkPlacesController.cs" />
+    <Compile Include="Controllers\WorkPlaceTypesController.cs" />
     <Compile Include="Dtos\IndividualDto.cs" />
     <Compile Include="Dtos\RouterDto.cs" />
     <Compile Include="Dtos\SematDto.cs" />
     <Compile Include="Dtos\WorkPlaceDto.cs" />
+    <Compile Include="Dtos\WorkPlaceDto2.cs" />
     <Compile Include="Dtos\WorkPlaceTypeDto.cs" />
     <Compile Include="EntityConfigurations\IndividualConfiuration.cs" />
     <Compile Include="EntityConfigurations\RouterConfiguration.cs" />
@@ -450,6 +450,8 @@
     <Content Include="fonts\IRANSansWeb_UltraLight.woff" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <None Include="Properties\PublishProfiles\IndividualProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\MyProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -566,10 +568,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Individuals\Index.cshtml" />
-    <Content Include="Views\Individuals\IndividualForm.cshtml" />
-    <Content Include="Views\Individuals\IndexRazorRendered.cshtml" />
-    <Content Include="Views\Individuals\_IndividualForm.cshtml" />
+    <Content Include="Views\Individual\Index.cshtml" />
+    <Content Include="Views\Individual\IndividualForm.cshtml" />
+    <Content Include="Views\Individual\IndexRazorRendered.cshtml" />
+    <Content Include="Views\Individual\_IndividualForm.cshtml" />
     <Content Include="Views\Router\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

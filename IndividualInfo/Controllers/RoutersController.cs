@@ -1,10 +1,10 @@
-﻿using IndividualInfo.Models;
-using System.Web.Http;
+﻿using IndividualInfo.Dtos;
+using IndividualInfo.Models;
 using System.Data.Entity;
 using System.Linq;
-using IndividualInfo.Dtos;
+using System.Web.Http;
 
-namespace IndividualInfo.Controllers.Api
+namespace IndividualInfo.Controllers
 {
     public class RoutersController : ApiController
     {
@@ -15,7 +15,7 @@ namespace IndividualInfo.Controllers.Api
             _context = new ApplicationDbContext();
         }
 
-        public IHttpActionResult GetRouters()
+        public IHttpActionResult GetAllRouters()
         {
             var routers = _context.Routers
                 //.Where(r => r.Deleted != true)

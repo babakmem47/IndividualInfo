@@ -1,4 +1,4 @@
-﻿namespace IndividualInfo.Controllers.Api
+﻿namespace IndividualInfo.Dtos
 {
     public class WorkPlaceDto2
     {
